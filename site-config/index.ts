@@ -9,7 +9,7 @@ const siteConfig: SiteConfig = {
   phrases: {
     "%APP_LOGIN_URL%": "https://acme.com/login",
     "%COMPANY%": "Origami Risk",
-    "%COMPANY_POSSESSIVE%": "Acme Inc's",
+    "%COMPANY_POSSESSIVE%": "Origami Risk's",
     "%COMPANY_CORE_PRODUCT%": "Widget ERP",
     "%EMBEDDED_WORKFLOW_BUILDER%": "Workflow Builder",
     "%WHITE_LABEL_BASE_URL%": "integrations.acme.com",
