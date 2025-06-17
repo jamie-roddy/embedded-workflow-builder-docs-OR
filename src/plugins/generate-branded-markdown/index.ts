@@ -2,6 +2,7 @@ import { cpSync, globSync, mkdirSync, readFileSync, writeFileSync } from "node:f
 import path from "node:path";
 import type { CommanderStatic } from "commander";
 import { rimraf } from "rimraf";
+import parseMarkdown from "front-matter-markdown";
 import { contentProcessPhrases } from "../../dynamicPhrases";
 
 const rootPath = path.join(__dirname, "..", "..", "..");
@@ -25,12 +26,14 @@ async function generateBrandedMarkdownFiles() {
       filePath: sourceFilePath,
     });
 
+    const markdown = parseMarkdown(brandedContent);
+
     // Ensure the target directory exists
     const targetDir = path.dirname(targetFilePath);
     mkdirSync(targetDir, { recursive: true });
 
-    // Write the branded content to the target file
-    writeFileSync(targetFilePath, brandedContent);
+    // Write the branded content to the target file, replacing frontmatter with a markdown title
+    writeFileSync(targetFilePath, `# ${markdown.title}\n${markdown.content}`);
   }
 
   // Copy the assets directory from docs to branded-docs

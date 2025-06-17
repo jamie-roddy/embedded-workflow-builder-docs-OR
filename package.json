@@ -45,6 +45,7 @@
     "@docusaurus/types": "3.8.1",
     "cli-progress": "^3.12.0",
     "cspell": "^9.1.1",
+    "front-matter-markdown": "^0.4.5",
     "graffle": "^8.0.0-next.164",
     "graphql": "^16.11.0",
     "handlebars": "^4.7.8",
