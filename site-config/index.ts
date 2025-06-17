@@ -10,7 +10,7 @@ const siteConfig: SiteConfig = {
     "%APP_LOGIN_URL%": "https://acme.com/login",
     "%COMPANY%": "Origami Risk",
     "%COMPANY_POSSESSIVE%": "Origami Risk's",
-    "%COMPANY_CORE_PRODUCT%": "Widget ERP",
+    "%COMPANY_CORE_PRODUCT%": "Workflow",
     "%EMBEDDED_WORKFLOW_BUILDER%": "Workflow Builder",
     "%WHITE_LABEL_BASE_URL%": "integrations.acme.com",
     "%NAVIGATING_TO_BUILDER%":
