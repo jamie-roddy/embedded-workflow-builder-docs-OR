@@ -15,12 +15,12 @@ Instead, you enter your credentials on a Google, Dropbox, etc. page and the OAut
 
 ## OAuth 2.0 grant types
 
-The [OAuth 2.0 framework](https://oauth.net/2/) supports several **grant types**, two of which are common in integrations:
+The [OAuth 2.0 framework](https://oauth.net/2/) supports several **grant types**, two of which are common in %WORKFLOW_PLURAL%:
 
 1. Most common is the [Authorization Code grant type](#oauth-20-authorization-code).
    When you configure a connector, you click a "Connect to [App Name]" button.
    After logging in to the external application and consenting to give %COMPANY% permissions to your account, you'll return here with an **auth code** which we'll use to access your data.
-2. The [Client Credentials grant type](#oauth-20-client-credentials) is also common in integrations.
+2. The [Client Credentials grant type](#oauth-20-client-credentials) is also common in %WORKFLOW_PLURAL%.
    Sometimes called the **machine to machine** (M2M) grant type, this process is a little more involved.
    Typically, you log in to your third-party application, generate a **Client ID** / **Client Secret** key pair, and enter your key into your %WORKFLOW%.
    We exchange that key pair for an access token for the third-party application.

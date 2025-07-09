@@ -29,11 +29,11 @@ You can look at that value and branch accordingly.
 
 ![Branch on value](./assets/branching/branch-on-value.png)
 
-If your flow receives a `widget-created` event header, it will follow the "Created" branch, etc.
+If your %WORKFLOW% receives a `widget-created` event header, it will follow the "Created" branch, etc.
 
 ## Branching on an expression
 
-The [Branch on Expression](./connectors/branch.md#branch-on-expression) action allows you to create branches within your integration based on more complex inputs.
+The [Branch on Expression](./connectors/branch.md#branch-on-expression) action allows you to create branches within your %WORKFLOW% based on more complex inputs.
 You can compare step results or static values using [comparison operators](#branch-on-expression-comparison-operators) (like "does not equal" or "less than") and follow a branch based on the results of the comparisons.
 
 ![Branch on expression](./assets/branching/branch-on-expression.png)

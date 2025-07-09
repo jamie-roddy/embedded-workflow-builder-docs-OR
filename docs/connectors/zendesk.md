@@ -9,7 +9,31 @@ Manage Tickets and users in Zendesk
 
 ## Connections
 
-### Zendesk Connection
+### API Token
+
+Authenticates requests to Zendesk using a generated API token.
+
+| Input              | Comments                                                                                                      | Default |
+| ------------------ | ------------------------------------------------------------------------------------------------------------- | ------- |
+| Zendesk Sub Domain | Your Zendesk domain. (e.g. if your zendesk URL is https://acme-inc.zendesk.com, then your domain is acme-inc) |         |
+| Username           | Your Zendesk username. (Email address used to login to Zendesk)                                               |         |
+| API Token          | Your generated API token from Zendesk.                                                                        |         |
+
+### OAuth 2.0
+
+Authenticates requests to Zendesk using an OAuth 2.0 connection.
+
+This connection uses OAuth 2.0, a common authentication mechanism for integrations.
+Read about how OAuth 2.0 works [here](../oauth2.md).
+
+| Input          | Comments                                                                                                      | Default    |
+| -------------- | ------------------------------------------------------------------------------------------------------------- | ---------- |
+| Zendesk Domain | Your Zendesk domain. (e.g. if your zendesk URL is https://acme-inc.zendesk.com, then your domain is acme-inc) |            |
+| Scopes         |                                                                                                               | read write |
+| Client ID      |                                                                                                               |            |
+| Client Secret  |                                                                                                               |            |
+
+### OAuth2 (Deprecated)
 
 Authenticates requests to Zendesk using an OAuth 2.0 connection.
 
@@ -40,13 +64,12 @@ Receive and validate webhook requests from Zendesk for webhooks you configure.
 
 Associate attachments in bulk to one article at a time, with a maximum of 20 attachments per request.
 
-| Input          | Comments                                                                                   | Default |
-| -------------- | ------------------------------------------------------------------------------------------ | ------- |
-| Connection     |                                                                                            |         |
-| Article Id     | The unique identifier of the article.                                                      |         |
-| Locale         | The desired locale.                                                                        | en-us   |
-| Attachment Ids | Attachment IDs to be attached to the Object.                                               |         |
-| Debug          | This flag toggles debugging. When true the integration will log any requests and failures. | false   |
+| Input          | Comments                                     | Default |
+| -------------- | -------------------------------------------- | ------- |
+| Connection     |                                              |         |
+| Article Id     | The unique identifier of the article.        |         |
+| Locale         | The desired locale.                          | en-us   |
+| Attachment Ids | Attachment IDs to be attached to the Object. |         |
 
 ### Create Article
 
@@ -63,20 +86,18 @@ Create a new Article in the Help Center.
 | Body                | The body of the article.                                                                                                                                                                                       |         |
 | Draft               | Whether the article is a draft or not.                                                                                                                                                                         | false   |
 | Notify Subscribers  | Supplying a notify_subscribers with a value of false will prevent subscribers to the article from receiving an article creation email notification. This can be helpful when creating many articles at a time. | false   |
-| Debug               | This flag toggles debugging. When true the integration will log any requests and failures.                                                                                                                     | false   |
 
 ### Create Article Attachment
 
 Creates an attachment for the specified article in the Help Center.
 
-| Input      | Comments                                                                                   | Default |
-| ---------- | ------------------------------------------------------------------------------------------ | ------- |
-| Connection |                                                                                            |         |
-| File Name  | The name of the file to upload                                                             |         |
-| File       | The File Attachment to upload.                                                             |         |
-| Inline     | Whether to inline the attachment or not.                                                   | false   |
-| Article Id | The unique identifier of the article.                                                      |         |
-| Debug      | This flag toggles debugging. When true the integration will log any requests and failures. | false   |
+| Input      | Comments                                 | Default |
+| ---------- | ---------------------------------------- | ------- |
+| Connection |                                          |         |
+| File Name  | The name of the file to upload           |         |
+| File       | The File Attachment to upload.           |         |
+| Inline     | Whether to inline the attachment or not. | false   |
+| Article Id | The unique identifier of the article.    |         |
 
 ### Create Article Subscription
 
@@ -88,20 +109,18 @@ Create a subscription to an article in the Help Center.
 | Article Id | The unique identifier of the article.                                                               |         |
 | UserId     | The ID of the user to subscribe to the section. If none provided, the API assumes the current user. |         |
 | Locale     | The locale of the article. If not provided, the default locale is used.                             |         |
-| Debug      | This flag toggles debugging. When true the integration will log any requests and failures.          | false   |
 
 ### Create Category
 
 Create a category in the Help Center.
 
-| Input                | Comments                                                                                   | Default |
-| -------------------- | ------------------------------------------------------------------------------------------ | ------- |
-| Connection           |                                                                                            |         |
-| Category Name        | The name of the category.                                                                  |         |
-| Category Description | The description of the category.                                                           |         |
-| Locale               | The desired locale.                                                                        | en-us   |
-| Position             | The position of the category to be created.                                                |         |
-| Debug                | This flag toggles debugging. When true the integration will log any requests and failures. | false   |
+| Input                | Comments                                    | Default |
+| -------------------- | ------------------------------------------- | ------- |
+| Connection           |                                             |         |
+| Category Name        | The name of the category.                   |         |
+| Category Description | The description of the category.            |         |
+| Locale               | The desired locale.                         | en-us   |
+| Position             | The position of the category to be created. |         |
 
 ### Create Post
 
@@ -118,7 +137,6 @@ Create a new post in the Help Center.
 | Status             | The status of the post.                                                                                                                                                                                        |         |
 | Notify Subscribers | Supplying a notify_subscribers with a value of false will prevent subscribers to the article from receiving an article creation email notification. This can be helpful when creating many articles at a time. | false   |
 | Content Tag Ids    | Content Tag IDs to be attached to the Object.                                                                                                                                                                  |         |
-| Debug              | This flag toggles debugging. When true the integration will log any requests and failures.                                                                                                                     | false   |
 
 ### Create Post Subscription
 
@@ -129,21 +147,19 @@ Create a Post subscription in the Help Center.
 | Connection |                                                                                                  |         |
 | Post Id    | The unique identifier of the post.                                                               |         |
 | UserId     | The ID of the user to subscribe to the post. If none provided, the API assumes the current user. |         |
-| Debug      | This flag toggles debugging. When true the integration will log any requests and failures.       | false   |
 
 ### Create Section
 
 Create a category in the Help Center.
 
-| Input               | Comments                                                                                   | Default |
-| ------------------- | ------------------------------------------------------------------------------------------ | ------- |
-| Connection          |                                                                                            |         |
-| Locale              | The desired locale.                                                                        | en-us   |
-| Category Id         | The unique identifier of the category.                                                     |         |
-| Section Name        | The name of the section.                                                                   |         |
-| Section Description | The description of the section.                                                            |         |
-| Position            | The position of the section.                                                               |         |
-| Debug               | This flag toggles debugging. When true the integration will log any requests and failures. | false   |
+| Input               | Comments                               | Default |
+| ------------------- | -------------------------------------- | ------- |
+| Connection          |                                        |         |
+| Locale              | The desired locale.                    | en-us   |
+| Category Id         | The unique identifier of the category. |         |
+| Section Name        | The name of the section.               |         |
+| Section Description | The description of the section.        |         |
+| Position            | The position of the section.           |         |
 
 ### Create Section Subscription
 
@@ -156,7 +172,6 @@ Create a Section subscription in the Help Center.
 | UserId           | The ID of the user to subscribe to the section. If none provided, the API assumes the current user. |         |
 | Locale           | The locale of the section. If not provided, the default locale is used.                             |         |
 | Include Comments | Whether to be subscribed to comments or not.                                                        | false   |
-| Debug            | This flag toggles debugging. When true the integration will log any requests and failures.          | false   |
 
 ### Create Ticket
 
@@ -179,18 +194,16 @@ Create a new ticket.
 | Followers                 | For each item provide a unique identifier of the follower you want to add to the issue.                                                               |         |
 | Connection                |                                                                                                                                                       |         |
 | External ID               | The ID of this issue from an external system                                                                                                          |         |
-| Debug                     | This flag toggles debugging. When true the integration will log any requests and failures.                                                            | false   |
 
 ### Create Topic
 
 Create a new topic in the Help Center.
 
-| Input             | Comments                                                                                   | Default |
-| ----------------- | ------------------------------------------------------------------------------------------ | ------- |
-| Connection        |                                                                                            |         |
-| Topic Name        | The name of the topic.                                                                     |         |
-| Topic Description | The description of the topic.                                                              |         |
-| Debug             | This flag toggles debugging. When true the integration will log any requests and failures. | false   |
+| Input             | Comments                      | Default |
+| ----------------- | ----------------------------- | ------- |
+| Connection        |                               |         |
+| Topic Name        | The name of the topic.        |         |
+| Topic Description | The description of the topic. |         |
 
 ### Create Topic Subscription
 
@@ -202,7 +215,6 @@ Create a new Topic subscription In The Help Center.
 | Topic Id         | The unique identifier of the topic.                                                               |         |
 | UserId           | The ID of the user to subscribe to the topic. If none provided, the API assumes the current user. |         |
 | Include Comments | Whether to be subscribed to comments or not.                                                      | false   |
-| Debug            | This flag toggles debugging. When true the integration will log any requests and failures.        | false   |
 
 ### Create User
 
@@ -222,7 +234,6 @@ Create a new user.
 | Verified        | Flip this flag to true if any of the user's identities is verified.                                                              | false   |
 | Organization Id | Provide the unique identifier of the organization.                                                                               |         |
 | Connection      |                                                                                                                                  |         |
-| Debug           | This flag toggles debugging. When true the integration will log any requests and failures.                                       | false   |
 
 ### Create Webhook
 
@@ -253,33 +264,30 @@ Create a trigger to cause a webhook to fire
 
 Deletes an existing article attachment.
 
-| Input                 | Comments                                                                                   | Default |
-| --------------------- | ------------------------------------------------------------------------------------------ | ------- |
-| Connection            |                                                                                            |         |
-| Article Attachment Id | The unique identifier of the article attachment.                                           |         |
-| Debug                 | This flag toggles debugging. When true the integration will log any requests and failures. | false   |
+| Input                 | Comments                                         | Default |
+| --------------------- | ------------------------------------------------ | ------- |
+| Connection            |                                                  |         |
+| Article Attachment Id | The unique identifier of the article attachment. |         |
 
 ### Delete Article Subscription
 
 Delete a subscription to an article in the Help Center.
 
-| Input           | Comments                                                                                   | Default |
-| --------------- | ------------------------------------------------------------------------------------------ | ------- |
-| Connection      |                                                                                            |         |
-| Subscription Id | The unique identifier of the subscription.                                                 |         |
-| Article Id      | The unique identifier of the article.                                                      |         |
-| Locale          | The locale of the article. If not provided, the default locale is used.                    |         |
-| Debug           | This flag toggles debugging. When true the integration will log any requests and failures. | false   |
+| Input           | Comments                                                                | Default |
+| --------------- | ----------------------------------------------------------------------- | ------- |
+| Connection      |                                                                         |         |
+| Subscription Id | The unique identifier of the subscription.                              |         |
+| Article Id      | The unique identifier of the article.                                   |         |
+| Locale          | The locale of the article. If not provided, the default locale is used. |         |
 
 ### Delete Category
 
 Delete a category in the Help Center.
 
-| Input       | Comments                                                                                   | Default |
-| ----------- | ------------------------------------------------------------------------------------------ | ------- |
-| Connection  |                                                                                            |         |
-| Category Id | The unique identifier of the category.                                                     |         |
-| Debug       | This flag toggles debugging. When true the integration will log any requests and failures. | false   |
+| Input       | Comments                               | Default |
+| ----------- | -------------------------------------- | ------- |
+| Connection  |                                        |         |
+| Category Id | The unique identifier of the category. |         |
 
 ### Delete Instance Webhooks
 
@@ -293,85 +301,77 @@ Delete all webhooks pointed at this instance
 
 Delete a post in the Help Center.
 
-| Input      | Comments                                                                                   | Default |
-| ---------- | ------------------------------------------------------------------------------------------ | ------- |
-| Connection |                                                                                            |         |
-| Post Id    | The unique identifier of the post.                                                         |         |
-| Debug      | This flag toggles debugging. When true the integration will log any requests and failures. | false   |
+| Input      | Comments                           | Default |
+| ---------- | ---------------------------------- | ------- |
+| Connection |                                    |         |
+| Post Id    | The unique identifier of the post. |         |
 
 ### Delete Post Subscription
 
 Delete a Post subscription in the Help Center.
 
-| Input           | Comments                                                                                   | Default |
-| --------------- | ------------------------------------------------------------------------------------------ | ------- |
-| Connection      |                                                                                            |         |
-| Post Id         | The unique identifier of the post.                                                         |         |
-| Subscription Id | The unique identifier of the subscription.                                                 |         |
-| Debug           | This flag toggles debugging. When true the integration will log any requests and failures. | false   |
+| Input           | Comments                                   | Default |
+| --------------- | ------------------------------------------ | ------- |
+| Connection      |                                            |         |
+| Post Id         | The unique identifier of the post.         |         |
+| Subscription Id | The unique identifier of the subscription. |         |
 
 ### Delete Section
 
 Delete a section in the Help Center. (warning: deleting a section also deletes all its articles).
 
-| Input      | Comments                                                                                   | Default |
-| ---------- | ------------------------------------------------------------------------------------------ | ------- |
-| Connection |                                                                                            |         |
-| Locale     | The desired locale.                                                                        | en-us   |
-| Section Id | The unique identifier of the section.                                                      |         |
-| Debug      | This flag toggles debugging. When true the integration will log any requests and failures. | false   |
+| Input      | Comments                              | Default |
+| ---------- | ------------------------------------- | ------- |
+| Connection |                                       |         |
+| Locale     | The desired locale.                   | en-us   |
+| Section Id | The unique identifier of the section. |         |
 
 ### Delete Section Subscription
 
 Delete a Section subscription in the Help Center.
 
-| Input           | Comments                                                                                   | Default |
-| --------------- | ------------------------------------------------------------------------------------------ | ------- |
-| Connection      |                                                                                            |         |
-| Subscription Id | The unique identifier of the subscription.                                                 |         |
-| Section Id      | The unique identifier of the section.                                                      |         |
-| Debug           | This flag toggles debugging. When true the integration will log any requests and failures. | false   |
+| Input           | Comments                                   | Default |
+| --------------- | ------------------------------------------ | ------- |
+| Connection      |                                            |         |
+| Section Id      | The unique identifier of the section.      |         |
+| Subscription Id | The unique identifier of the subscription. |         |
 
 ### Delete Ticket
 
 Delete the information and metadata of a ticket by Id.
 
-| Input      | Comments                                                                                   | Default |
-| ---------- | ------------------------------------------------------------------------------------------ | ------- |
-| Ticket Id  | Provide the unique identifier for the ticket you would like to show.                       |         |
-| Connection |                                                                                            |         |
-| Debug      | This flag toggles debugging. When true the integration will log any requests and failures. | false   |
+| Input      | Comments                                                             | Default |
+| ---------- | -------------------------------------------------------------------- | ------- |
+| Ticket Id  | Provide the unique identifier for the ticket you would like to show. |         |
+| Connection |                                                                      |         |
 
 ### Delete Topic
 
 Delete a topic from the Help Center.
 
-| Input      | Comments                                                                                   | Default |
-| ---------- | ------------------------------------------------------------------------------------------ | ------- |
-| Connection |                                                                                            |         |
-| Topic Id   | The unique identifier of the topic.                                                        |         |
-| Debug      | This flag toggles debugging. When true the integration will log any requests and failures. | false   |
+| Input      | Comments                            | Default |
+| ---------- | ----------------------------------- | ------- |
+| Connection |                                     |         |
+| Topic Id   | The unique identifier of the topic. |         |
 
 ### Delete Topic Subscription
 
 Delete a Topic subscription in the Help Center.
 
-| Input           | Comments                                                                                   | Default |
-| --------------- | ------------------------------------------------------------------------------------------ | ------- |
-| Connection      |                                                                                            |         |
-| Subscription Id | The unique identifier of the subscription.                                                 |         |
-| Topic Id        | The unique identifier of the topic.                                                        |         |
-| Debug           | This flag toggles debugging. When true the integration will log any requests and failures. | false   |
+| Input           | Comments                                   | Default |
+| --------------- | ------------------------------------------ | ------- |
+| Connection      |                                            |         |
+| Topic Id        | The unique identifier of the topic.        |         |
+| Subscription Id | The unique identifier of the subscription. |         |
 
 ### Delete User
 
 Delete the information and metadata of a user by Id.
 
-| Input      | Comments                                                                                   | Default |
-| ---------- | ------------------------------------------------------------------------------------------ | ------- |
-| UserId     | Provide an integer value for the unique identifier of the user.                            |         |
-| Connection |                                                                                            |         |
-| Debug      | This flag toggles debugging. When true the integration will log any requests and failures. | false   |
+| Input      | Comments                                                        | Default |
+| ---------- | --------------------------------------------------------------- | ------- |
+| UserId     | Provide an integer value for the unique identifier of the user. |         |
+| Connection |                                                                 |         |
 
 ### Delete Webhook
 
@@ -386,120 +386,109 @@ Delete a webhook by ID
 
 Shows the properties of the specified article in the Help Center.
 
-| Input      | Comments                                                                                   | Default |
-| ---------- | ------------------------------------------------------------------------------------------ | ------- |
-| Connection |                                                                                            |         |
-| Locale     | The locale of the articles to retrieve. Defaults to 'en-us'.                               | en-us   |
-| Article Id | The unique identifier of the article.                                                      |         |
-| Debug      | This flag toggles debugging. When true the integration will log any requests and failures. | false   |
+| Input      | Comments                                                     | Default |
+| ---------- | ------------------------------------------------------------ | ------- |
+| Connection |                                                              |         |
+| Locale     | The locale of the articles to retrieve. Defaults to 'en-us'. | en-us   |
+| Article Id | The unique identifier of the article.                        |         |
 
 ### Get Article Attachment
 
 Shows the properties of the specified attachment on an Article located in the Help Center.
 
-| Input                 | Comments                                                                                   | Default |
-| --------------------- | ------------------------------------------------------------------------------------------ | ------- |
-| Connection            |                                                                                            |         |
-| Article Id            | The unique identifier of the article.                                                      |         |
-| Article Attachment Id | The unique identifier of the article attachment.                                           |         |
-| Debug                 | This flag toggles debugging. When true the integration will log any requests and failures. | false   |
+| Input                 | Comments                                         | Default |
+| --------------------- | ------------------------------------------------ | ------- |
+| Connection            |                                                  |         |
+| Article Id            | The unique identifier of the article.            |         |
+| Article Attachment Id | The unique identifier of the article attachment. |         |
 
 ### Get Article Subscription
 
 Get an Article Subscription in the Help Center.
 
-| Input           | Comments                                                                                   | Default |
-| --------------- | ------------------------------------------------------------------------------------------ | ------- |
-| Connection      |                                                                                            |         |
-| Subscription Id | The unique identifier of the subscription.                                                 |         |
-| Article Id      | The unique identifier of the article.                                                      |         |
-| Locale          | The locale of the article. If not provided, the default locale is used.                    |         |
-| Debug           | This flag toggles debugging. When true the integration will log any requests and failures. | false   |
+| Input           | Comments                                                                | Default |
+| --------------- | ----------------------------------------------------------------------- | ------- |
+| Connection      |                                                                         |         |
+| Subscription Id | The unique identifier of the subscription.                              |         |
+| Article Id      | The unique identifier of the article.                                   |         |
+| Locale          | The locale of the article. If not provided, the default locale is used. |         |
 
 ### Get Category
 
 Get a category in the Help Center.
 
-| Input       | Comments                                                                                   | Default |
-| ----------- | ------------------------------------------------------------------------------------------ | ------- |
-| Connection  |                                                                                            |         |
-| Locale      | The desired locale.                                                                        | en-us   |
-| Category Id | The unique identifier of the category.                                                     |         |
-| Debug       | This flag toggles debugging. When true the integration will log any requests and failures. | false   |
+| Input       | Comments                               | Default |
+| ----------- | -------------------------------------- | ------- |
+| Connection  |                                        |         |
+| Locale      | The desired locale.                    | en-us   |
+| Category Id | The unique identifier of the category. |         |
 
 ### Get Post
 
 Retrieve a post from the Help Center.
 
-| Input      | Comments                                                                                   | Default |
-| ---------- | ------------------------------------------------------------------------------------------ | ------- |
-| Connection |                                                                                            |         |
-| Post Id    | The unique identifier of the post.                                                         |         |
-| Debug      | This flag toggles debugging. When true the integration will log any requests and failures. | false   |
+| Input      | Comments                           | Default |
+| ---------- | ---------------------------------- | ------- |
+| Connection |                                    |         |
+| Post Id    | The unique identifier of the post. |         |
 
 ### Get Post Subscription
 
 Get a Post subscription in the Help Center.
 
-| Input           | Comments                                                                                   | Default |
-| --------------- | ------------------------------------------------------------------------------------------ | ------- |
-| Post Id         | The unique identifier of the post.                                                         |         |
-| Subscription Id | The unique identifier of the subscription.                                                 |         |
-| Connection      |                                                                                            |         |
-| Debug           | This flag toggles debugging. When true the integration will log any requests and failures. | false   |
+| Input           | Comments                                   | Default |
+| --------------- | ------------------------------------------ | ------- |
+| Post Id         | The unique identifier of the post.         |         |
+| Subscription Id | The unique identifier of the subscription. |         |
+| Connection      |                                            |         |
 
 ### Get Section
 
 Retrieve a section in the Help Center.
 
-| Input      | Comments                                                                                   | Default |
-| ---------- | ------------------------------------------------------------------------------------------ | ------- |
-| Connection |                                                                                            |         |
-| Locale     | The desired locale.                                                                        | en-us   |
-| Section Id | The unique identifier of the section.                                                      |         |
-| Debug      | This flag toggles debugging. When true the integration will log any requests and failures. | false   |
+| Input      | Comments                              | Default |
+| ---------- | ------------------------------------- | ------- |
+| Connection |                                       |         |
+| Locale     | The desired locale.                   | en-us   |
+| Section Id | The unique identifier of the section. |         |
 
 ### Get Section Subscription
 
 Get a Section subscription in the Help Center.
 
-| Input           | Comments                                                                                   | Default |
-| --------------- | ------------------------------------------------------------------------------------------ | ------- |
-| Connection      |                                                                                            |         |
-| Subscription Id | The unique identifier of the subscription.                                                 |         |
-| Section Id      | The unique identifier of the section.                                                      |         |
-| Debug           | This flag toggles debugging. When true the integration will log any requests and failures. | false   |
+| Input           | Comments                                   | Default |
+| --------------- | ------------------------------------------ | ------- |
+| Connection      |                                            |         |
+| Subscription Id | The unique identifier of the subscription. |         |
+| Section Id      | The unique identifier of the section.      |         |
 
 ### Get Ticket By External ID
 
 Get a ticket by external ID.
 
-| Input       | Comments                                                                                   | Default |
-| ----------- | ------------------------------------------------------------------------------------------ | ------- |
-| Connection  |                                                                                            |         |
-| Debug       | This flag toggles debugging. When true the integration will log any requests and failures. | false   |
-| External ID | The ID of this issue from an external system                                               |         |
+| Input       | Comments                                     | Default |
+| ----------- | -------------------------------------------- | ------- |
+| Connection  |                                              |         |
+| External ID | The ID of this issue from an external system |         |
 
 ### Get Topic
 
 Retrieve a topic from the Help Center.
 
-| Input      | Comments                                                                                   | Default |
-| ---------- | ------------------------------------------------------------------------------------------ | ------- |
-| Connection |                                                                                            |         |
-| Topic Id   | The unique identifier of the topic.                                                        |         |
-| Debug      | This flag toggles debugging. When true the integration will log any requests and failures. | false   |
+| Input      | Comments                            | Default |
+| ---------- | ----------------------------------- | ------- |
+| Connection |                                     |         |
+| Topic Id   | The unique identifier of the topic. |         |
 
 ### Get Topic Subscription
 
 Get a Topic subscription in the Help Center.
 
-| Input           | Comments                                                                                   | Default |
-| --------------- | ------------------------------------------------------------------------------------------ | ------- |
-| Connection      |                                                                                            |         |
-| Subscription Id | The unique identifier of the subscription.                                                 |         |
-| Topic Id        | The unique identifier of the topic.                                                        |         |
-| Debug           | This flag toggles debugging. When true the integration will log any requests and failures. | false   |
+| Input           | Comments                                   | Default |
+| --------------- | ------------------------------------------ | ------- |
+| Connection      |                                            |         |
+| Subscription Id | The unique identifier of the subscription. |         |
+| Topic Id        | The unique identifier of the topic.        |         |
 
 ### List Article Attachments
 
@@ -511,7 +500,6 @@ Lists all the article's attachments in the Help Center.
 | Article Id | The unique identifier of the article.                                                                                      |         |
 | Page Limit | The number of results to return per page, maximum is 100. If a greater value than 100 is provided, it will default to 100. |         |
 | Fetch All  | Whether to make the actions handle pagination and fetch all the records at once or not.                                    | false   |
-| Debug      | This flag toggles debugging. When true the integration will log any requests and failures.                                 | false   |
 
 ### List Articles
 
@@ -528,7 +516,6 @@ Retrieve a list of all articles in the Help Center.
 | Label Names       | You can specify that only articles with specific labelsshould be returning by adding the label names here, Max is 10. More info: https://developer.zendesk.com/api-reference/help_center/help-center-api/articles/#label-names |         |
 | Start Time        | The start time to filter articles by.                                                                                                                                                                                          |         |
 | Fetch All         | Whether to make the actions handle pagination and fetch all the records at once or not.                                                                                                                                        | false   |
-| Debug             | This flag toggles debugging. When true the integration will log any requests and failures.                                                                                                                                     | false   |
 
 ### List Article Subscriptions
 
@@ -540,7 +527,6 @@ List all subscriptions for an article in the Help Center.
 | Page Limit        | The number of results to return per page, maximum is 100. If a greater value than 100 is provided, it will default to 100. |         |
 | Pagination Cursor | The cursor to use for pagination. If not provided, the first page will be returned.                                        |         |
 | Article Id        | The unique identifier of the article.                                                                                      |         |
-| Debug             | This flag toggles debugging. When true the integration will log any requests and failures.                                 | false   |
 
 ### List Categories
 
@@ -554,7 +540,6 @@ List all categories in the Help Center.
 | Sort Order | The order to sort the results by.                                                                                          |         |
 | Page Limit | The number of results to return per page, maximum is 100. If a greater value than 100 is provided, it will default to 100. |         |
 | Fetch All  | Whether to make the actions handle pagination and fetch all the records at once or not.                                    | false   |
-| Debug      | This flag toggles debugging. When true the integration will log any requests and failures.                                 | false   |
 
 ### List Posts
 
@@ -569,7 +554,6 @@ List all posts in the Help Center.
 | Topic Id          | The unique identifier of the topic.                                                                                        |         |
 | Sort By           | The field to sort the results by.                                                                                          |         |
 | Fetch All         | Whether to make the actions handle pagination and fetch all the records at once or not.                                    | false   |
-| Debug             | This flag toggles debugging. When true the integration will log any requests and failures.                                 | false   |
 
 ### List Post Subscriptions
 
@@ -577,11 +561,10 @@ List all Post subscriptions in the Help Center.
 
 | Input             | Comments                                                                                                                   | Default |
 | ----------------- | -------------------------------------------------------------------------------------------------------------------------- | ------- |
+| Connection        |                                                                                                                            |         |
 | Post Id           | The unique identifier of the post.                                                                                         |         |
 | Pagination Cursor | The cursor to use for pagination. If not provided, the first page will be returned.                                        |         |
 | Page Limit        | The number of results to return per page, maximum is 100. If a greater value than 100 is provided, it will default to 100. |         |
-| Connection        |                                                                                                                            |         |
-| Debug             | This flag toggles debugging. When true the integration will log any requests and failures.                                 | false   |
 
 ### List Sections
 
@@ -596,7 +579,6 @@ Lists all the sections in the Help Center or in a specific category.
 | Sort Order  | The order to sort the results by.                                                                                          |         |
 | Page Limit  | The number of results to return per page, maximum is 100. If a greater value than 100 is provided, it will default to 100. |         |
 | Fetch All   | Whether to make the actions handle pagination and fetch all the records at once or not.                                    | false   |
-| Debug       | This flag toggles debugging. When true the integration will log any requests and failures.                                 | false   |
 
 ### List Section Subscriptions
 
@@ -608,36 +590,32 @@ List all Section subscriptions in the Help Center.
 | Pagination Cursor | The cursor to use for pagination. If not provided, the first page will be returned.                                        |         |
 | Page Limit        | The number of results to return per page, maximum is 100. If a greater value than 100 is provided, it will default to 100. |         |
 | Section Id        | The unique identifier of the section.                                                                                      |         |
-| Debug             | This flag toggles debugging. When true the integration will log any requests and failures.                                 | false   |
 
 ### List Tickets
 
 List all Tickets.
 
-| Input      | Comments                                                                                   | Default |
-| ---------- | ------------------------------------------------------------------------------------------ | ------- |
-| Connection |                                                                                            |         |
-| Debug      | This flag toggles debugging. When true the integration will log any requests and failures. | false   |
+| Input      | Comments | Default |
+| ---------- | -------- | ------- |
+| Connection |          |         |
 
 ### List Tickets Assigned To User
 
 List all of the tickets that have been assigned to a particular user.
 
-| Input      | Comments                                                                                   | Default |
-| ---------- | ------------------------------------------------------------------------------------------ | ------- |
-| UserId     | Provide an integer value for the unique identifier of the user.                            |         |
-| Connection |                                                                                            |         |
-| Debug      | This flag toggles debugging. When true the integration will log any requests and failures. | false   |
+| Input      | Comments                                                        | Default |
+| ---------- | --------------------------------------------------------------- | ------- |
+| UserId     | Provide an integer value for the unique identifier of the user. |         |
+| Connection |                                                                 |         |
 
 ### List Tickets Requested By User
 
 List all of the tickets that a particular user has requested.
 
-| Input      | Comments                                                                                   | Default |
-| ---------- | ------------------------------------------------------------------------------------------ | ------- |
-| UserId     | Provide an integer value for the unique identifier of the user.                            |         |
-| Connection |                                                                                            |         |
-| Debug      | This flag toggles debugging. When true the integration will log any requests and failures. | false   |
+| Input      | Comments                                                        | Default |
+| ---------- | --------------------------------------------------------------- | ------- |
+| UserId     | Provide an integer value for the unique identifier of the user. |         |
+| Connection |                                                                 |         |
 
 ### List Topics
 
@@ -649,7 +627,6 @@ Retrieve a list of topics from the Help Center.
 | Pagination Cursor | The cursor to use for pagination. If not provided, the first page will be returned.                                        |         |
 | Page Limit        | The number of results to return per page, maximum is 100. If a greater value than 100 is provided, it will default to 100. |         |
 | Fetch All         | Whether to make the actions handle pagination and fetch all the records at once or not.                                    | false   |
-| Debug             | This flag toggles debugging. When true the integration will log any requests and failures.                                 | false   |
 
 ### List Topic Subscriptions
 
@@ -661,7 +638,6 @@ List all Topic subscriptions in the Help Center.
 | Pagination Cursor | The cursor to use for pagination. If not provided, the first page will be returned.                                        |         |
 | Topic Id          | The unique identifier of the topic.                                                                                        |         |
 | Page Limit        | The number of results to return per page, maximum is 100. If a greater value than 100 is provided, it will default to 100. |         |
-| Debug             | This flag toggles debugging. When true the integration will log any requests and failures.                                 | false   |
 
 ### List Triggers
 
@@ -675,10 +651,9 @@ List workflow triggers
 
 List all Users.
 
-| Input      | Comments                                                                                   | Default |
-| ---------- | ------------------------------------------------------------------------------------------ | ------- |
-| Connection |                                                                                            |         |
-| Debug      | This flag toggles debugging. When true the integration will log any requests and failures. | false   |
+| Input      | Comments | Default |
+| ---------- | -------- | ------- |
+| Connection |          |         |
 
 ### List Webhooks
 
@@ -716,44 +691,42 @@ Send raw HTTP request to Zendesk
 
 Search for articles in the Help Center.
 
-| Input          | Comments                                                                                   | Default |
-| -------------- | ------------------------------------------------------------------------------------------ | ------- |
-| Connection     |                                                                                            |         |
-| Locales        | The locale to filter the results by.                                                       |         |
-| Search Query   | The search text to be matched or a search string.                                          |         |
-| Brand Ids      | Limit the search to articles or post within these brand.                                   |         |
-| Category Ids   | Limit the search to articles or post within these categories.                              |         |
-| Section Id     | The unique identifier of the section to filter the results for.                            |         |
-| Created After  | The time to filter the results by. (Format: YYYY-MM-DD)                                    |         |
-| Created At     | The time to filter the results by. (Format: YYYY-MM-DD)                                    |         |
-| Created Before | The time to filter the results by. (Format: YYYY-MM-DD)                                    |         |
-| Label Names    | The label names to filter the results by.                                                  |         |
-| Updated At     | The time to filter the results by. (Format: YYYY-MM-DD)                                    |         |
-| Updated Before | The time to filter the results by. (Format: YYYY-MM-DD)                                    |         |
-| Updated After  | The time to filter the results by. (Format: YYYY-MM-DD)                                    |         |
-| Multibrand     | Whether to filter the results by multibrand or not.                                        | false   |
-| Sort Order     | The order to sort the results by.                                                          |         |
-| Sort By        | The field to sort the results by.                                                          |         |
-| Debug          | This flag toggles debugging. When true the integration will log any requests and failures. | false   |
+| Input          | Comments                                                        | Default |
+| -------------- | --------------------------------------------------------------- | ------- |
+| Connection     |                                                                 |         |
+| Locales        | The locale to filter the results by.                            |         |
+| Search Query   | The search text to be matched or a search string.               |         |
+| Brand Ids      | Limit the search to articles or post within these brand.        |         |
+| Category Ids   | Limit the search to articles or post within these categories.   |         |
+| Section Id     | The unique identifier of the section to filter the results for. |         |
+| Created After  | The time to filter the results by. (Format: YYYY-MM-DD)         |         |
+| Created At     | The time to filter the results by. (Format: YYYY-MM-DD)         |         |
+| Created Before | The time to filter the results by. (Format: YYYY-MM-DD)         |         |
+| Label Names    | The label names to filter the results by.                       |         |
+| Updated At     | The time to filter the results by. (Format: YYYY-MM-DD)         |         |
+| Updated Before | The time to filter the results by. (Format: YYYY-MM-DD)         |         |
+| Updated After  | The time to filter the results by. (Format: YYYY-MM-DD)         |         |
+| Multibrand     | Whether to filter the results by multibrand or not.             | false   |
+| Sort Order     | The order to sort the results by.                               |         |
+| Sort By        | The field to sort the results by.                               |         |
 
 ### Search Posts
 
 Search posts in the Help Center.
 
-| Input          | Comments                                                                                   | Default |
-| -------------- | ------------------------------------------------------------------------------------------ | ------- |
-| Connection     |                                                                                            |         |
-| Topic Id       | The ID of the topic to filter posts by.                                                    |         |
-| Search Query   | The search text to be matched or a search string.                                          |         |
-| Created At     | The time to filter the results by. (Format: YYYY-MM-DD)                                    |         |
-| Created Before | The time to filter the results by. (Format: YYYY-MM-DD)                                    |         |
-| Created After  | The time to filter the results by. (Format: YYYY-MM-DD)                                    |         |
-| Sort By        | The field to sort the results by.                                                          |         |
-| Updated After  | The time to filter the results by. (Format: YYYY-MM-DD)                                    |         |
-| Updated At     | The time to filter the results by. (Format: YYYY-MM-DD)                                    |         |
-| Updated Before | The time to filter the results by. (Format: YYYY-MM-DD)                                    |         |
-| Sort Order     | The order to sort the results by.                                                          |         |
-| Debug          | This flag toggles debugging. When true the integration will log any requests and failures. | false   |
+| Input          | Comments                                                | Default |
+| -------------- | ------------------------------------------------------- | ------- |
+| Connection     |                                                         |         |
+| Topic Id       | The ID of the topic to filter posts by.                 |         |
+| Search Query   | The search text to be matched or a search string.       |         |
+| Created At     | The time to filter the results by. (Format: YYYY-MM-DD) |         |
+| Created Before | The time to filter the results by. (Format: YYYY-MM-DD) |         |
+| Created After  | The time to filter the results by. (Format: YYYY-MM-DD) |         |
+| Sort By        | The field to sort the results by.                       |         |
+| Updated After  | The time to filter the results by. (Format: YYYY-MM-DD) |         |
+| Updated At     | The time to filter the results by. (Format: YYYY-MM-DD) |         |
+| Updated Before | The time to filter the results by. (Format: YYYY-MM-DD) |         |
+| Sort Order     | The order to sort the results by.                       |         |
 
 ### Search Users
 
@@ -764,27 +737,24 @@ Returns an array of users who meet the search criteria.
 | External Id | The external_id parameter does not support the search syntax. It only accepts ids.                                                                                                                                          |         |
 | Query       | The query parameter supports the Zendesk search syntax for more advanced user searches. It can specify a partial or full value of any user property, including name, email address, notes, or phone. Example: query="jdoe". |         |
 | Connection  |                                                                                                                                                                                                                             |         |
-| Debug       | This flag toggles debugging. When true the integration will log any requests and failures.                                                                                                                                  | false   |
 
 ### Show Ticket
 
 Get the information and metadata of a ticket by Id.
 
-| Input      | Comments                                                                                   | Default |
-| ---------- | ------------------------------------------------------------------------------------------ | ------- |
-| Ticket Id  | Provide the unique identifier for the ticket you would like to show.                       |         |
-| Connection |                                                                                            |         |
-| Debug      | This flag toggles debugging. When true the integration will log any requests and failures. | false   |
+| Input      | Comments                                                             | Default |
+| ---------- | -------------------------------------------------------------------- | ------- |
+| Ticket Id  | Provide the unique identifier for the ticket you would like to show. |         |
+| Connection |                                                                      |         |
 
 ### Show User
 
 Get the information and metadata of a user by Id.
 
-| Input      | Comments                                                                                   | Default |
-| ---------- | ------------------------------------------------------------------------------------------ | ------- |
-| UserId     | Provide an integer value for the unique identifier of the user.                            |         |
-| Connection |                                                                                            |         |
-| Debug      | This flag toggles debugging. When true the integration will log any requests and failures. | false   |
+| Input      | Comments                                                        | Default |
+| ---------- | --------------------------------------------------------------- | ------- |
+| UserId     | Provide an integer value for the unique identifier of the user. |         |
+| Connection |                                                                 |         |
 
 ### Unified Search
 
@@ -803,77 +773,72 @@ Search for knowledge base articles, community posts, and external records in the
 | Topic Ids           | Limit the search to posts within these topics.                                                                             |         |
 | Pagination Cursor   | The cursor to use for pagination. If not provided, the first page will be returned.                                        |         |
 | Page Limit          | The number of results to return per page, maximum is 100. If a greater value than 100 is provided, it will default to 100. |         |
-| Debug               | This flag toggles debugging. When true the integration will log any requests and failures.                                 | false   |
 
 ### Update Article
 
 Update an existing Article's Metadata in the Help Center.
 
-| Input               | Comments                                                                                   | Default |
-| ------------------- | ------------------------------------------------------------------------------------------ | ------- |
-| Connection          |                                                                                            |         |
-| Article Id          | The unique identifier of the article.                                                      |         |
-| Section Id          | The unique identifier of the section.                                                      |         |
-| Author Id           | The unique identifier of the author.                                                       |         |
-| Title               | The title of the article.                                                                  |         |
-| Body                | The body of the article.                                                                   |         |
-| Permission Group Id | The unique identifier of the permission group.                                             |         |
-| User Segment Id     | The unique identifier of the user segment.                                                 |         |
-| Locale              | The desired locale.                                                                        | en-us   |
-| Promoted            | Whether the object should be promoted or not.                                              |         |
-| Position            | The position of the object.                                                                |         |
-| Comments Disabled   | Whether comments are disabled or not.                                                      |         |
-| Content Tag Ids     | Content Tag IDs to be attached to the Object.                                              |         |
-| Label Names         | Label Names to be attached to the Object.                                                  |         |
-| Debug               | This flag toggles debugging. When true the integration will log any requests and failures. | false   |
+| Input               | Comments                                       | Default |
+| ------------------- | ---------------------------------------------- | ------- |
+| Connection          |                                                |         |
+| Article Id          | The unique identifier of the article.          |         |
+| Section Id          | The unique identifier of the section.          |         |
+| Author Id           | The unique identifier of the author.           |         |
+| Title               | The title of the article.                      |         |
+| Body                | The body of the article.                       |         |
+| Permission Group Id | The unique identifier of the permission group. |         |
+| User Segment Id     | The unique identifier of the user segment.     |         |
+| Locale              | The desired locale.                            | en-us   |
+| Promoted            | Whether the object should be promoted or not.  |         |
+| Position            | The position of the object.                    |         |
+| Comments Disabled   | Whether comments are disabled or not.          |         |
+| Content Tag Ids     | Content Tag IDs to be attached to the Object.  |         |
+| Label Names         | Label Names to be attached to the Object.      |         |
 
 ### Update Category
 
 Update a category in the Help Center.
 
-| Input                | Comments                                                                                   | Default |
-| -------------------- | ------------------------------------------------------------------------------------------ | ------- |
-| Connection           |                                                                                            |         |
-| Category Id          | The unique identifier of the category.                                                     |         |
-| Locale               | The locale of the category to be updated.                                                  | en-us   |
-| Category Name        | The name of the category to be updated.                                                    |         |
-| Category Description | The description of the category to be updated.                                             |         |
-| Position             | The position of the category to be updated.                                                |         |
-| Debug                | This flag toggles debugging. When true the integration will log any requests and failures. | false   |
+| Input                | Comments                                       | Default |
+| -------------------- | ---------------------------------------------- | ------- |
+| Connection           |                                                |         |
+| Category Id          | The unique identifier of the category.         |         |
+| Locale               | The locale of the category to be updated.      | en-us   |
+| Category Name        | The name of the category to be updated.        |         |
+| Category Description | The description of the category to be updated. |         |
+| Position             | The position of the category to be updated.    |         |
 
 ### Update Post
 
 Update a post in the Help Center.
 
-| Input           | Comments                                                                                   | Default |
-| --------------- | ------------------------------------------------------------------------------------------ | ------- |
-| Connection      |                                                                                            |         |
-| Post Id         | The unique identifier of the post.                                                         |         |
-| Title           | The title of the post.                                                                     |         |
-| Details         | The details of the post.                                                                   |         |
-| Status          | The status of the post.                                                                    |         |
-| Topic Id        | The unique identifier of the topic.                                                        |         |
-| Featured        | Whether the post is featured or not.                                                       |         |
-| Pinned          | Whether the post is pinned or not.                                                         |         |
-| Closed          | Whether the post is closed or not.                                                         |         |
-| Content Tag Ids | Content Tag IDs to be attached to the Object.                                              |         |
-| Debug           | This flag toggles debugging. When true the integration will log any requests and failures. | false   |
+| Input           | Comments                                      | Default |
+| --------------- | --------------------------------------------- | ------- |
+| Connection      |                                               |         |
+| Post Id         | The unique identifier of the post.            |         |
+| Title           | The title of the post.                        |         |
+| Details         | The details of the post.                      |         |
+| Status          | The status of the post.                       |         |
+| Topic Id        | The unique identifier of the topic.           |         |
+| Featured        | Whether the post is featured or not.          |         |
+| Pinned          | Whether the post is pinned or not.            |         |
+| Closed          | Whether the post is closed or not.            |         |
+| Content Tag Ids | Content Tag IDs to be attached to the Object. |         |
 
 ### Update Section
 
 Update section in the Help Center.
 
-| Input               | Comments                                                                                   | Default |
-| ------------------- | ------------------------------------------------------------------------------------------ | ------- |
-| Connection          |                                                                                            |         |
-| Locale              | The desired locale.                                                                        | en-us   |
-| Section Id          | The unique identifier of the section.                                                      |         |
-| Section Name        | Name of the Section to update.                                                             |         |
-| Section Description | Description of the Section to update.                                                      |         |
-| Position            | Position of the Section to update.                                                         |         |
-| Category Id         | Category ID of the Section to update.                                                      |         |
-| Parent Section Id   | Parent Section ID of the Section to update.                                                |         |
-| Debug               | This flag toggles debugging. When true the integration will log any requests and failures. | false   |
+| Input               | Comments                                    | Default |
+| ------------------- | ------------------------------------------- | ------- |
+| Connection          |                                             |         |
+| Locale              | The desired locale.                         | en-us   |
+| Section Id          | The unique identifier of the section.       |         |
+| Section Name        | Name of the Section to update.              |         |
+| Section Description | Description of the Section to update.       |         |
+| Position            | Position of the Section to update.          |         |
+| Category Id         | Category ID of the Section to update.       |         |
+| Parent Section Id   | Parent Section ID of the Section to update. |         |
 
 ### Update Ticket
 
@@ -895,22 +860,20 @@ Update the information and metadata of a ticket by Id.
 | Ticket Priority           | Provide a string value for the priority of the ticket.                                                                                                |         |
 | Requester Organization Id | Provide an integer value to specify the Organization of the requester.                                                                                |         |
 | Connection                |                                                                                                                                                       |         |
-| Debug                     | This flag toggles debugging. When true the integration will log any requests and failures.                                                            | false   |
 
 ### Update Topic
 
 Update a topic in the Help Center.
 
-| Input             | Comments                                                                                   | Default |
-| ----------------- | ------------------------------------------------------------------------------------------ | ------- |
-| Connection        |                                                                                            |         |
-| Topic Id          | The unique identifier of the topic.                                                        |         |
-| Topic Name        | The name of the topic.                                                                     |         |
-| User Segment Id   | The user segment ID to associate with the topic.                                           |         |
-| Position          | The position of the topic in the list of topics.                                           |         |
-| Topic Description | The description of the topic.                                                              |         |
-| Manageable By     | The user segments that can manage the topic.                                               |         |
-| Debug             | This flag toggles debugging. When true the integration will log any requests and failures. | false   |
+| Input             | Comments                                         | Default |
+| ----------------- | ------------------------------------------------ | ------- |
+| Connection        |                                                  |         |
+| Topic Id          | The unique identifier of the topic.              |         |
+| Topic Name        | The name of the topic.                           |         |
+| User Segment Id   | The user segment ID to associate with the topic. |         |
+| Position          | The position of the topic in the list of topics. |         |
+| Topic Description | The description of the topic.                    |         |
+| Manageable By     | The user segments that can manage the topic.     |         |
 
 ### Update User
 
@@ -932,4 +895,3 @@ Update the information and metadata of a user by Id.
 | Verified        | Flip this flag to true if any of the user's identities is verified.                                                              |         |
 | Organization Id | Provide the unique identifier of the organization.                                                                               |         |
 | Connection      |                                                                                                                                  |         |
-| Debug           | This flag toggles debugging. When true the integration will log any requests and failures.                                       | false   |

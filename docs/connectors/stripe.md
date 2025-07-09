@@ -23,10 +23,11 @@ Authenticate requests to Stripe using an API Key
 
 Receive and validate webhook requests from Stripe for webhooks you configure. Config this trigger to create or delete webhook event listeners.
 
-| Input          | Comments                                                                                                                                                 | Default |
-| -------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- | ------- |
-| Webhook Events | For each item, provide a string value that represents which event you want to track. For more information, see https://docs.stripe.com/api/events/types. |         |
-| Connection     |                                                                                                                                                          |         |
+| Input                      | Comments                                                                                                                                                 | Default |
+| -------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- | ------- |
+| Webhook Events             | For each item, provide a string value that represents which event you want to track. For more information, see https://docs.stripe.com/api/events/types. |         |
+| Connection                 |                                                                                                                                                          |         |
+| Disable Webhook Validation | When set to true, webhook signature validation will be skipped. This is useful for manually testing the trigger without needing a signed request.        | false   |
 
 ### Webhook (Deprecated)
 

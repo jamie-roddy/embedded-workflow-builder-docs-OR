@@ -8,7 +8,7 @@ If your %WORKFLOW% processes files on an SFTP server, for example, you might wan
 If your %WORKFLOW% sends alerts to users, you might want to loop over an array of users.
 
 The [loop](./connectors/loop.md) connector allows you to loop over an array of items, or you can loop a predetermined number of times.
-After adding a **loop** step to your integration, you can then add steps within the loop that will execute repeatedly.
+After adding a **loop** step to your %WORKFLOW%, you can then add steps within the loop that will execute repeatedly.
 
 ## Looping over arrays of records
 

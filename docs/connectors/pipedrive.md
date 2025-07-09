@@ -11,6 +11,8 @@ Manage leads, companies, activities, and more on the Pipedrive platform
 
 ### OAuth 2.0
 
+OAuth 2.0 connection for Pipedrive
+
 This connection uses OAuth 2.0, a common authentication mechanism for integrations.
 Read about how OAuth 2.0 works [here](../oauth2.md).
 
@@ -20,6 +22,22 @@ Read about how OAuth 2.0 works [here](../oauth2.md).
 | Token URL         | Token URL         | https://oauth.pipedrive.com/oauth/token     |
 | Client ID         | Client identifier |                                             |
 | Client Secret     | Client secret     |                                             |
+
+## Triggers
+
+### Webhook Trigger
+
+Receive data from Pipedrive in real time with webhook subscriptions.
+
+| Input              | Comments                                                                                                                                                                                                                                                                                                                                                                                                                          | Default |
+| ------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------- |
+| Version            | The version of the API to use.                                                                                                                                                                                                                                                                                                                                                                                                    | 2.0     |
+| Event Action       | The actions to subscribe to                                                                                                                                                                                                                                                                                                                                                                                                       |         |
+| Event Object       | The object to subscribe to                                                                                                                                                                                                                                                                                                                                                                                                        |         |
+| User ID            | The ID of the user that this webhook will be authorized with. You have the option to use a different user's user_id. If it is not set, the current user's user_id will be used. As each webhook event is checked against a user's permissions, the webhook will only be sent if the user has access to the specified object(s). If you want to receive notifications for all events, please use a top-level admin user's user_id. |         |
+| HTTP Auth User     | The username for HTTP Basic Auth                                                                                                                                                                                                                                                                                                                                                                                                  |         |
+| HTTP Auth Password | The password for HTTP Basic Auth                                                                                                                                                                                                                                                                                                                                                                                                  |         |
+| Connection         |                                                                                                                                                                                                                                                                                                                                                                                                                                   |         |
 
 ## Actions
 
@@ -67,7 +85,6 @@ Add a deal
 | Title               | The title of the deal                                                                       |         |
 | Value               | The value of the deal                                                                       |         |
 | Currency            | The currency of the deal                                                                    |         |
-| User ID             | The ID of the user which will be the owner of the created deal                              |         |
 | Person ID           | The ID of a person which this deal will be linked to                                        |         |
 | Org ID              | The ID of an organization which this deal will be linked to                                 |         |
 | Pipeline ID         | The ID of the pipeline this deal will be added to                                           |         |
@@ -103,18 +120,19 @@ Add a participant to a deal
 
 Add a product to the deal, eventually creating a new item called a deal-product
 
-| Input                | Comments                                                                                                          | Default |
-| -------------------- | ----------------------------------------------------------------------------------------------------------------- | ------- |
-| Connection           |                                                                                                                   |         |
-| Deal ID              | The ID of the deal                                                                                                |         |
-| Item Price           | The price at which this product will be added to the deal                                                         |         |
-| Quantity             | Quantity – e                                                                                                      |         |
-| Discount Percentage  | The discount %                                                                                                    | 0       |
-| Duration             | The duration of the product (when product durations are not enabled for the company or if omitted, defaults to 1) | 1       |
-| Product Variation ID | The ID of the product variation to use                                                                            |         |
-| Comments             | Any textual comment associated with this product-deal attachment                                                  |         |
-| Tax                  | The tax percentage                                                                                                | 0       |
-| Enabled Flag         | Whether the product is enabled on the deal or not                                                                 |         |
+| Input                | Comments                                                         | Default |
+| -------------------- | ---------------------------------------------------------------- | ------- |
+| Connection           |                                                                  |         |
+| Deal ID              | The ID of the deal                                               |         |
+| Product ID           | The ID of the product to add to the deal                         |         |
+| Item Price           | The price value of the product                                   |         |
+| Quantity             | The quantity of the product                                      |         |
+| Discount Percentage  | The discount %                                                   | 0       |
+| Discount Type        | The type of discount                                             |         |
+| Product Variation ID | The ID of the product variation to use                           |         |
+| Comments             | Any textual comment associated with this product-deal attachment |         |
+| Tax                  | The tax percentage                                               | 0       |
+| Is Enabled           | Whether the product is enabled on the deal or not                | false   |
 
 ### Add File
 
@@ -187,8 +205,8 @@ Add a person
 | Name             | The name of the person                                                                                                                                                                   |         |
 | Owner ID         | The ID of the user who will be marked as the owner of this person                                                                                                                        |         |
 | Org ID           | The ID of the organization this person will belong to                                                                                                                                    |         |
-| Email            | List of email data related to the person                                                                                                                                                 |         |
-| Phone            | List of phone data related to the person                                                                                                                                                 |         |
+| Email            | The emails of the person                                                                                                                                                                 |         |
+| Phone            | The phones of the person                                                                                                                                                                 |         |
 | Visible To       | The visibility of the person                                                                                                                                                             |         |
 | Marketing Status | If the person does not have a valid email address, then the marketing status is **not set** and "no_consent" is returned for the "marketing_status" value when the new person is created |         |
 | Add Time         | The optional creation date & time of the person in UTC                                                                                                                                   |         |
@@ -211,26 +229,22 @@ Add a new pipeline
 | ---------------- | ----------------------------------------------------------------- | ------- |
 | Connection       |                                                                   |         |
 | Name             | The name of the pipeline                                          |         |
-| Deal Probability | Whether deal probability is disabled or enabled for this pipeline |         |
-| Order Nr         | Defines the order of pipelines                                    |         |
-| Active           | Whether this pipeline will be made inactive (hidden) or active    |         |
+| Deal Probability | Whether deal probability is disabled or enabled for this pipeline | false   |
 
 ### Add Product
 
 Add a product
 
-| Input       | Comments                                                                                                                                   | Default |
-| ----------- | ------------------------------------------------------------------------------------------------------------------------------------------ | ------- |
-| Connection  |                                                                                                                                            |         |
-| Name        | The name of the product                                                                                                                    |         |
-| Code        | The product code                                                                                                                           |         |
-| Unit        | The unit in which this product is sold                                                                                                     |         |
-| Tax         | The tax percentage                                                                                                                         | 0       |
-| Active Flag | Whether this product will be made active or not                                                                                            | 1       |
-| Selectable  | Whether this product can be selected in deals or not                                                                                       | 1       |
-| Visible To  | The visibility of the product                                                                                                              |         |
-| Owner ID    | The ID of the user who will be marked as the owner of this product                                                                         |         |
-| Prices      | An array of objects, each containing: "currency" (string), "price" (number), "cost" (number, optional), "overhead_cost" (number, optional) |         |
+| Input      | Comments                                                                                                                                   | Default |
+| ---------- | ------------------------------------------------------------------------------------------------------------------------------------------ | ------- |
+| Connection |                                                                                                                                            |         |
+| Name       | The name of the product                                                                                                                    |         |
+| Code       | The product code                                                                                                                           |         |
+| Unit       | The unit in which this product is sold                                                                                                     |         |
+| Tax        | The tax percentage                                                                                                                         | 0       |
+| Visible To | The visibility of the product                                                                                                              |         |
+| Owner ID   | The ID of the user who will be marked as the owner of this product                                                                         |         |
+| Prices     | An array of objects, each containing: "currency" (string), "price" (number), "cost" (number, optional), "overhead_cost" (number, optional) |         |
 
 ### Add Product Follower
 
@@ -255,7 +269,7 @@ Add a new stage
 | Rotten Flag      | Whether deals in this stage can become rotten                              | false   |
 | Rotten Days      | The number of days the deals not updated in this stage would become rotten |         |
 
-### Cancel Recurring Subscription
+### Cancel Recurring Subscription (Deprecated)
 
 Cancel a recurring subscription
 
@@ -264,6 +278,21 @@ Cancel a recurring subscription
 | Connection      |                                   |         |
 | Subscription ID | The ID of the subscription        |         |
 | End Date        | The subscription termination date |         |
+
+### Create Webhook
+
+Create a new webhook
+
+| Input              | Comments                                                                                                                                                                                                                                                                                                                                                                                                                          | Default |
+| ------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------- |
+| Subscription URL   | The URL to subscribe to                                                                                                                                                                                                                                                                                                                                                                                                           |         |
+| Event Action       | The actions to subscribe to                                                                                                                                                                                                                                                                                                                                                                                                       |         |
+| Event Object       | The object to subscribe to                                                                                                                                                                                                                                                                                                                                                                                                        |         |
+| Version            | The webhook's version. NB! Webhooks v2 is the default from March 17th, 2025. See this [Changelog](https://developers.pipedrive.com/changelog/post/breaking-change-webhooks-v2-will-become-the-new-default-version) post for more details.                                                                                                                                                                                         | 2.0     |
+| User ID            | The ID of the user that this webhook will be authorized with. You have the option to use a different user's user_id. If it is not set, the current user's user_id will be used. As each webhook event is checked against a user's permissions, the webhook will only be sent if the user has access to the specified object(s). If you want to receive notifications for all events, please use a top-level admin user's user_id. |         |
+| HTTP Auth User     | The username for HTTP Basic Auth                                                                                                                                                                                                                                                                                                                                                                                                  |         |
+| HTTP Auth Password | The password for HTTP Basic Auth                                                                                                                                                                                                                                                                                                                                                                                                  |         |
+| Connection         |                                                                                                                                                                                                                                                                                                                                                                                                                                   |         |
 
 ### Delete Activity
 
@@ -488,7 +517,7 @@ Delete a stage
 | Connection |                     |         |
 | Stage ID   | The ID of the stage |         |
 
-### Delete Subscription
+### Delete Subscription (Deprecated)
 
 Delete a subscription
 
@@ -496,6 +525,15 @@ Delete a subscription
 | --------------- | -------------------------- | ------- |
 | Connection      |                            |         |
 | Subscription ID | The ID of the subscription |         |
+
+### Delete Webhook
+
+Delete a webhook
+
+| Input      | Comments              | Default |
+| ---------- | --------------------- | ------- |
+| Webhook ID | The ID of the webhook |         |
+| Connection |                       |         |
 
 ### Download File
 
@@ -506,7 +544,7 @@ Download one file
 | Connection |                  |         |
 | File ID    | The ID of a file |         |
 
-### Find Subscription By Deal
+### Find Subscription By Deal (Deprecated)
 
 Find subscription by deal
 
@@ -529,17 +567,16 @@ Find users by name
 
 Get all activities assigned to a particular user
 
-| Input      | Comments                                                                                                                                                                                                   | Default |
-| ---------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------- |
-| Connection |                                                                                                                                                                                                            |         |
-| User ID    | The ID of the user whose activities will be fetched. If omitted, the user associated with the API token will be used. If 0, activities for all company users will be fetched based on the permission sets. |         |
-| Filter ID  | The ID of the filter to use (will narrow down results if used together with "user_id" parameter)                                                                                                           |         |
-| Type       | The type of the activity, can be one type or multiple types separated by a comma                                                                                                                           |         |
-| Limit      | Items shown per page                                                                                                                                                                                       |         |
-| Start      | Pagination start                                                                                                                                                                                           | 0       |
-| Start Date | Use the activity due date where you wish to begin fetching activities from                                                                                                                                 |         |
-| End Date   | Use the activity due date where you wish to stop fetching activities from                                                                                                                                  |         |
-| Done       | Whether the activity is done or not. 0 = Not done, 1 = Done. If omitted returns both done and not done activities.                                                                                         |         |
+| Input          | Comments                                                                                         | Default |
+| -------------- | ------------------------------------------------------------------------------------------------ | ------- |
+| Connection     |                                                                                                  |         |
+| Filter ID      | The ID of the filter to use (will narrow down results if used together with "user_id" parameter) |         |
+| Limit          | Items shown per page                                                                             |         |
+| Updated Since  | If set, only activities with an update_time later than or equal to this time are returned        |         |
+| Updated Until  | If set, only activities with an update_time earlier than or equal to this time are returned      |         |
+| Sort By        | The field name to sort by                                                                        |         |
+| Sort Direction | The sorting direction.                                                                           | desc    |
+| Cursor         | For pagination, the marker (an opaque string value) representing the first item on the next page |         |
 
 ### Get Activity
 
@@ -613,14 +650,15 @@ Get details of a deal
 
 List activities associated with a deal
 
-| Input      | Comments                                                        | Default |
-| ---------- | --------------------------------------------------------------- | ------- |
-| Connection |                                                                 |         |
-| Deal ID    | The ID of the deal                                              |         |
-| Start      | Pagination start                                                | 0       |
-| Limit      | Items shown per page                                            |         |
-| Done       | Whether the activity is done or not                             |         |
-| Exclude    | A comma-separated string of activity IDs to exclude from result |         |
+| Input          | Comments                                                                                         | Default |
+| -------------- | ------------------------------------------------------------------------------------------------ | ------- |
+| Connection     |                                                                                                  |         |
+| Deal ID        | The ID of the deal                                                                               |         |
+| Limit          | Items shown per page                                                                             |         |
+| Cursor         | For pagination, the marker (an opaque string value) representing the first item on the next page |         |
+| Done           | Whether the activity is done or not                                                              | false   |
+| Sort By        | The field name to sort by                                                                        |         |
+| Sort Direction | The sorting direction.                                                                           |         |
 
 ### Get Deal Field
 
@@ -645,86 +683,92 @@ Get all deal fields
 
 List files attached to a deal
 
-| Input                 | Comments                                                                                        | Default |
-| --------------------- | ----------------------------------------------------------------------------------------------- | ------- |
-| Connection            |                                                                                                 |         |
-| Deal ID               | The ID of the deal                                                                              |         |
-| Start                 | Pagination start                                                                                | 0       |
-| Limit                 | Items shown per page                                                                            |         |
-| Include Deleted Files | When enabled, the list of files will also include deleted files                                 |         |
-| Sort                  | The field names and sorting mode separated by a comma ("field_name_1 ASC", "field_name_2 DESC") |         |
+| Input                 | Comments                                                                                         | Default |
+| --------------------- | ------------------------------------------------------------------------------------------------ | ------- |
+| Connection            |                                                                                                  |         |
+| Deal ID               | The ID of the deal                                                                               |         |
+| Start                 | Pagination start                                                                                 | 0       |
+| Limit                 | Items shown per page                                                                             |         |
+| Cursor                | For pagination, the marker (an opaque string value) representing the first item on the next page |         |
+| Include Deleted Files | When enabled, the list of files will also include deleted files                                  |         |
+| Sort                  | The field names and sorting mode separated by a comma ("field_name_1 ASC", "field_name_2 DESC")  |         |
 
 ### Get Deal Followers
 
 List followers of a deal
 
-| Input      | Comments           | Default |
-| ---------- | ------------------ | ------- |
-| Connection |                    |         |
-| Deal ID    | The ID of the deal |         |
+| Input      | Comments                                                                                         | Default |
+| ---------- | ------------------------------------------------------------------------------------------------ | ------- |
+| Connection |                                                                                                  |         |
+| Deal ID    | The ID of the deal                                                                               |         |
+| Limit      | Items shown per page                                                                             |         |
+| Cursor     | For pagination, the marker (an opaque string value) representing the first item on the next page |         |
 
 ### Get Deal Mail Messages
 
 List mail messages associated with a deal
 
-| Input      | Comments             | Default |
-| ---------- | -------------------- | ------- |
-| Connection |                      |         |
-| Deal ID    | The ID of the deal   |         |
-| Start      | Pagination start     | 0       |
-| Limit      | Items shown per page |         |
+| Input      | Comments                                                                                         | Default |
+| ---------- | ------------------------------------------------------------------------------------------------ | ------- |
+| Connection |                                                                                                  |         |
+| Deal ID    | The ID of the deal                                                                               |         |
+| Start      | Pagination start                                                                                 | 0       |
+| Limit      | Items shown per page                                                                             |         |
+| Cursor     | For pagination, the marker (an opaque string value) representing the first item on the next page |         |
 
 ### Get Deal Participants
 
 List participants of a deal
 
-| Input      | Comments             | Default |
-| ---------- | -------------------- | ------- |
-| Connection |                      |         |
-| Deal ID    | The ID of the deal   |         |
-| Start      | Pagination start     | 0       |
-| Limit      | Items shown per page |         |
+| Input      | Comments                                                                                         | Default |
+| ---------- | ------------------------------------------------------------------------------------------------ | ------- |
+| Connection |                                                                                                  |         |
+| Deal ID    | The ID of the deal                                                                               |         |
+| Start      | Pagination start                                                                                 | 0       |
+| Limit      | Items shown per page                                                                             |         |
+| Cursor     | For pagination, the marker (an opaque string value) representing the first item on the next page |         |
 
-### Get Deal Persons
+### Get Deal Persons (Deprecated)
 
 List all persons associated with a deal
 
-| Input      | Comments             | Default |
-| ---------- | -------------------- | ------- |
-| Connection |                      |         |
-| Deal ID    | The ID of the deal   |         |
-| Start      | Pagination start     | 0       |
-| Limit      | Items shown per page |         |
+| Input          | Comments                                                                                         | Default |
+| -------------- | ------------------------------------------------------------------------------------------------ | ------- |
+| Connection     |                                                                                                  |         |
+| Deal ID        | The ID of the deal                                                                               |         |
+| Limit          | Items shown per page                                                                             |         |
+| Cursor         | For pagination, the marker (an opaque string value) representing the first item on the next page |         |
+| Sort By        | The field name to sort by                                                                        |         |
+| Sort Direction | The sorting direction.                                                                           |         |
 
 ### Get Deal Products
 
 List products attached to a deal
 
-| Input                | Comments                                                                               | Default |
-| -------------------- | -------------------------------------------------------------------------------------- | ------- |
-| Connection           |                                                                                        |         |
-| Deal ID              | The ID of the deal                                                                     |         |
-| Start                | Pagination start                                                                       | 0       |
-| Limit                | Items shown per page                                                                   |         |
-| Include Product Data | Whether to fetch product data along with each attached product (1) or not (0, default) |         |
+| Input          | Comments                                                                                         | Default |
+| -------------- | ------------------------------------------------------------------------------------------------ | ------- |
+| Connection     |                                                                                                  |         |
+| Deal ID        | The ID of the deal                                                                               |         |
+| Limit          | Items shown per page                                                                             |         |
+| Cursor         | For pagination, the marker (an opaque string value) representing the first item on the next page |         |
+| Sort By        | The field name to sort by                                                                        |         |
+| Sort Direction | The sorting direction.                                                                           |         |
 
 ### Get Deals
 
 Get all deals
 
-| Input         | Comments                                                                                            | Default         |
-| ------------- | --------------------------------------------------------------------------------------------------- | --------------- |
-| Fetch All     | If set to true, all records will be fetched. If set to false, the provided pagination will be used. | false           |
-| Start         | Pagination start                                                                                    | 0               |
-| Limit         | Items shown per page                                                                                |                 |
-| Sort          | The field names and sorting mode separated by a comma ("field_name_1 ASC", "field_name_2 DESC")     |                 |
-| User ID       | If supplied, only deals matching the given user will be returned                                    |                 |
-| Filter ID     | The ID of the filter to use                                                                         |                 |
-| Stage ID      | If supplied, only deals within the given stage will be returned                                     |                 |
-| Status        | Only fetch deals with a specific status                                                             | all_not_deleted |
-| Owned By You  | When supplied, only deals owned by you are returned                                                 |                 |
-| Debug Request | Enabling this flag will log out the current request.                                                | false           |
-| Connection    |                                                                                                     |                 |
+| Input          | Comments                                                                                            | Default |
+| -------------- | --------------------------------------------------------------------------------------------------- | ------- |
+| Fetch All      | If set to true, all records will be fetched. If set to false, the provided pagination will be used. | false   |
+| Limit          | Items shown per page                                                                                |         |
+| Cursor         | For pagination, the marker (an opaque string value) representing the first item on the next page    |         |
+| Sort By        | The field name to sort by                                                                           |         |
+| Sort Direction | The sorting direction.                                                                              |         |
+| Filter ID      | The ID of the filter to use                                                                         |         |
+| Stage ID       | If supplied, only deals within the given stage will be returned                                     |         |
+| Status         | Only fetch deals with a specific status                                                             |         |
+| Connection     |                                                                                                     |         |
 
 ### Get Deals Summary
 
@@ -890,28 +934,27 @@ Get details of an organization
 
 List activities associated with an organization
 
-| Input           | Comments                                                        | Default |
-| --------------- | --------------------------------------------------------------- | ------- |
-| Connection      |                                                                 |         |
-| Organization ID | The ID of the organization                                      |         |
-| Start           | Pagination start                                                | 0       |
-| Limit           | Items shown per page                                            |         |
-| Done            | Whether the activity is done or not                             |         |
-| Exclude         | A comma-separated string of activity IDs to exclude from result |         |
+| Input           | Comments                                                                                         | Default |
+| --------------- | ------------------------------------------------------------------------------------------------ | ------- |
+| Connection      |                                                                                                  |         |
+| Organization ID | The ID of the organization                                                                       |         |
+| Limit           | Items shown per page                                                                             |         |
+| Cursor          | For pagination, the marker (an opaque string value) representing the first item on the next page |         |
+| Done            | Whether the activity is done or not                                                              | false   |
 
 ### Get Organization Deals
 
 List deals associated with an organization
 
-| Input                    | Comments                                                                                        | Default         |
-| ------------------------ | ----------------------------------------------------------------------------------------------- | --------------- |
-| Connection               |                                                                                                 |                 |
-| Organization ID          | The ID of the organization                                                                      |                 |
-| Start                    | Pagination start                                                                                | 0               |
-| Limit                    | Items shown per page                                                                            |                 |
-| Status                   | Only fetch deals with a specific status                                                         | all_not_deleted |
-| Sort                     | The field names and sorting mode separated by a comma ("field_name_1 ASC", "field_name_2 DESC") |                 |
-| Only Primary Association | If set, only deals that are directly associated to the organization are fetched                 |                 |
+| Input           | Comments                                                                                         | Default |
+| --------------- | ------------------------------------------------------------------------------------------------ | ------- |
+| Connection      |                                                                                                  |         |
+| Organization ID | The ID of the organization                                                                       |         |
+| Limit           | Items shown per page                                                                             |         |
+| Cursor          | For pagination, the marker (an opaque string value) representing the first item on the next page |         |
+| Status          | Only fetch deals with a specific status                                                          |         |
+| Sort By         | The field name to sort by                                                                        |         |
+| Sort Direction  | The sorting direction.                                                                           |         |
 
 ### Get Organization Files
 
@@ -930,10 +973,12 @@ List files attached to an organization
 
 List followers of an organization
 
-| Input           | Comments                   | Default |
-| --------------- | -------------------------- | ------- |
-| Connection      |                            |         |
-| Organization ID | The ID of the organization |         |
+| Input           | Comments                                                                                         | Default |
+| --------------- | ------------------------------------------------------------------------------------------------ | ------- |
+| Connection      |                                                                                                  |         |
+| Organization ID | The ID of the organization                                                                       |         |
+| Limit           | Items shown per page                                                                             |         |
+| Cursor          | For pagination, the marker (an opaque string value) representing the first item on the next page |         |
 
 ### Get Organization Mail Messages
 
@@ -950,28 +995,26 @@ List mail messages associated with an organization
 
 List persons of an organization
 
-| Input           | Comments                   | Default |
-| --------------- | -------------------------- | ------- |
-| Connection      |                            |         |
-| Organization ID | The ID of the organization |         |
-| Start           | Pagination start           | 0       |
-| Limit           | Items shown per page       |         |
+| Input           | Comments                                                                                         | Default |
+| --------------- | ------------------------------------------------------------------------------------------------ | ------- |
+| Connection      |                                                                                                  |         |
+| Organization ID | The ID of the organization                                                                       |         |
+| Limit           | Items shown per page                                                                             |         |
+| Cursor          | For pagination, the marker (an opaque string value) representing the first item on the next page |         |
 
 ### Get Organizations
 
 Get all organizations
 
-| Input         | Comments                                                                                                        | Default |
-| ------------- | --------------------------------------------------------------------------------------------------------------- | ------- |
-| Fetch All     | If set to true, all records will be fetched. If set to false, the provided pagination will be used.             | false   |
-| Start         | Pagination start                                                                                                | 0       |
-| Limit         | Items shown per page                                                                                            |         |
-| Sort          | The field names and sorting mode separated by a comma ("field_name_1 ASC", "field_name_2 DESC")                 |         |
-| User ID       | If supplied, only organizations owned by the given user will be returned                                        |         |
-| Filter ID     | The ID of the filter to use                                                                                     |         |
-| First Char    | If supplied, only organizations whose name starts with the specified letter will be returned (case insensitive) |         |
-| Debug Request | Enabling this flag will log out the current request.                                                            | false   |
-| Connection    |                                                                                                                 |         |
+| Input          | Comments                                                                                            | Default |
+| -------------- | --------------------------------------------------------------------------------------------------- | ------- |
+| Fetch All      | If set to true, all records will be fetched. If set to false, the provided pagination will be used. | false   |
+| Limit          | Items shown per page                                                                                |         |
+| Cursor         | For pagination, the marker (an opaque string value) representing the first item on the next page    |         |
+| Sort By        | The field name to sort by                                                                           |         |
+| Sort Direction | The sorting direction.                                                                              |         |
+| Filter ID      | The ID of the filter to use                                                                         |         |
+| Connection     |                                                                                                     |         |
 
 ### Get Organization Updates
 
@@ -1036,27 +1079,27 @@ Get details of a person
 
 List activities associated with a person
 
-| Input      | Comments                                                        | Default |
-| ---------- | --------------------------------------------------------------- | ------- |
-| Connection |                                                                 |         |
-| Person ID  | The ID of the person                                            |         |
-| Start      | Pagination start                                                | 0       |
-| Limit      | Items shown per page                                            |         |
-| Done       | Whether the activity is done or not                             |         |
-| Exclude    | A comma-separated string of activity IDs to exclude from result |         |
+| Input      | Comments                                                                                         | Default |
+| ---------- | ------------------------------------------------------------------------------------------------ | ------- |
+| Connection |                                                                                                  |         |
+| Person ID  | The ID of the person                                                                             |         |
+| Limit      | Items shown per page                                                                             |         |
+| Cursor     | For pagination, the marker (an opaque string value) representing the first item on the next page |         |
+| Done       | Whether the activity is done or not                                                              | false   |
 
 ### Get Person Deals
 
 List deals associated with a person
 
-| Input      | Comments                                                                                        | Default         |
-| ---------- | ----------------------------------------------------------------------------------------------- | --------------- |
-| Connection |                                                                                                 |                 |
-| Person ID  | The ID of the person                                                                            |                 |
-| Start      | Pagination start                                                                                | 0               |
-| Limit      | Items shown per page                                                                            |                 |
-| Status     | Only fetch deals with a specific status                                                         | all_not_deleted |
-| Sort       | The field names and sorting mode separated by a comma ("field_name_1 ASC", "field_name_2 DESC") |                 |
+| Input          | Comments                                                                                         | Default |
+| -------------- | ------------------------------------------------------------------------------------------------ | ------- |
+| Connection     |                                                                                                  |         |
+| Person ID      | The ID of the person                                                                             |         |
+| Limit          | Items shown per page                                                                             |         |
+| Cursor         | For pagination, the marker (an opaque string value) representing the first item on the next page |         |
+| Status         | Only fetch deals with a specific status                                                          |         |
+| Sort By        | The field name to sort by                                                                        |         |
+| Sort Direction | The sorting direction.                                                                           |         |
 
 ### Get Person Field
 
@@ -1075,26 +1118,3 @@ Get details of a specific field for a person
 | ---------- | ------------------------------------------------- | ------- |
 | Connection |                                                   |         |
 | Field ID   | The ID of the field to fetch details for a person |         |
-
-### Get Person Fields
-
-Get all person fields
-
-| Input      | Comments             | Default |
-| ---------- | -------------------- | ------- |
-| Connection |                      |         |
-| Start      | Pagination start     | 0       |
-| Limit      | Items shown per page |         |
-
-### Get Person Files
-
-List files attached to a person
-
-| Input                 | Comments                                                                                        | Default |
-| --------------------- | ----------------------------------------------------------------------------------------------- | ------- |
-| Connection            |                                                                                                 |         |
-| Person ID             | The ID of the person                                                                            |         |
-| Start                 | Pagination start                                                                                | 0       |
-| Limit                 | Items shown per page                                                                            |         |
-| Include Deleted Files | When enabled, the list of files will also include deleted files                                 |         |
-| Sort                  | The field names and sorting mode separated by a comma ("field_name_1 ASC", "field_name_2 DESC") |         |

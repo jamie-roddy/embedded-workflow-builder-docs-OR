@@ -13,8 +13,8 @@ When you encounter errors, you have two tools to handle them:
 ## %WORKFLOW%-level error handling
 
 If an execution fails, you can have the runner automatically retry a few minutes later.
-The webhook payload you received will be passed back through your flow again, and your flow will start again at its first step.
-This is useful if your flow is [idempotent](https://en.wikipedia.org/wiki/Idempotence) and you don't know which step might fail.
+The webhook payload you received will be passed back through your %WORKFLOW% again, and your %WORKFLOW% will start again at its first step.
+This is useful if your %WORKFLOW% is [idempotent](https://en.wikipedia.org/wiki/Idempotence) and you don't know which step might fail.
 
 To configure automatic retry, select the gear icon (%WORKFLOW% Details button) on the left side of the canvas, and then select **Configure %WORKFLOW% retry**.
 You can configure your %WORKFLOW% to retry a certain number of times, waiting a specified number of minutes between retries.
@@ -35,4 +35,4 @@ Under **Error Handler Type** you have three options:
 - **Fail** - stop the %WORKFLOW% and throw an error.
 - **Ignore** - ignore the error and continue running the remaining steps.
 - **Retry** - wait for an amount of time (**Seconds between attempts**) and then try the step again, a maximum of **Retry attempts** times.
-  If the last attempt still fails, either fail the integration or ignore the error depending on whether **Ignore Final Error** is true or false.
+  If the last attempt still fails, either fail the %WORKFLOW% or ignore the error depending on whether **Ignore Final Error** is true or false.

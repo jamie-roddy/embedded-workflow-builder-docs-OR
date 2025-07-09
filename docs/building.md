@@ -33,7 +33,7 @@ The [triggers](./triggering.md) article details how triggers work and how to inv
 
 To add a step to your %WORKFLOW%, click the **+** icon underneath the trigger or another action.
 
-Select the connector and action you would like to add to your integration.
+Select the connector and action you would like to add to your %WORKFLOW%.
 For example, you can choose the **Amazon DynamoDB** connector, and then select the **Query Items** action.
 
 ![Add a step to a %WORKFLOW%](./assets/building/add-step.png)
@@ -103,7 +103,7 @@ The trigger step's result contains two major things:
 
 ![Referencing trigger step result](./assets/building/trigger-step-result.png)
 
-Other steps in your flow can reference both the metadata and webhook request data contained in your trigger's result.
+Other steps in your %WORKFLOW% can reference both the metadata and webhook request data contained in your trigger's result.
 
 ### Step inputs
 

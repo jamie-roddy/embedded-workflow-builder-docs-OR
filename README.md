@@ -20,7 +20,14 @@ You have two options for deploying white-labeled documentation:
 ## Generating private connector documentation
 
 If you have private connectors that you offer to your customers and you want documentation for them to live alongside the public connectors, you can generate documentation for them.
+
 After installing node dependencies locally, ensure that you are logged in to the Prismatic CLI with `prism login`.
+If you do not have the Prismatic CLI installed, you can install it with:
+
+```bash
+npm install -g @prismatic-io/prism
+```
+
 Then, identify the key of the private connector you want to generate documentation for by running:
 
 ```bash
@@ -32,5 +39,7 @@ Using the `key` of the connector you want to generate documentation for, run:
 ```bash
 npm run generate-private-connector-docs YOUR-COMPONENT-KEY
 ```
+
+**Note**: Make sure you can successfully run `prism me` before running the above command, as it relies on your Prismatic CLI being configured correctly.
 
 This will generate a markdown file in the `docs/connectors/` directory, and pull down the connector's icon into `docs/connectors/assets/`.

@@ -51,7 +51,7 @@ When an event occurs, the third-party application will send a request to your %W
 Some applications do not support webhooks, or webhook configuration is tedious.
 Polling triggers are useful when you want to be notified when data changes in those applications.
 
-A polling trigger will poll an external API on a schedule that you set (for example, "every 5 minutes"), and if new data is available since the last time it polled, a full execution will run so your flow can process the data.
+A polling trigger will poll an external API on a schedule that you set (for example, "every 5 minutes"), and if new data is available since the last time it polled, a full execution will run so your %WORKFLOW% can process the data.
 
 If you'd like to listen for new records in a PostgreSQL database, for example, you can use the [PostgreSQL Polling Trigger](./connectors/postgres.md#triggers) to poll the database for new records every few minutes.
 
@@ -77,11 +77,10 @@ A webhook consists of two main parts:
 
 Your %WORKFLOW% has two URLs:
 
-1. A test URL you can use to test your webhook configuration within the %EMBEDDED_WORKFLOW_BUILDER%.
-2. A production URL that is used when your %WORKFLOW% is enabled and running in production.
+1. A **Test URL** you can use to test your webhook configuration within the %EMBEDDED_WORKFLOW_BUILDER%.
+2. A **Live URL** that is used when your %WORKFLOW% is [enabled](./enabling.md) and running in production.
 
-<!-- TODO: Replace this with information about where to find test webhook URLs in the workflow builder -->
-
+Both URLs are available in the **Test** tab of your trigger's configuration drawer.
 Your %WORKFLOW_PLURAL% URLs will each be unique and will look similar to `https://hooks.%WHITE_LABEL_BASE_URL%/trigger/SW5zEXAMPLE1234567890`
 
 ### Webhook request payloads
