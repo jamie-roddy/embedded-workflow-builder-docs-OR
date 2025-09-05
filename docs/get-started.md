@@ -100,7 +100,7 @@ Under the **Is Southern User?** branch, add a **log** step.
 Create a friendly log message announcing the user by name.
 You can reference the user's name from the loop step's `currentItem.name`.
 
-![Configure log step](./assets/get-started/log-step-configuration.png)
+![Configure log step](./assets/get-started/log-step-configure.png)
 
 Add a similar log step to your **Else** branch.
 

@@ -41,7 +41,7 @@ For example, you can choose the **Amazon DynamoDB** connector, and then select t
 ### Changing step names and descriptions
 
 By default, steps are uniquely named after the action they invoke (so, they're named things like **CSV to JSON** or **Delete Object**).
-To override that default name, click the step and open the **Details** tab in the step configuration drawer.
+To override that default name, select the step in the %WORKFLOW% and then click the step's name in the configuration drawer.
 
 Like using descriptive variable names in a computer program, renaming steps allows you to give your steps descriptive names.
 Rather than `HTTP - PUT`, you could give your step a name like **Update Record in Acme**.

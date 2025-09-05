@@ -13,6 +13,14 @@ Manage calendars and events in Google Calendar
 
 Authenticate requests to Google Calendar using values obtained from the Google Cloud Platform.
 
+The Google Calendar component authenticates requests through Google's OAuth service.
+To create a Google Calendar developer account and authenticate using Google OAuth, follow the directions [here](https://developers.google.com/calendar/api/guides/auth)
+Now, you will have to configure OAuth 2.0 settings.
+Create a new Google Calendar connection of type **OAuth 2.0**.
+
+- For **Client ID** and **Client Secret** enter the values that you got from the Google Cloud Platform auth settings.
+- For **Scopes** choose from the list found on the [Google docs](https://developers.google.com/identity/protocols/oauth2/scopes)
+
 This connection uses OAuth 2.0, a common authentication mechanism for integrations.
 Read about how OAuth 2.0 works [here](../oauth2.md).
 
@@ -99,11 +107,12 @@ Get the information and metadata of an event by Id
 
 List all calendars
 
-| Input       | Comments                                                                                                        | Default |
-| ----------- | --------------------------------------------------------------------------------------------------------------- | ------- |
-| Page Token  | Specify the pagination token that's returned by a previous request to retrieve the next page of results         |         |
-| Max Results | Provide an integer value for the maximum amount of results that will be returned. Provide a value from 1 to 50. |         |
-| Connection  |                                                                                                                 |         |
+| Input       | Comments                                                                                                         | Default |
+| ----------- | ---------------------------------------------------------------------------------------------------------------- | ------- |
+| Page Token  | Specify the pagination token that's returned by a previous request to retrieve the next page of results          |         |
+| Max Results | Provide an integer value for the maximum amount of results that will be returned. Provide a value from 1 to 250. |         |
+| Connection  |                                                                                                                  |         |
+| Fetch All   | If true, fetches all pages of results, ignoring the 'Max Results' and 'Page Token' inputs.                       | false   |
 
 ### List Events
 
@@ -113,7 +122,8 @@ List all events in a given calendar
 | ----------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------- |
 | Connection              |                                                                                                                                                                                                                                                                |         |
 | Calendar Id             | Provide a string value for the id of the calendar.                                                                                                                                                                                                             |         |
-| Max Results             | Provide an integer value for the maximum amount of results that will be returned. Provide a value from 1 to 50.                                                                                                                                                |         |
+| Fetch All               | If true, fetches all pages of results, ignoring the 'Max Results' and 'Page Token' inputs.                                                                                                                                                                     | false   |
+| Max Results             | Provide an integer value for the maximum amount of results that will be returned. Provide a value from 1 to 250.                                                                                                                                               |         |
 | Page Token              | Specify the pagination token that's returned by a previous request to retrieve the next page of results                                                                                                                                                        |         |
 | Sync Token              | Specify the token for syncing the latest resources that have been modified since the last sync request                                                                                                                                                         |         |
 | Max Attendees           | The maximum number of attendees to include in the response. If there are more than the specified number of attendees, only the participant is returned. Optional.                                                                                              |         |
@@ -144,7 +154,6 @@ Send raw HTTP request to Google Calendar
 | Header                  | A list of headers to send with the request.                                                                                                                                                                                |         |
 | Response Type           | The type of data you expect in the response. You can request json, text, or binary data.                                                                                                                                   | json    |
 | Timeout                 | The maximum time that a client will await a response to its request                                                                                                                                                        |         |
-| Debug Request           | Enabling this flag will log out the current request.                                                                                                                                                                       | false   |
 | Retry Delay (ms)        | The delay in milliseconds between retries. This is used when 'Use Exponential Backoff' is disabled.                                                                                                                        | 0       |
 | Retry On All Errors     | If true, retries on all erroneous responses regardless of type. This is helpful when retrying after HTTP 429 or other 3xx or 4xx errors. Otherwise, only retries on HTTP 5xx and network errors.                           | false   |
 | Max Retry Count         | The maximum number of retries to attempt. Specify 0 for no retries.                                                                                                                                                        | 0       |

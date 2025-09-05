@@ -13,6 +13,10 @@ BigCommerce is a SaaS ecommerce platform. Use the Bigcommerce component to manag
 
 BigCommerce OAuth 2.0
 
+1. To create an OAuth 2.0 app in BigCommerce, sign up for a BigCommerce developer account at https://developer.bigcommerce.com/ and create a new BigCommerce application.
+2. Take note of your application's Client ID and Secret and enter those values when you add a BigCommerce connection to your integration.
+3. Under Redirect URI, add the callback URL, `https://oauth2.%WHITE_LABEL_BASE_URL%/callback`
+
 This connection uses OAuth 2.0, a common authentication mechanism for integrations.
 Read about how OAuth 2.0 works [here](../oauth2.md).
 
@@ -329,19 +333,6 @@ Deletes categories based on provided filters.
 | Parent ID Less Than    | Filter items by Parent ID values less than the specified value.    |         |
 | Page Title Like        | Filter categories by page titles that contain this substring.      |         |
 
-### Delete Categories
-
-Deletes specified categories in BigCommerce.
-
-| Input                  | Comments                                                                                    | Default |
-| ---------------------- | ------------------------------------------------------------------------------------------- | ------- |
-| BigCommerce Connection |                                                                                             |         |
-| Store Hash             | The unique identifier for the BigCommerce store.                                            |         |
-| Category UUID          | Unique identifier for the category. Use this to specify a specific category using its UUID. |         |
-| Category ID            | Identifier for the category. Use this to specify a specific category using its ID.          |         |
-| Tree ID                | ID of the category tree.                                                                    |         |
-| Parent ID              | Filter items by parent ID.                                                                  |         |
-
 ### Delete Category Trees
 
 Deletes specific Category Trees.
@@ -377,6 +368,19 @@ Deletes a Product Image.
 | Store Hash             | The unique identifier for the BigCommerce store.        |         |
 | Product ID             | The ID of the Product to which the image is associated. |         |
 | Image ID to Delete     | The ID of the Image that is being operated on.          |         |
+
+### Delete Tree Categories
+
+Deletes specified categories in a tree in BigCommerce.
+
+| Input                  | Comments                                                                                    | Default |
+| ---------------------- | ------------------------------------------------------------------------------------------- | ------- |
+| BigCommerce Connection |                                                                                             |         |
+| Store Hash             | The unique identifier for the BigCommerce store.                                            |         |
+| Category UUID          | Unique identifier for the category. Use this to specify a specific category using its UUID. |         |
+| Category ID            | Identifier for the category. Use this to specify a specific category using its ID.          |         |
+| Tree ID                | ID of the category tree.                                                                    |         |
+| Parent ID              | Filter items by parent ID.                                                                  |         |
 
 ### Get a Category
 

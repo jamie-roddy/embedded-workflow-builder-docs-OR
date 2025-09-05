@@ -13,6 +13,28 @@ Parse and build .xlsx files (spreadsheets)
 
 Connect to Microsoft Excel using OAuth 2.0
 
+Once you have an instance of Microsoft SharePoint or OneDrive licensed to your account, you will need to create and configure a new "App Registration" within your [Azure Active Directory tenant](https://portal.azure.com/#home).
+When creating the application you will be prompted to select the 'Supported account types'. Under this section, be sure to select 'Accounts in any organizational directory (Any Azure AD directory - Multitenant)'.
+
+You will need to go to "Platforms" and add the "Web" platform. In that section you should add the OAuth 2.0 callback URL - `https://oauth2.%WHITE_LABEL_BASE_URL%/callback` - as a **Redirect URI**.
+
+Next, go to "Certificates & Secrets" for the app and add a new **Client Secret**. Note this value as you will need to supply it to the connection.
+
+You will also need the **Application (client) ID** from the "Overview" page.
+
+The last step of configuring the "App Registration" is assigning "App Permissions". Click "Add Permission", click on the square labeled "Microsoft Graph", and then "Delegated permissions". You should select all permissions that are required for your desired integration.
+
+- Additionally, ensure the `offline_access` scope is included in your app registration. It is essential to maintain your OAuth connection and receive refresh tokens. Without it, users will need to re-authenticate every hour.
+
+Now, configure the OAuth 2.0 connection.
+Add an Microsoft Excel OAuth 2.0 connection config variable:
+
+- Use the **Application (client) ID** value for the **Client ID** field.
+- Use the **Client Secret** for the same named field.
+- If you didn't select Multitenant when creating the Azure application, you will need to replace the **Authorize URL** and **Token URL** with ones specific to your tenant.
+
+Save your integration and you should be able to authenticate a user through Microsoft Excel with OAuth 2.0.
+
 This connection uses OAuth 2.0, a common authentication mechanism for integrations.
 Read about how OAuth 2.0 works [here](../oauth2.md).
 
@@ -58,7 +80,6 @@ Clear range values such as format, fill, and border.
 | Worksheet ID     | The ID or name of the worksheet to clear cells from.                    |         |
 | Address          | The address of the range to update.                                     |         |
 | Apply To         | Determines the type of clear action.                                    |         |
-| Debug Request    | Enabling this flag will log out the current request.                    | false   |
 
 ### Create Column
 
@@ -72,8 +93,7 @@ Creates a Column object inside a worksheet table.
 | Worksheet ID     | The ID or name of the worksheet to create the column in.                                                                                                                                                                                                                      |         |
 | Table ID         | The ID or name of the table to create the column in.                                                                                                                                                                                                                          |         |
 | Values           | A two-dimensional array of unformatted values of the table column.                                                                                                                                                                                                            |         |
-| Column Index     | Specifies the relative position of the new column. The previous column at this position is shifted to the right. The index value should be equal to or less than the last column's index value, so it can't be used to append a column at the end of the table. Zero-indexed. |         |
-| Debug Request    | Enabling this flag will log out the current request.                                                                                                                                                                                                                          | false   |
+| Column Id        | Specifies the relative position of the new column. The previous column at this position is shifted to the right. The index value should be equal to or less than the last column's index value, so it can't be used to append a column at the end of the table. Zero-indexed. |         |
 
 ### Create Multiple Rows
 
@@ -88,7 +108,6 @@ Adds rows to the end of a table.
 | Table ID         | The ID or name of the table to create the row in.                                                                                                              |         |
 | Values           | The values to update in the row.                                                                                                                               |         |
 | Row Index        | Specifies the relative position of the new row. If null, the addition happens at the end. Any rows below the inserted row are shifted downwards. Zero-indexed. |         |
-| Debug Request    | Enabling this flag will log out the current request.                                                                                                           | false   |
 
 ### Create Row
 
@@ -103,7 +122,6 @@ Creates a row object inside a worksheet table.
 | Table ID         | The ID or name of the table to create the row in.                                                                                                              |         |
 | Values           | The values to update in the row.                                                                                                                               |         |
 | Row Index        | Specifies the relative position of the new row. If null, the addition happens at the end. Any rows below the inserted row are shifted downwards. Zero-indexed. |         |
-| Debug Request    | Enabling this flag will log out the current request.                                                                                                           | false   |
 
 ### Create Table
 
@@ -117,7 +135,6 @@ Creates a table object inside a worksheet.
 | Worksheet ID     | The ID of the worksheet to create the table in.                                                                                                                                                                    |         |
 | Address          | Address or name of the range object representing the data source. If the address doesn't contain a sheet name, the currently active sheet is used.                                                                 |         |
 | Has Headers      | Boolean value that indicates whether the data being imported has column labels. If the source doesn't contain headers (when this property set to false), Excel generates header shifting the data down by one row. | false   |
-| Debug Request    | Enabling this flag will log out the current request.                                                                                                                                                               | false   |
 
 ### Create Worksheet
 
@@ -129,7 +146,6 @@ Creates a worksheet object inside a workbook.
 | Drive or Site ID | The ID of the OneDrive or SharePoint site to list workbooks from. |         |
 | Workbook ID      | The ID of the workbook that contains the worksheet to update.     |         |
 | Worksheet Name   | The display name of the worksheet.                                |         |
-| Debug Request    | Enabling this flag will log out the current request.              | false   |
 
 ### Delete Cell Range
 
@@ -143,7 +159,6 @@ Deletes the cells associated with the range.
 | Worksheet ID     | The ID or name of the worksheet to delete cells from.                    |         |
 | Address          | The address of the range to update.                                      |         |
 | Shift            | Specifies which way to shift the cells.                                  |         |
-| Debug Request    | Enabling this flag will log out the current request.                     | false   |
 
 ### Delete Column
 
@@ -156,8 +171,7 @@ Deletes a column object from a worksheet table.
 | Workbook ID      | The ID of the workbook that contains the worksheet to delete the column from. |         |
 | Worksheet ID     | The ID or name of the worksheet to delete the column from.                    |         |
 | Table ID         | The ID or name of the table to delete the column from.                        |         |
-| Column Index     | The id or name of the column to delete.                                       |         |
-| Debug Request    | Enabling this flag will log out the current request.                          | false   |
+| Column Id        | The id or name of the column to delete.                                       |         |
 
 ### Delete Table
 
@@ -170,7 +184,6 @@ Deletes a table object from a worksheet.
 | Workbook ID      | The ID of the workbook that contains the worksheet to delete the table from. |         |
 | Worksheet ID     | The ID or name of the worksheet to delete the table from.                    |         |
 | Table ID         | The ID or name of the table to delete.                                       |         |
-| Debug Request    | Enabling this flag will log out the current request.                         | false   |
 
 ### Delete Worksheet
 
@@ -182,7 +195,6 @@ Deletes a worksheet from a workbook.
 | Drive or Site ID | The ID of the OneDrive or SharePoint site to list workbooks from. |         |
 | Workbook ID      | The ID of the workbook that contains the worksheet to delete.     |         |
 | Worksheet ID     | The ID of the worksheet to delete.                                |         |
-| Debug Request    | Enabling this flag will log out the current request.              | false   |
 
 ### Get Cell
 
@@ -196,7 +208,6 @@ Retrieves a cell from a worksheet.
 | Worksheet ID     | The ID or name of the worksheet to list cells from.                    |         |
 | Row Index        | The number of the row to retrieve.                                     |         |
 | Column Index     | The number of the column to retrieve.                                  |         |
-| Debug Request    | Enabling this flag will log out the current request.                   | false   |
 
 ### Get Cell Range
 
@@ -208,7 +219,6 @@ Retrieve the properties and relationships of range object.
 | Drive or Site ID | The ID of the OneDrive or SharePoint site to list workbooks from.      |         |
 | Workbook ID      | The ID of the workbook that contains the worksheet to list cells from. |         |
 | Worksheet ID     | The ID or name of the worksheet to list cells from.                    |         |
-| Debug Request    | Enabling this flag will log out the current request.                   | false   |
 
 ### Get Column
 
@@ -221,8 +231,7 @@ Retrieves a column object from a worksheet table.
 | Workbook ID      | The ID of the workbook that contains the worksheet to list column from. |         |
 | Worksheet ID     | The ID or name of the worksheet to list column from.                    |         |
 | Table ID         | The ID or name of the table to list column from.                        |         |
-| Column Index     | The id or name of the column to retrieve.                               |         |
-| Debug Request    | Enabling this flag will log out the current request.                    | false   |
+| Column Id        | The id or name of the column to retrieve.                               |         |
 
 ### Get Table
 
@@ -235,7 +244,6 @@ Retrieves a table object from a worksheet.
 | Workbook ID      | The ID of the workbook that contains the worksheet to get the table from. |         |
 | Worksheet ID     | The ID or name of the worksheet to get the table from.                    |         |
 | Table ID         | The ID or name of the table to retrieve                                   |         |
-| Debug Request    | Enabling this flag will log out the current request.                      | false   |
 
 ### Get Worksheet
 
@@ -247,7 +255,6 @@ Retrieves a worksheet object from a workbook.
 | Drive or Site ID | The ID of the OneDrive or SharePoint site to list workbooks from. |         |
 | Workbook ID      | The ID of the workbook to retrieve.                               |         |
 | Worksheet ID     | The ID or name of the worksheet to retrieve.                      |         |
-| Debug Request    | Enabling this flag will log out the current request.              | false   |
 
 ### List Columns
 
@@ -270,7 +277,6 @@ Retrieve a list of columns from a worksheet table.
 | Skip             | Indexes into a result set. Also used by some APIs to implement paging and can be used together with $top to manually page results. |         |
 | Skip Token       | Retrieves the next page of results from result sets that span multiple pages.                                                      |         |
 | Top              | Sets the page size of results.                                                                                                     |         |
-| Debug Request    | Enabling this flag will log out the current request.                                                                               | false   |
 
 ### List Rows
 
@@ -293,7 +299,6 @@ Retrieve a list of rows from a worksheet table.
 | Skip             | Indexes into a result set. Also used by some APIs to implement paging and can be used together with $top to manually page results. |         |
 | Skip Token       | Retrieves the next page of results from result sets that span multiple pages.                                                      |         |
 | Top              | Sets the page size of results.                                                                                                     |         |
-| Debug Request    | Enabling this flag will log out the current request.                                                                               | false   |
 
 ### List Tables
 
@@ -315,25 +320,23 @@ Retrieve a list of tables from a worksheet.
 | Skip             | Indexes into a result set. Also used by some APIs to implement paging and can be used together with $top to manually page results. |         |
 | Skip Token       | Retrieves the next page of results from result sets that span multiple pages.                                                      |         |
 | Top              | Sets the page size of results.                                                                                                     |         |
-| Debug Request    | Enabling this flag will log out the current request.                                                                               | false   |
 
 ### List Workbooks
 
 Return a collection of Workbooks from either a OneDrive or SharePoint site.
 
-| Input            | Comments                                                                      | Default |
-| ---------------- | ----------------------------------------------------------------------------- | ------- |
-| Connection       |                                                                               |         |
-| Path             | The path to the file or folder.                                               |         |
-| Drive or Site ID | The ID of the OneDrive or SharePoint site to list workbooks from.             |         |
-| List or Item ID  | The ID of the list or item to retrieve.                                       |         |
-| Fetch All        | Set to true to retrieve all results.                                          | false   |
-| Expand           | Retrieves related resources.                                                  |         |
-| Select           | Filters properties (columns).                                                 |         |
-| Skip Token       | Retrieves the next page of results from result sets that span multiple pages. |         |
-| Top              | Sets the page size of results.                                                |         |
-| Order By         | Orders results.                                                               |         |
-| Debug Request    | Enabling this flag will log out the current request.                          | false   |
+| Input            | Comments                                                                            | Default |
+| ---------------- | ----------------------------------------------------------------------------------- | ------- |
+| Connection       |                                                                                     |         |
+| Path             | The path to the file or folder. Use this or Drive Or Site Id.                       |         |
+| Drive or Site ID | The ID of the OneDrive or SharePoint site to list workbooks from. Use this or Path. |         |
+| List or Item ID  | The ID of the list or item to retrieve.                                             |         |
+| Fetch All        | Set to true to retrieve all results.                                                | false   |
+| Expand           | Retrieves related resources.                                                        |         |
+| Select           | Filters properties (columns).                                                       |         |
+| Skip Token       | Retrieves the next page of results from result sets that span multiple pages.       |         |
+| Top              | Sets the page size of results.                                                      |         |
+| Order By         | Orders results.                                                                     |         |
 
 ### List Worksheets
 
@@ -354,7 +357,6 @@ Retrieve a list of worksheet objects.
 | Skip             | Indexes into a result set. Also used by some APIs to implement paging and can be used together with $top to manually page results. |         |
 | Skip Token       | Retrieves the next page of results from result sets that span multiple pages.                                                      |         |
 | Top              | Sets the page size of results.                                                                                                     |         |
-| Debug Request    | Enabling this flag will log out the current request.                                                                               | false   |
 
 ### Raw Request
 
@@ -373,7 +375,6 @@ Send raw HTTP request to Microsoft Excel API.
 | Header                  | A list of headers to send with the request.                                                                                                                                                                          |         |
 | Response Type           | The type of data you expect in the response. You can request json, text, or binary data.                                                                                                                             | json    |
 | Timeout                 | The maximum time that a client will await a response to its request                                                                                                                                                  |         |
-| Debug Request           | Enabling this flag will log out the current request.                                                                                                                                                                 | false   |
 | Retry Delay (ms)        | The delay in milliseconds between retries. This is used when 'Use Exponential Backoff' is disabled.                                                                                                                  | 0       |
 | Retry On All Errors     | If true, retries on all erroneous responses regardless of type. This is helpful when retrying after HTTP 429 or other 3xx or 4xx errors. Otherwise, only retries on HTTP 5xx and network errors.                     | false   |
 | Max Retry Count         | The maximum number of retries to attempt. Specify 0 for no retries.                                                                                                                                                  | 0       |
@@ -413,7 +414,6 @@ Update the properties of range object.
 | Formulas R1C1    | Represents the formula in R1C1-style notation.                                                                                                                                               |         |
 | Number Format    | Represents Excel's number format code for the given cell.                                                                                                                                    |         |
 | Values           | Represents the raw values of the specified range. The data returned could be of type string, number, or a Boolean. Cell that contains an error returns the error string.                     |         |
-| Debug Request    | Enabling this flag will log out the current request.                                                                                                                                         | false   |
 
 ### Update Column
 
@@ -426,9 +426,8 @@ Updates a column object from a worksheet table.
 | Workbook ID      | The ID of the workbook that contains the worksheet to update the column from. |         |
 | Worksheet ID     | The ID or name of the worksheet to update the column from.                    |         |
 | Table ID         | The ID or name of the table to update the column from.                        |         |
-| Column Index     | The id or name of the column to update.                                       |         |
+| Column Id        | The id or name of the column to update.                                       |         |
 | Values           | Represents the raw values of the specified range.                             |         |
-| Debug Request    | Enabling this flag will log out the current request.                          | false   |
 
 ### Update Table
 
@@ -445,7 +444,6 @@ Updates a table object from a worksheet.
 | Show Headers     | Whether to show the headers of the table.                                    | false   |
 | Show Totals      | Whether to show the totals of the table.                                     | false   |
 | Style            | The style of the table.                                                      |         |
-| Debug Request    | Enabling this flag will log out the current request.                         | false   |
 
 ### Update Worksheet
 
@@ -460,4 +458,3 @@ Updates a worksheet object from a workbook.
 | Worksheet Name       | The new display name of the worksheet.                            |         |
 | Position             | The zero-based position of the worksheet within the workbook.     |         |
 | Worksheet Visibility | The visibility of the worksheet.                                  |         |
-| Debug Request        | Enabling this flag will log out the current request.              | false   |

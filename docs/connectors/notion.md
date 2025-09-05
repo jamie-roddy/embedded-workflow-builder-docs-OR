@@ -9,9 +9,77 @@ Manage Notion pages, databases, and users
 
 ## Connections
 
-### Notion OAuth 2.0 Connection
+### Internal Integration Secret
+
+Connect to Notion using an Internal Integration Secret
+
+To create an internal integration for Notion, you'll set up a private integration that works within the own workspace.
+
+1. Visit [notion.so/my-integrations](https://notion.so/my-integrations) and log into Notion
+2. Click **Create new integration**
+3. Fill in the integration details:
+4. Under **Capabilities**, select the permissions needed:
+   - **Read content**: To read pages, databases, and other content
+   - **Update content**: To modify existing content
+   - **Insert content**: To create new content
+5. Under **Content Capabilities**, choose specific content types if needed
+6. Save the integration settings
+
+##### Get the Integration Token:
+
+1. In the **Secrets** tab, copy the **Internal Integration Token**
+2. Enter this token when configuring the Notion connection
+
+#### Connect to Content:
+
+After creating the integration, you'll need to connect it to specific pages or databases:
+
+1. Go to the Notion page or database you want to access
+2. Click the **...** menu in the top right corner
+3. Select **Connect to** and choose the integration
+4. The integration will now have access to that content based on the capabilities you selected
+
+| Input                       | Comments                                | Default |
+| --------------------------- | --------------------------------------- | ------- |
+| Internal Integration Secret | Your Notion Internal Integration Secret |         |
+
+### OAuth 2.0
 
 Connect to Notion via OAuth 2.0
+
+To create an OAuth 2.0 integration for Notion, you'll set up a public integration that allows users to authenticate with their Notion workspaces.
+
+1. Visit [notion.so/my-integrations](https://notion.so/my-integrations) and log into Notion
+2. Click **Create new integration**
+3. Fill in the integration details:
+4. Under **Capabilities**, select the permissions needed:
+   - **Read content**: To read pages, databases, and other content
+   - **Update content**: To modify existing content
+   - **Insert content**: To create new content
+5. Under **Content Capabilities**, choose specific content types if needed
+6. Save the integration settings
+
+#### Configure OAuth Settings:
+
+1. Navigate to the **Distribution** page in the integration settings
+2. Select **Public integration** to enable OAuth
+3. Add the callback URL: `https://oauth2.%WHITE_LABEL_BASE_URL%/callback`
+4. Configure additional OAuth settings as needed
+
+#### Get OAuth Credentials:
+
+1. In the **Secrets** tab, find the OAuth credentials:
+   - **OAuth client ID**: Copy this value
+   - **OAuth client secret**: Copy this value
+2. Enter these values when you add a Notion connection to the flow
+
+#### User Authorization Flow:
+
+When users connect their Notion workspace:
+
+1. They'll be redirected to Notion's OAuth authorization page
+2. Users select which pages/databases to share with the integration
+3. After authorization, the integration will have access to the selected content based on the capabilities you configured
 
 This connection uses OAuth 2.0, a common authentication mechanism for integrations.
 Read about how OAuth 2.0 works [here](../oauth2.md).
@@ -141,20 +209,20 @@ Query a Notion database
 
 Send raw HTTP request to Notion
 
-| Input                   | Comments                                                                                                                                                                                         | Default |
-| ----------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------- |
-| Connection              |                                                                                                                                                                                                  |         |
-| URL                     | Input the path only (/pages), The base URL is already included (https://api.notion.com/v1). For example, to connect to https://api.notion.com/v1/pages, only /pages is entered in this field.    |         |
-| Method                  | The HTTP method to use.                                                                                                                                                                          |         |
-| Data                    | The HTTP body payload to send to the URL.                                                                                                                                                        |         |
-| Form Data               | The Form Data to be sent as a multipart form upload.                                                                                                                                             |         |
-| File Data               | File Data to be sent as a multipart form upload.                                                                                                                                                 |         |
-| File Data File Names    | File names to apply to the file data inputs. Keys must match the file data keys above.                                                                                                           |         |
-| Query Parameter         | A list of query parameters to send with the request. This is the portion at the end of the URL similar to ?key1=value1&key2=value2.                                                              |         |
-| Header                  | A list of headers to send with the request.                                                                                                                                                      |         |
-| Response Type           | The type of data you expect in the response. You can request json, text, or binary data.                                                                                                         | json    |
-| Timeout                 | The maximum time that a client will await a response to its request                                                                                                                              |         |
-| Retry Delay (ms)        | The delay in milliseconds between retries. This is used when 'Use Exponential Backoff' is disabled.                                                                                              | 0       |
-| Retry On All Errors     | If true, retries on all erroneous responses regardless of type. This is helpful when retrying after HTTP 429 or other 3xx or 4xx errors. Otherwise, only retries on HTTP 5xx and network errors. | false   |
-| Max Retry Count         | The maximum number of retries to attempt. Specify 0 for no retries.                                                                                                                              | 0       |
-| Use Exponential Backoff | Specifies whether to use a pre-defined exponential backoff strategy for retries. When enabled, 'Retry Delay (ms)' is ignored.                                                                    | false   |
+| Input                   | Comments                                                                                                                                                                                               | Default |
+| ----------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------- |
+| Connection              |                                                                                                                                                                                                        |         |
+| URL                     | Input the path only (/users/me), The base URL is already included (https://api.notion.com/v1). For example, to connect to https://api.notion.com/v1/users/me, only /users/me is entered in this field. |         |
+| Method                  | The HTTP method to use.                                                                                                                                                                                |         |
+| Data                    | The HTTP body payload to send to the URL.                                                                                                                                                              |         |
+| Form Data               | The Form Data to be sent as a multipart form upload.                                                                                                                                                   |         |
+| File Data               | File Data to be sent as a multipart form upload.                                                                                                                                                       |         |
+| File Data File Names    | File names to apply to the file data inputs. Keys must match the file data keys above.                                                                                                                 |         |
+| Query Parameter         | A list of query parameters to send with the request. This is the portion at the end of the URL similar to ?key1=value1&key2=value2.                                                                    |         |
+| Header                  | A list of headers to send with the request.                                                                                                                                                            |         |
+| Response Type           | The type of data you expect in the response. You can request json, text, or binary data.                                                                                                               | json    |
+| Timeout                 | The maximum time that a client will await a response to its request                                                                                                                                    |         |
+| Retry Delay (ms)        | The delay in milliseconds between retries. This is used when 'Use Exponential Backoff' is disabled.                                                                                                    | 0       |
+| Retry On All Errors     | If true, retries on all erroneous responses regardless of type. This is helpful when retrying after HTTP 429 or other 3xx or 4xx errors. Otherwise, only retries on HTTP 5xx and network errors.       | false   |
+| Max Retry Count         | The maximum number of retries to attempt. Specify 0 for no retries.                                                                                                                                    | 0       |
+| Use Exponential Backoff | Specifies whether to use a pre-defined exponential backoff strategy for retries. When enabled, 'Retry Delay (ms)' is ignored.                                                                          | false   |

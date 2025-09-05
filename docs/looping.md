@@ -34,10 +34,12 @@ for (const record of records) {
 }
 ```
 
-The loop step provides two properties to steps within the loop:
+The loop step provides a few properties to steps within the loop:
 
 - `currentItem` represents the item in the array that is currently being processed
 - `index` represents the [zero-indexed](https://en.wikipedia.org/wiki/Zero-based_numbering) index of the current value.
+- `isFirst` is `true` if the current item is the first item in the array, and `false` otherwise.
+- `isLast` is `true` if the current item is the last item in the array, and `false` otherwise.
 
 Using the example above, during the second loop cycle `currentItem` would equal `{ "first": "Lisa", "last": "Nguyen", "country": "AUS" }` and `index` would equal `1`.
 

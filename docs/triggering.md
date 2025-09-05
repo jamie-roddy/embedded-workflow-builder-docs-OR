@@ -105,7 +105,7 @@ Take, for example, this `curl` invocation:
 
 ```bash
 curl \
-  'https://hooks.%WHITE_LABEL_BASE_URL%/trigger/SW5zEXAMPLE1234567890/my/custom/path?param-one=ParamValueOne&param-two=ParamValueTwo' \
+  'https://hooks.%WHITE_LABEL_BASE_URL%/trigger/SW5zEXAMPLE1234567890==/my/custom/path?param-one=ParamValueOne&param-two=ParamValueTwo' \
   --header "header-one: First header value" \
   --header "header-two: Second header value" \
   --header "Content-Type: application/json" \

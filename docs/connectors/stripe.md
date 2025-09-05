@@ -13,6 +13,8 @@ Manage objects connected to your Stripe platform
 
 Authenticate requests to Stripe using an API Key
 
+The **Stripe** component uses API keys to authenticate requests. You can view and manage your API keys in the Stripe Dashboard. For information on obtaining an API key from Stripe, refer to the [docs](https://stripe.com/docs/api/authentication)
+
 | Input   | Comments                                | Default |
 | ------- | --------------------------------------- | ------- |
 | API Key | Provide a string value for the API Key. |         |
@@ -21,7 +23,7 @@ Authenticate requests to Stripe using an API Key
 
 ### Instance Webhooks
 
-Receive and validate webhook requests from Stripe for webhooks you configure. Config this trigger to create or delete webhook event listeners.
+Automatically manages Stripe webhook subscriptions for your instance. On instance deploy, this trigger creates a webhook endpoint in Stripe (or reuses an existing one with matching URL and events). On instance deletion, it removes the webhook. The trigger validates incoming webhook signatures and handles all webhook lifecycle management automatically. Note: Webhooks are created/updated each time an instance is deployed or reconfigured.
 
 | Input                      | Comments                                                                                                                                                 | Default |
 | -------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- | ------- |

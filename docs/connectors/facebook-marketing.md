@@ -36,6 +36,20 @@ Read about how OAuth 2.0 works [here](../oauth2.md).
 
 Oauth 2.0 connectivity for Meta Ads.
 
+This component uses OAuth 2.0 to connect to the Meta Ads Marketing API.
+To get started with [Meta Ads](https://developers.facebook.com/docs/marketing-apis/get-started), you first need to [create a developer account](https://developers.facebook.com/).
+
+1. Select **Create app**, take note of the App Id and App Secret under the basic tab.
+1. Navigate to the Facebook Login Section:
+   1. Under the **Valid OAuth Redirect URIs** section add `https://oauth2.%WHITE_LABEL_BASE_URL%/callback` as a **Redirect URI**.
+1. Now add a new Meta Ads action to your flow, and you will see a new connection.
+1. Enter the values that you previously saved from your Facebook Developer App.
+1. All the scopes you need should already exist in the connection. However if you need to enter additional scopes you can refer to [Meta Ads Docs](https://developers.facebook.com/docs/permissions/reference/) to find the correct ones.
+
+Now you can make a new Meta Ads connection, and provide the values you obtained earlier.
+
+For any additional setup information, refer to the [Meta Ads Docs](https://developers.facebook.com/docs/marketing-apis/overview)
+
 This connection uses OAuth 2.0, a common authentication mechanism for integrations.
 Read about how OAuth 2.0 works [here](../oauth2.md).
 
@@ -50,6 +64,18 @@ Read about how OAuth 2.0 works [here](../oauth2.md).
 ### Sandbox Ad Account Token
 
 Use this connection to connect to a sandbox ad account.
+
+This component may also use the Sandbox Ad token to connect a Meta Ad's Sandbox Ad Account
+To get started with [Meta Ads](https://developers.facebook.com/docs/marketing-apis/get-started), you first need to [create a developer account](https://developers.facebook.com/).
+
+1. Select **Create app**, take note of the App Id and App Secret under the basic tab.
+1. Navigate and expand the Marketing API Section and select the Tools section.
+   1. In the **Sandbox Ad Account Management** section, create and name a new Sandbox Ad Account.
+   1. Under Actions select the button with a key icon and in the Generate Access Token window Select **Generate**
+   1. Add this Access Token to the Sandbox Ad Token Connection Type.
+1. All the scopes you need should already exist in the connection. However if you need to enter additional scopes you can refer to [Meta Ads Docs](https://developers.facebook.com/docs/permissions/reference/) to find the correct ones.
+
+For any additional setup information, refer to the [Meta Ads Docs](https://developers.facebook.com/docs/marketing-apis/overview)
 
 | Input         | Comments                               | Default |
 | ------------- | -------------------------------------- | ------- |
@@ -99,7 +125,6 @@ Update an existing Ad Creative to include a new set of URL Tags.
 | Fields          | Provide a comma separated list of fields to be returned.             | name, object_story_spec, adlabels, body, object_id, url_tags |
 | Optional Values | Provide optional values to mutate the given object.                  |                                                              |
 | Graph Version   | Provide the version of the Graph API to use. Defaults to 22.         | 22                                                           |
-| Debug Request   | Enabling this flag will log out the current request.                 | false                                                        |
 
 ### Create Ad
 
@@ -126,7 +151,6 @@ Creates a new ad.
 | Priority                | Priority of the ad.                                                                                                                                                                                             |         |
 | Source Ad Id            | ID of the source Ad, if applicable.                                                                                                                                                                             |         |
 | Graph Version           | Provide the version of the Graph API to use. Defaults to 22.                                                                                                                                                    | 22      |
-| Debug Request           | Enabling this flag will log out the current request.                                                                                                                                                            | false   |
 
 ### Create Ad Account Webhook
 
@@ -170,7 +194,6 @@ Creates a new campaign.
 | Stop Time                    | Stop Time.                                                                                                                                                                                                                                                                                                                              |         |
 | Topline Id                   | Topline Id.                                                                                                                                                                                                                                                                                                                             |         |
 | Graph Version                | Provide the version of the Graph API to use. Defaults to 22.                                                                                                                                                                                                                                                                            | 22      |
-| Debug Request                | Enabling this flag will log out the current request.                                                                                                                                                                                                                                                                                    | false   |
 
 ### Create Conversion
 
@@ -188,7 +211,6 @@ Create a single conversion event for a pixel. Requires the Conversions API Acces
 | Custom Data      | A map that includes additional business data about the event. See https://developers.facebook.com/docs/marketing-api/conversions-api/parameters/custom-data.                                                                  |         |
 | More Data        | Additional data to include with the event. See https://developers.facebook.com/docs/marketing-api/conversions-api/parameters/server-event.                                                                                    |         |
 | Graph Version    | Provide the version of the Graph API to use. Defaults to 22.                                                                                                                                                                  | 22      |
-| Debug Request    | Enabling this flag will log out the current request.                                                                                                                                                                          | false   |
 
 ### Create Multiple Conversions
 
@@ -200,7 +222,6 @@ Create multiple conversion events for a pixel. Requires the Conversions API Acce
 | Pixel Id      | Provide the Id of a pixel.                                                                                                                             |         |
 | Events        | An array of server event objects. See https://developers.facebook.com/docs/marketing-api/conversions-api/parameters/server-event for more information. |         |
 | Graph Version | Provide the version of the Graph API to use. Defaults to 22.                                                                                           | 22      |
-| Debug Request | Enabling this flag will log out the current request.                                                                                                   | false   |
 
 ### Create Page Webhook
 
@@ -224,7 +245,6 @@ Delete the information and metadata of a given ad.
 | Connection    |                                                              |         |
 | Ad Id         | Ad ID to delete.                                             |         |
 | Graph Version | Provide the version of the Graph API to use. Defaults to 22. | 22      |
-| Debug Request | Enabling this flag will log out the current request.         | false   |
 
 ### Delete Webhook
 
@@ -246,7 +266,6 @@ Get the information and metadata of a given ad.
 | Ad Id         | Ad ID to get.                                                |                                                                                                                                                                                                                                                                       |
 | Fields        | Provide a comma separated list of fields to be returned.     | name,adset,account_id,ad_review_feedback,adlabels,adset_id,bid_amount,campaign,campaign_id,configured_status,conversion_domain,created_time,creative,effective_status,issues_info,last_updated_by_app_id,preview_shareable_link,recommendations,status,tracking_specs |
 | Graph Version | Provide the version of the Graph API to use. Defaults to 22. | 22                                                                                                                                                                                                                                                                    |
-| Debug Request | Enabling this flag will log out the current request.         | false                                                                                                                                                                                                                                                                 |
 
 ### Get Ad Account
 
@@ -258,7 +277,6 @@ Get the information and metadata of the given ad account.
 | Ad Account    | Provide the identifier of an Ad Account. This value should be an Id. |                                                                      |
 | Fields        | Provide a comma separated list of fields to be returned.             | name,age,balance,is_personal,account_status,line_numbers,adcreatives |
 | Graph Version | Provide the version of the Graph API to use. Defaults to 22.         | 22                                                                   |
-| Debug Request | Enabling this flag will log out the current request.                 | false                                                                |
 
 ### Get Ad Creative
 
@@ -270,7 +288,6 @@ Get the information and metadata of the given ad creative.
 | Ad Creative   | Provide a unique identifier of the Ad Creative. This value should be an ID. |                                                              |
 | Fields        | Provide a comma separated list of fields to be returned.                    | name, object_story_spec, adlabels, body, object_id, url_tags |
 | Graph Version | Provide the version of the Graph API to use. Defaults to 22.                | 22                                                           |
-| Debug Request | Enabling this flag will log out the current request.                        | false                                                        |
 
 ### Get Ad Set
 
@@ -282,7 +299,6 @@ Get the information and metadata of a given Ad Set.
 | Ad Set Id     | The ID of the Ad Set to retrieve.                            |                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
 | Fields        | Provide a comma separated list of fields to be returned.     | name,account_id,adlabels,adset_schedule,asset_feed_id,attribution_spec,bid_adjustments,bid_amount,bid_constraints,bid_info,billing_event,budget_remaining,campaign,configured_status,created_time,creative_sequence,daily_budget,daily_min_spend_target,daily_spend_cap,destination_type,effective_status,end_time,optimization_goal,optimization_sub_event,pacing_type,promoted_object,recommendations,status,targeting,start_time,targeting_optimization_types,updated_time |
 | Graph Version | Provide the version of the Graph API to use. Defaults to 22. | 22                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
-| Debug Request | Enabling this flag will log out the current request.         | false                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
 
 ### Get Business By Name
 
@@ -293,7 +309,6 @@ Fetch an business with the provided name.
 | Connection    |                                                              |         |
 | Business Name |                                                              |         |
 | Graph Version | Provide the version of the Graph API to use. Defaults to 22. | 22      |
-| Debug Request | Enabling this flag will log out the current request.         | false   |
 
 ### Get Current User
 
@@ -303,7 +318,6 @@ Get the information and metadata of the current user.
 | ------------- | ------------------------------------------------------------ | ------- |
 | Connection    |                                                              |         |
 | Graph Version | Provide the version of the Graph API to use. Defaults to 22. | 22      |
-| Debug Request | Enabling this flag will log out the current request.         | false   |
 
 ### Get User By Id
 
@@ -314,7 +328,6 @@ Get the information and metadata of a given user.
 | Connection    |                                                              |         |
 | User Id       | Provide the Id of a user.                                    |         |
 | Graph Version | Provide the version of the Graph API to use. Defaults to 22. | 22      |
-| Debug Request | Enabling this flag will log out the current request.         | false   |
 
 ### List Ad Accounts
 
@@ -329,7 +342,6 @@ Get the ad accounts for the current user.
 | After         | Provide the token for the item after the current one.                                   |                                                                      |
 | Fields        | Provide a comma separated list of fields to be returned.                                | name,age,balance,is_personal,account_status,line_numbers,adcreatives |
 | Graph Version | Provide the version of the Graph API to use. Defaults to 22.                            | 22                                                                   |
-| Debug Request | Enabling this flag will log out the current request.                                    | false                                                                |
 
 ### List Ad Creatives
 
@@ -345,7 +357,6 @@ List all ad creatives in a given ad account.
 | After         | Provide the token for the item after the current one.                                   |                                                              |
 | Fields        | Provide a comma separated list of fields to be returned.                                | name, object_story_spec, adlabels, body, object_id, url_tags |
 | Graph Version | Provide the version of the Graph API to use. Defaults to 22.                            | 22                                                           |
-| Debug Request | Enabling this flag will log out the current request.                                    | false                                                        |
 
 ### List Ad Leads
 
@@ -360,7 +371,6 @@ List all ad leads for the given ad.
 | After         | Provide the token for the item after the current one.        |         |
 | Fields        | Provide a comma separated list of fields to be returned.     | name    |
 | Graph Version | Provide the version of the Graph API to use. Defaults to 22. | 22      |
-| Debug Request | Enabling this flag will log out the current request.         | false   |
 
 ### List Ad Previews
 
@@ -372,7 +382,6 @@ Get a list of all previews of the given ad.
 | Ad Id         | The ID of the ad to list previews for.                       |         |
 | Ad Format     | Provide a type of ad format to preview.                      |         |
 | Graph Version | Provide the version of the Graph API to use. Defaults to 22. | 22      |
-| Debug Request | Enabling this flag will log out the current request.         | false   |
 
 ### List Ad Sets In Account
 
@@ -388,7 +397,6 @@ List all ad sets in an ad account.
 | After         | Provide the token for the item after the current one.                                   |                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
 | Fields        | Provide a comma separated list of fields to be returned.                                | name,account_id,adlabels,adset_schedule,asset_feed_id,attribution_spec,bid_adjustments,bid_amount,bid_constraints,bid_info,billing_event,budget_remaining,campaign,configured_status,created_time,creative_sequence,daily_budget,daily_min_spend_target,daily_spend_cap,destination_type,effective_status,end_time,optimization_goal,optimization_sub_event,pacing_type,promoted_object,recommendations,status,targeting,start_time,targeting_optimization_types,updated_time |
 | Graph Version | Provide the version of the Graph API to use. Defaults to 22.                            | 22                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
-| Debug Request | Enabling this flag will log out the current request.                                    | false                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
 
 ### List Ads In Account
 
@@ -404,7 +412,6 @@ List all ads in an ad account.
 | Limit         | Provide a limit for the result set.                                                     |                                                                                                                                                                                                                                                                       |
 | Fields        | Provide a comma separated list of fields to be returned.                                | name,adset,account_id,ad_review_feedback,adlabels,adset_id,bid_amount,campaign,campaign_id,configured_status,conversion_domain,created_time,creative,effective_status,issues_info,last_updated_by_app_id,preview_shareable_link,recommendations,status,tracking_specs |
 | Graph Version | Provide the version of the Graph API to use. Defaults to 22.                            | 22                                                                                                                                                                                                                                                                    |
-| Debug Request | Enabling this flag will log out the current request.                                    | false                                                                                                                                                                                                                                                                 |
 
 ### List Ads In Adset
 
@@ -416,7 +423,6 @@ List all ads in a given adset.
 | Ad Set Id     | The ID of the adset to list ads for.                         |                                                                                                                                                                                                                                                                       |
 | Fields        | Provide a comma separated list of fields to be returned.     | name,adset,account_id,ad_review_feedback,adlabels,adset_id,bid_amount,campaign,campaign_id,configured_status,conversion_domain,created_time,creative,effective_status,issues_info,last_updated_by_app_id,preview_shareable_link,recommendations,status,tracking_specs |
 | Graph Version | Provide the version of the Graph API to use. Defaults to 22. | 22                                                                                                                                                                                                                                                                    |
-| Debug Request | Enabling this flag will log out the current request.         | false                                                                                                                                                                                                                                                                 |
 
 ### List Campaigns In Account
 
@@ -430,7 +436,6 @@ List all campaigns in an ad account.
 | Before        | Provide the token for the item before the current one.               |         |
 | After         | Provide the token for the item after the current one.                |         |
 | Graph Version | Provide the version of the Graph API to use. Defaults to 22.         | 22      |
-| Debug Request | Enabling this flag will log out the current request.                 | false   |
 
 ### List Webhooks
 
@@ -459,7 +464,6 @@ Send raw HTTP request to Meta Ads.
 | Header                  | A list of headers to send with the request.                                                                                                                                                                                                                   |         |
 | Response Type           | The type of data you expect in the response. You can request json, text, or binary data.                                                                                                                                                                      | json    |
 | Timeout                 | The maximum time that a client will await a response to its request                                                                                                                                                                                           |         |
-| Debug Request           | Enabling this flag will log out the current request.                                                                                                                                                                                                          | false   |
 | Retry Delay (ms)        | The delay in milliseconds between retries. This is used when 'Use Exponential Backoff' is disabled.                                                                                                                                                           | 0       |
 | Retry On All Errors     | If true, retries on all erroneous responses regardless of type. This is helpful when retrying after HTTP 429 or other 3xx or 4xx errors. Otherwise, only retries on HTTP 5xx and network errors.                                                              | false   |
 | Max Retry Count         | The maximum number of retries to attempt. Specify 0 for no retries.                                                                                                                                                                                           | 0       |
@@ -480,7 +484,6 @@ Update the information and metadata of a given ad or adset.
 | Optional Values | Provide optional values to mutate the given object.                                                                                                                                                    |                                                                                                                                                                                                                                                                       |
 | Fields          | Provide a comma separated list of fields to be returned.                                                                                                                                               | name,adset,account_id,ad_review_feedback,adlabels,adset_id,bid_amount,campaign,campaign_id,configured_status,conversion_domain,created_time,creative,effective_status,issues_info,last_updated_by_app_id,preview_shareable_link,recommendations,status,tracking_specs |
 | Graph Version   | Provide the version of the Graph API to use. Defaults to 22.                                                                                                                                           | 22                                                                                                                                                                                                                                                                    |
-| Debug Request   | Enabling this flag will log out the current request.                                                                                                                                                   | false                                                                                                                                                                                                                                                                 |
 
 ### Update Ad Creative
 
@@ -500,7 +503,6 @@ Update the information and metadata of the given ad creative.
 | Fields          | Provide a comma separated list of fields to be returned.     | name, object_story_spec, adlabels, body, object_id, url_tags |
 | Optional Values | Provide optional values to mutate the given object.          |                                                              |
 | Graph Version   | Provide the version of the Graph API to use. Defaults to 22. | 22                                                           |
-| Debug Request   | Enabling this flag will log out the current request.         | false                                                        |
 
 ### Update Ad Set
 
@@ -516,4 +518,3 @@ Update the information and metadata of a given Ad Set.
 | Optional Values | Provide optional values to mutate the given object.                                                                                       |                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
 | Fields          | Provide a comma separated list of fields to be returned.                                                                                  | name,account_id,adlabels,adset_schedule,asset_feed_id,attribution_spec,bid_adjustments,bid_amount,bid_constraints,bid_info,billing_event,budget_remaining,campaign,configured_status,created_time,creative_sequence,daily_budget,daily_min_spend_target,daily_spend_cap,destination_type,effective_status,end_time,optimization_goal,optimization_sub_event,pacing_type,promoted_object,recommendations,status,targeting,start_time,targeting_optimization_types,updated_time |
 | Graph Version   | Provide the version of the Graph API to use. Defaults to 22.                                                                              | 22                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
-| Debug Request   | Enabling this flag will log out the current request.                                                                                      | false                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
