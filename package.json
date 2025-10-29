@@ -45,7 +45,7 @@
     "@docusaurus/tsconfig": "3.9.2",
     "@docusaurus/types": "3.9.2",
     "cli-progress": "^3.12.0",
-    "cspell": "^9.1.2",
+    "cspell": "^9.2.2",
     "front-matter-markdown": "^0.4.5",
     "graffle": "^8.0.0-next.164",
     "graphql": "^16.11.0",
@@ -53,10 +53,10 @@
     "jimp": "^1.6.0",
     "js-yaml": "^4.1.0",
     "markdownlint-cli": "^0.45.0",
-    "netlify-cli": "^23.8.1",
-    "prettier": "^3.6.1",
+    "netlify-cli": "^23.9.5",
+    "prettier": "^3.6.2",
     "rimraf": "^6.0.1",
-    "typescript": "~5.8.3"
+    "typescript": "~5.9.3"
   },
   "browserslist": {
     "production": [
