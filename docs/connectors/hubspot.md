@@ -36,6 +36,7 @@ Refer to this [quick reference guide](https://developers.hubspot.com/docs/gettin
    ```bash
    hs project create
    ```
+
    - Select **App** as the project template
    - Choose your distribution type (marketplace or private/specific accounts)
    - Select **OAuth** as the authentication method
