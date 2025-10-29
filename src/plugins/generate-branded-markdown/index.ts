@@ -49,7 +49,7 @@ async function generateBrandedMarkdownFiles() {
   );
 }
 
-async function resizeScreenshotsPlugin(context, options) {
+async function resizeScreenshotsPlugin() {
   return {
     name: "generate-branded-markdown",
     extendCli(cli: CommanderStatic) {

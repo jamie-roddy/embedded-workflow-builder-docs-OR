@@ -101,7 +101,7 @@ async function generateConnectorDocs({
   }
 }
 
-async function connectorDocsPlugin(context, options) {
+async function connectorDocsPlugin() {
   return {
     name: "connector-docs",
     extendCli(cli: CommanderStatic) {
