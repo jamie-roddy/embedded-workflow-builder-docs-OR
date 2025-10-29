@@ -76,12 +76,11 @@ Get notified when a project is created, updated, or deleted in a workspace.
 
 Create a workspace in a specific account.
 
-| Input          | Comments                                             | Default |
-| -------------- | ---------------------------------------------------- | ------- |
-| Account Id     | The unique identifier of the item to retrieve.       |         |
-| Workspace Name | The name of the workspace account to create.         |         |
-| Connection     |                                                      |         |
-| Debug Request  | Enabling this flag will log out the current request. | false   |
+| Input          | Comments                                       | Default |
+| -------------- | ---------------------------------------------- | ------- |
+| Account Id     | The unique identifier of the item to retrieve. |         |
+| Workspace Name | The name of the workspace account to create.   |         |
+| Connection     |                                                |         |
 
 ### Create Form
 
@@ -101,7 +100,6 @@ Create a form
 | Thank You Screens | The thank you screens for the form.                                                                                                           |         |
 | Variables         | The variables for the form.                                                                                                                   |         |
 | Welcome Screens   | The welcome screens for the form.                                                                                                             |         |
-| Debug Request     | Enabling this flag will log out the current request.                                                                                          | false   |
 | Connection        |                                                                                                                                               |         |
 
 ### Create or Update Webhook
@@ -118,38 +116,34 @@ Create or Update a Webhook
 | Form Response         | True if you want to send full responses to the webhook. Otherwise, false.                                     |         |
 | Form Response Partial | True if you want to send partial responses to the webhook. Otherwise, false.                                  |         |
 | Connection            |                                                                                                               |         |
-| Debug Request         | Enabling this flag will log out the current request.                                                          | false   |
 
 ### Create Workspace
 
 Create a workspace.
 
-| Input          | Comments                                             | Default |
-| -------------- | ---------------------------------------------------- | ------- |
-| Workspace Name | The name of the workspace.                           |         |
-| Connection     |                                                      |         |
-| Debug Request  | Enabling this flag will log out the current request. | false   |
+| Input          | Comments                   | Default |
+| -------------- | -------------------------- | ------- |
+| Workspace Name | The name of the workspace. |         |
+| Connection     |                            |         |
 
 ### Delete Form
 
 Delete a form.
 
-| Input         | Comments                                             | Default |
-| ------------- | ---------------------------------------------------- | ------- |
-| Form Id       | Unique ID for the form.                              |         |
-| Connection    |                                                      |         |
-| Debug Request | Enabling this flag will log out the current request. | false   |
+| Input      | Comments                | Default |
+| ---------- | ----------------------- | ------- |
+| Form Id    | Unique ID for the form. |         |
+| Connection |                         |         |
 
 ### Delete Instance Webhooks
 
 Delete all webhooks from a form for the instance url provided.
 
-| Input         | Comments                                                                                                           | Default |
-| ------------- | ------------------------------------------------------------------------------------------------------------------ | ------- |
-| Form Id       | Unique ID for the form.                                                                                            |         |
-| Instance URL  | The instance URL to delete all webhooks from, if not provided, all webhooks from the current flow will be deleted. |         |
-| Connection    |                                                                                                                    |         |
-| Debug Request | Enabling this flag will log out the current request.                                                               | false   |
+| Input        | Comments                                                                                                           | Default |
+| ------------ | ------------------------------------------------------------------------------------------------------------------ | ------- |
+| Form Id      | Unique ID for the form.                                                                                            |         |
+| Instance URL | The instance URL to delete all webhooks from, if not provided, all webhooks from the current flow will be deleted. |         |
+| Connection   |                                                                                                                    |         |
 
 ### Delete Response
 
@@ -160,112 +154,102 @@ Delete responses to a form.
 | Form Id               | Unique ID for the form.                                                                                                                                              |         |
 | Included Response Ids | Comma-separated list of response_id values of the responses to delete. You can list up to 1000 tokens and choose to do so either in the request URL, or in its body. |         |
 | Connection            |                                                                                                                                                                      |         |
-| Debug Request         | Enabling this flag will log out the current request.                                                                                                                 | false   |
 
 ### Delete Webhook
 
 Delete a webhook.
 
-| Input         | Comments                                             | Default |
-| ------------- | ---------------------------------------------------- | ------- |
-| Form Id       | Unique ID for the form.                              |         |
-| Tag           | Unique name you want to use for the webhook.         |         |
-| Connection    |                                                      |         |
-| Debug Request | Enabling this flag will log out the current request. | false   |
+| Input      | Comments                                     | Default |
+| ---------- | -------------------------------------------- | ------- |
+| Form Id    | Unique ID for the form.                      |         |
+| Tag        | Unique name you want to use for the webhook. |         |
+| Connection |                                              |         |
 
 ### Delete Workspace
 
 Delete a workspace.
 
-| Input         | Comments                                             | Default |
-| ------------- | ---------------------------------------------------- | ------- |
-| Workspace Id  | The workspace Id to delete.                          |         |
-| Connection    |                                                      |         |
-| Debug Request | Enabling this flag will log out the current request. | false   |
+| Input        | Comments                    | Default |
+| ------------ | --------------------------- | ------- |
+| Workspace Id | The workspace Id to delete. |         |
+| Connection   |                             |         |
 
 ### Get All Response Files
 
 Download a zip archive containing all files uploaded by respondents for the specified form ID.
 
-| Input         | Comments                                             | Default |
-| ------------- | ---------------------------------------------------- | ------- |
-| Form Id       | Unique ID for the form.                              |         |
-| Connection    |                                                      |         |
-| Debug Request | Enabling this flag will log out the current request. | false   |
+| Input      | Comments                | Default |
+| ---------- | ----------------------- | ------- |
+| Form Id    | Unique ID for the form. |         |
+| Connection |                         |         |
 
 ### Get File from Response
 
 Download an uploaded file knowing its form, response, field and name.
 
-| Input         | Comments                                             | Default |
-| ------------- | ---------------------------------------------------- | ------- |
-| Form Id       | Unique ID for the form.                              |         |
-| Response Id   | Unique ID for the response.                          |         |
-| Field Id      | Unique ID for the file upload field                  |         |
-| Filename      | Filename for the uploaded file                       |         |
-| Connection    |                                                      |         |
-| Debug Request | Enabling this flag will log out the current request. | false   |
+| Input       | Comments                            | Default |
+| ----------- | ----------------------------------- | ------- |
+| Form Id     | Unique ID for the form.             |         |
+| Response Id | Unique ID for the response.         |         |
+| Field Id    | Unique ID for the file upload field |         |
+| Filename    | Filename for the uploaded file      |         |
+| Connection  |                                     |         |
 
 ### Get Form
 
 Retrieve a form.
 
-| Input         | Comments                                             | Default |
-| ------------- | ---------------------------------------------------- | ------- |
-| Form Id       | Unique ID for the form.                              |         |
-| Connection    |                                                      |         |
-| Debug Request | Enabling this flag will log out the current request. | false   |
+| Input      | Comments                | Default |
+| ---------- | ----------------------- | ------- |
+| Form Id    | Unique ID for the form. |         |
+| Connection |                         |         |
 
 ### Get Webhook
 
 Retrieve a single webhook.
 
-| Input         | Comments                                             | Default |
-| ------------- | ---------------------------------------------------- | ------- |
-| Form Id       | Unique ID for the form.                              |         |
-| Tag           | Unique name you want to use for the webhook.         |         |
-| Connection    |                                                      |         |
-| Debug Request | Enabling this flag will log out the current request. | false   |
+| Input      | Comments                                     | Default |
+| ---------- | -------------------------------------------- | ------- |
+| Form Id    | Unique ID for the form.                      |         |
+| Tag        | Unique name you want to use for the webhook. |         |
+| Connection |                                              |         |
 
 ### Get Workspace
 
 Retrieve a workspace.
 
-| Input         | Comments                                             | Default |
-| ------------- | ---------------------------------------------------- | ------- |
-| Workspace Id  | The workspace Id to retrieve.                        |         |
-| Connection    |                                                      |         |
-| Debug Request | Enabling this flag will log out the current request. | false   |
+| Input        | Comments                      | Default |
+| ------------ | ----------------------------- | ------- |
+| Workspace Id | The workspace Id to retrieve. |         |
+| Connection   |                               |         |
 
 ### List Account Workspaces
 
 Retrieve all workspaces you have access to within the specific account.
 
-| Input         | Comments                                                                    | Default |
-| ------------- | --------------------------------------------------------------------------- | ------- |
-| Connection    |                                                                             |         |
-| Account Id    | The unique identifier of the item to retrieve.                              |         |
-| Fetch All     | If true, it will fetch all the records ignoring the rest of the parameters. | false   |
-| Page          | The page of results to retrieve.                                            |         |
-| Page Size     | Number of results to retrieve per page. Default is 10. Maximum is 200.      |         |
-| Search        | Returns items that contain the specified string.                            |         |
-| Debug Request | Enabling this flag will log out the current request.                        | false   |
+| Input      | Comments                                                                    | Default |
+| ---------- | --------------------------------------------------------------------------- | ------- |
+| Connection |                                                                             |         |
+| Account Id | The unique identifier of the item to retrieve.                              |         |
+| Fetch All  | If true, it will fetch all the records ignoring the rest of the parameters. | false   |
+| Page       | The page of results to retrieve.                                            |         |
+| Page Size  | Number of results to retrieve per page. Default is 10. Maximum is 200.      |         |
+| Search     | Returns items that contain the specified string.                            |         |
 
 ### List Forms
 
 Retrieves a list of JSON descriptions for all forms in your Typeform account (public and private).
 
-| Input         | Comments                                                                    | Default |
-| ------------- | --------------------------------------------------------------------------- | ------- |
-| Connection    |                                                                             |         |
-| Fetch All     | If true, it will fetch all the records ignoring the rest of the parameters. | false   |
-| Page          | The page of results to retrieve.                                            |         |
-| Page Size     | Number of results to retrieve per page. Default is 10. Maximum is 200.      |         |
-| Search        | Returns items that contain the specified string.                            |         |
-| Workspace Id  | Retrieve typeforms for the specified workspace.                             |         |
-| Sort By       | Field to sort the results by.                                               |         |
-| Order By      | Order type.                                                                 |         |
-| Debug Request | Enabling this flag will log out the current request.                        | false   |
+| Input        | Comments                                                                    | Default |
+| ------------ | --------------------------------------------------------------------------- | ------- |
+| Connection   |                                                                             |         |
+| Fetch All    | If true, it will fetch all the records ignoring the rest of the parameters. | false   |
+| Page         | The page of results to retrieve.                                            |         |
+| Page Size    | Number of results to retrieve per page. Default is 10. Maximum is 200.      |         |
+| Search       | Returns items that contain the specified string.                            |         |
+| Workspace Id | Retrieve typeforms for the specified workspace.                             |         |
+| Sort By      | Field to sort the results by.                                               |         |
+| Order By     | Order type.                                                                 |         |
 
 ### List Responses
 
@@ -280,30 +264,27 @@ Returns form responses and date and time of form landing and submission.
 | Search              | Returns items that contain the specified string.                            |         |
 | Custom Query Params | Custom fields filter                                                        |         |
 | Connection          |                                                                             |         |
-| Debug Request       | Enabling this flag will log out the current request.                        | false   |
 
 ### List Webhooks
 
 Retrieve all webhooks for the specified Typeform.
 
-| Input         | Comments                                             | Default |
-| ------------- | ---------------------------------------------------- | ------- |
-| Form Id       | Unique ID for the form.                              |         |
-| Connection    |                                                      |         |
-| Debug Request | Enabling this flag will log out the current request. | false   |
+| Input      | Comments                | Default |
+| ---------- | ----------------------- | ------- |
+| Form Id    | Unique ID for the form. |         |
+| Connection |                         |         |
 
 ### List Workspaces
 
 Retrieve all workspaces the user has access to.
 
-| Input         | Comments                                                                    | Default |
-| ------------- | --------------------------------------------------------------------------- | ------- |
-| Connection    |                                                                             |         |
-| Fetch All     | If true, it will fetch all the records ignoring the rest of the parameters. | false   |
-| Page          | The page of results to retrieve.                                            |         |
-| Page Size     | Number of results to retrieve per page. Default is 10. Maximum is 200.      |         |
-| Search        | Returns items that contain the specified string.                            |         |
-| Debug Request | Enabling this flag will log out the current request.                        | false   |
+| Input      | Comments                                                                    | Default |
+| ---------- | --------------------------------------------------------------------------- | ------- |
+| Connection |                                                                             |         |
+| Fetch All  | If true, it will fetch all the records ignoring the rest of the parameters. | false   |
+| Page       | The page of results to retrieve.                                            |         |
+| Page Size  | Number of results to retrieve per page. Default is 10. Maximum is 200.      |         |
+| Search     | Returns items that contain the specified string.                            |         |
 
 ### Raw Request
 
@@ -322,7 +303,6 @@ Send raw HTTP request to Typeform API
 | Header                  | A list of headers to send with the request.                                                                                                                                                                    |         |
 | Response Type           | The type of data you expect in the response. You can request json, text, or binary data.                                                                                                                       | json    |
 | Timeout                 | The maximum time that a client will await a response to its request                                                                                                                                            |         |
-| Debug Request           | Enable this to log the request and response                                                                                                                                                                    | false   |
 | Retry Delay (ms)        | The delay in milliseconds between retries. This is used when 'Use Exponential Backoff' is disabled.                                                                                                            | 0       |
 | Retry On All Errors     | If true, retries on all erroneous responses regardless of type. This is helpful when retrying after HTTP 429 or other 3xx or 4xx errors. Otherwise, only retries on HTTP 5xx and network errors.               | false   |
 | Max Retry Count         | The maximum number of retries to attempt. Specify 0 for no retries.                                                                                                                                            | 0       |
@@ -332,20 +312,18 @@ Send raw HTTP request to Typeform API
 
 Update a form.
 
-| Input         | Comments                                             | Default |
-| ------------- | ---------------------------------------------------- | ------- |
-| Form Id       | Unique ID for the form.                              |         |
-| Operations    | Operations to perform on the data.                   |         |
-| Connection    |                                                      |         |
-| Debug Request | Enabling this flag will log out the current request. | false   |
+| Input      | Comments                           | Default |
+| ---------- | ---------------------------------- | ------- |
+| Form Id    | Unique ID for the form.            |         |
+| Operations | Operations to perform on the data. |         |
+| Connection |                                    |         |
 
 ### Update Workspace
 
 Update a workspace.
 
-| Input         | Comments                                             | Default |
-| ------------- | ---------------------------------------------------- | ------- |
-| Workspace Id  | The workspace Id to update.                          |         |
-| Operations    | Operations to perform on the data.                   |         |
-| Connection    |                                                      |         |
-| Debug Request | Enabling this flag will log out the current request. | false   |
+| Input        | Comments                           | Default |
+| ------------ | ---------------------------------- | ------- |
+| Workspace Id | The workspace Id to update.        |         |
+| Operations   | Operations to perform on the data. |         |
+| Connection   |                                    |         |

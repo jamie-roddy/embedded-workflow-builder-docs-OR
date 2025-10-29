@@ -93,7 +93,7 @@ Copy a file by file id
 | ---------- | --------------------------------------------------------------------------------------------------------------------- | ------- |
 | Connection | The Connection to use for authorization.                                                                              |         |
 | File ID    | A unique opaque ID for each file. File IDs are stable throughout the life of the file, even if the file name changes. |         |
-| File Name  | Provide a string for the name of the new file.                                                                        |         |
+| File Name  | The name of the file.                                                                                                 |         |
 | Folder ID  | A unique opaque ID for each folder.                                                                                   |         |
 
 ### Create File
@@ -105,18 +105,18 @@ Create a new file with content and metadata
 | Connection       | The Connection to use for authorization.                                                                                    |         |
 | Parent Folder Id | A unique opaque ID for each folder.                                                                                         |         |
 | File Content     | The binary or text body of the file. Some content examples you can store in Google Drive are images, videos, text, and PDF. |         |
-| File Name        | Provide a string for the name of the new file.                                                                              |         |
-| Fields           | Provide a comma separated list of values to be returned in the response.                                                    | \*      |
+| File Name        | The name of the file.                                                                                                       |         |
+| Fields           | A comma separated list of fields to return in the response.                                                                 | \*      |
 
 ### Create Folder
 
 Create a directory file
 
-| Input            | Comments                                         | Default |
-| ---------------- | ------------------------------------------------ | ------- |
-| Connection       | The Connection to use for authorization.         |         |
-| Folder Name      | Provide a string for the name of the new folder. |         |
-| Parent Folder Id | A unique opaque ID for each folder.              |         |
+| Input            | Comments                                 | Default |
+| ---------------- | ---------------------------------------- | ------- |
+| Connection       | The Connection to use for authorization. |         |
+| Folder Name      | The name of the folder.                  |         |
+| Parent Folder Id | A unique opaque ID for each folder.      |         |
 
 ### Create Webhook for Drive
 
@@ -126,7 +126,7 @@ Create a webhook to receive notifications of changes with a Google Drive
 | --------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------- |
 | Connection      | The Connection to use for authorization.                                                                                                                         |         |
 | Drive ID        | The ID of a shared drive to search for the file in. If not provided, the search will be performed across all drives. Enter 'my-drive' to search only "My Drive". |         |
-| Endpoint        | The URL to send notifications to                                                                                                                                 |         |
+| Endpoint        | The URL where webhook notifications will be sent.                                                                                                                |         |
 | Expiration Time | The time at which the webhook will expire as a UNIX timestamp in milliseconds. Defaults to 1 hour from now, and can be set to a maximum of 1 day from now.       |         |
 
 ### Create Webhook for File or Folder
@@ -137,7 +137,7 @@ Create a webhook to receive notifications of changes for a file or folder
 | ----------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- | ------- |
 | Connection        | The Connection to use for authorization.                                                                                                                   |         |
 | File or Folder ID |                                                                                                                                                            |         |
-| Endpoint          | The URL to send notifications to                                                                                                                           |         |
+| Endpoint          | The URL where webhook notifications will be sent.                                                                                                          |         |
 | Expiration Time   | The time at which the webhook will expire as a UNIX timestamp in milliseconds. Defaults to 1 hour from now, and can be set to a maximum of 1 day from now. |         |
 
 ### Delete File
@@ -148,7 +148,7 @@ Delete a file by file id
 | ---------- | --------------------------------------------------------------------------------------------------------------------- | ------- |
 | Connection | The Connection to use for authorization.                                                                              |         |
 | File ID    | A unique opaque ID for each file. File IDs are stable throughout the life of the file, even if the file name changes. |         |
-| Fields     | Provide a comma separated list of values to be returned in the response.                                              | \*      |
+| Fields     | A comma separated list of fields to return in the response.                                                           | \*      |
 
 ### Delete Webhook
 
@@ -172,10 +172,10 @@ Empty the trash of deleted files
 
 Gets information about the user's Drive, and system capabilities
 
-| Input      | Comments                                                                 | Default |
-| ---------- | ------------------------------------------------------------------------ | ------- |
-| Connection | The Connection to use for authorization.                                 |         |
-| Fields     | Provide a comma separated list of values to be returned in the response. | \*      |
+| Input      | Comments                                                    | Default |
+| ---------- | ----------------------------------------------------------- | ------- |
+| Connection | The Connection to use for authorization.                    |         |
+| Fields     | A comma separated list of fields to return in the response. | \*      |
 
 ### Get Current User
 
@@ -189,11 +189,11 @@ Get the information and metadata of the user that is currently logged in
 
 Gets a file's metadata and content by ID.
 
-| Input                 | Comments                                                                                                                                                                                                                           | Default |
-| --------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------- |
-| Connection            | The Connection to use for authorization.                                                                                                                                                                                           |         |
-| File ID               | A unique opaque ID for each file. File IDs are stable throughout the life of the file, even if the file name changes.                                                                                                              |         |
-| Preferred Export Type | Provide the type of file you want to export as. If the value you provided is not compatible, we will attempt the first option available in the objects export types. This value is only required when exporting a non binary file. |         |
+| Input                 | Comments                                                                                                                                  | Default |
+| --------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- | ------- |
+| Connection            | The Connection to use for authorization.                                                                                                  |         |
+| File ID               | A unique opaque ID for each file. File IDs are stable throughout the life of the file, even if the file name changes.                     |         |
+| Preferred Export Type | The MIME type to export the file as. If not compatible, the first available export type will be used. Only required for non-binary files. |         |
 
 ### Get File Metadata
 
@@ -203,7 +203,7 @@ Gets a file's metadata and content by ID.
 | ---------- | --------------------------------------------------------------------------------------------------------------------- | ------- |
 | Connection | The Connection to use for authorization.                                                                              |         |
 | File ID    | A unique opaque ID for each file. File IDs are stable throughout the life of the file, even if the file name changes. |         |
-| Fields     | Provide a comma separated list of values to be returned in the response.                                              |         |
+| Fields     | A comma separated list of fields to return in the response.                                                           |         |
 
 ### List Changes
 
@@ -230,10 +230,10 @@ Lists all available files and directories
 | ---------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------- |
 | Connection | The Connection to use for authorization.                                                                                                                         |         |
 | Drive ID   | The ID of a shared drive to search for the file in. If not provided, the search will be performed across all drives. Enter 'my-drive' to search only "My Drive". |         |
-| Page Size  | Provide an integer value for the maximum amount of results that will be returned. Provide a value from 1 to 50.                                                  | 20      |
+| Page Size  | The maximum number of results to return. Must be between 1 and 50.                                                                                               | 20      |
 | Page Token | Specify the pagination token that's returned by a previous request to retrieve the next page of results                                                          |         |
-| Fields     | Provide a comma separated list of values to be returned in the response.                                                                                         | \*      |
-| Query      | Provide a query to be used in the request. Refer to the Google documentation for examples: https://developers.google.com/drive/api/v3/search-files               |         |
+| Fields     | A comma separated list of fields to return in the response.                                                                                                      | \*      |
+| Query      | A query string to filter results. See [Google's documentation](https://developers.google.com/drive/api/v3/search-files) for query syntax.                        |         |
 
 ### List File's Export Types
 
@@ -252,9 +252,9 @@ Lists all available directories
 | ---------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------- |
 | Connection | The Connection to use for authorization.                                                                                                                         |         |
 | Drive ID   | The ID of a shared drive to search for the file in. If not provided, the search will be performed across all drives. Enter 'my-drive' to search only "My Drive". |         |
-| Page Size  | Provide an integer value for the maximum amount of results that will be returned. Provide a value from 1 to 50.                                                  | 20      |
+| Page Size  | The maximum number of results to return. Must be between 1 and 50.                                                                                               | 20      |
 | Page Token | Specify the pagination token that's returned by a previous request to retrieve the next page of results                                                          |         |
-| Fields     | Provide a comma separated list of values to be returned in the response.                                                                                         | \*      |
+| Fields     | A comma separated list of fields to return in the response.                                                                                                      | \*      |
 | Folder ID  | A unique opaque ID for each folder.                                                                                                                              |         |
 
 ### Move File
@@ -279,7 +279,7 @@ Query past activity in Google Drive.
 | Page Token             | Specify the pagination token that's returned by a previous request to retrieve the next page of results                        |         |
 | Filter                 | The filtering for items returned from this query request.                                                                      |         |
 | Consolidation Strategy | Details on how to consolidate related actions that make up the activity. If not set, then related actions aren't consolidated. |         |
-| Fetch All              | Whether to fetch all results or just the first page. Defaults to false.                                                        | false   |
+| Fetch All              | When true, fetches all pages of results using pagination.                                                                      | false   |
 
 ### Raw Request
 
@@ -308,29 +308,29 @@ Send raw HTTP request to Google Drive
 
 Search for an existing file by Name
 
-| Input                         | Comments                                                                                                                                           | Default |
-| ----------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- | ------- |
-| Connection                    | The Connection to use for authorization.                                                                                                           |         |
-| Search                        | Provide a string of text to perform a search with.                                                                                                 |         |
-| Files Containing Search Query | Wether or not to search for files that contains the provided 'searchQuery' in their name.                                                          | false   |
-| Page Size                     | Provide an integer value for the maximum amount of results that will be returned. Provide a value from 1 to 50.                                    | 20      |
-| Page Token                    | Specify the pagination token that's returned by a previous request to retrieve the next page of results                                            |         |
-| Fields                        | Provide a comma separated list of values to be returned in the response.                                                                           | \*      |
-| Query                         | Provide a query to be used in the request. Refer to the Google documentation for examples: https://developers.google.com/drive/api/v3/search-files |         |
-| Parent Folder Id              | A unique opaque ID for each folder.                                                                                                                |         |
+| Input                         | Comments                                                                                                                                  | Default |
+| ----------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- | ------- |
+| Connection                    | The Connection to use for authorization.                                                                                                  |         |
+| Search                        | Search terms to filter results.                                                                                                           |         |
+| Files Containing Search Query | When true, searches for files that contain the provided search query in their name.                                                       | false   |
+| Page Size                     | The maximum number of results to return. Must be between 1 and 50.                                                                        | 20      |
+| Page Token                    | Specify the pagination token that's returned by a previous request to retrieve the next page of results                                   |         |
+| Fields                        | A comma separated list of fields to return in the response.                                                                               | \*      |
+| Query                         | A query string to filter results. See [Google's documentation](https://developers.google.com/drive/api/v3/search-files) for query syntax. |         |
+| Parent Folder Id              | A unique opaque ID for each folder.                                                                                                       |         |
 
 ### Search Folders
 
 Search for an existing directory by Name
 
-| Input            | Comments                                                                                                        | Default |
-| ---------------- | --------------------------------------------------------------------------------------------------------------- | ------- |
-| Connection       | The Connection to use for authorization.                                                                        |         |
-| Search           | Provide a string of text to perform a search with.                                                              |         |
-| Page Size        | Provide an integer value for the maximum amount of results that will be returned. Provide a value from 1 to 50. | 20      |
-| Page Token       | Specify the pagination token that's returned by a previous request to retrieve the next page of results         |         |
-| Fields           | Provide a comma separated list of values to be returned in the response.                                        | \*      |
-| Parent Folder Id | A unique opaque ID for each folder.                                                                             |         |
+| Input            | Comments                                                                                                | Default |
+| ---------------- | ------------------------------------------------------------------------------------------------------- | ------- |
+| Connection       | The Connection to use for authorization.                                                                |         |
+| Search           | Search terms to filter results.                                                                         |         |
+| Page Size        | The maximum number of results to return. Must be between 1 and 50.                                      | 20      |
+| Page Token       | Specify the pagination token that's returned by a previous request to retrieve the next page of results |         |
+| Fields           | A comma separated list of fields to return in the response.                                             | \*      |
+| Parent Folder Id | A unique opaque ID for each folder.                                                                     |         |
 
 ### Update File
 
@@ -341,5 +341,5 @@ Updates a file's content by file id
 | Connection   | The Connection to use for authorization.                                                                                    |         |
 | File ID      | A unique opaque ID for each file. File IDs are stable throughout the life of the file, even if the file name changes.       |         |
 | File Content | The binary or text body of the file. Some content examples you can store in Google Drive are images, videos, text, and PDF. |         |
-| File Name    | Provide a string for the name of the new file.                                                                              |         |
-| Fields       | Provide a comma separated list of values to be returned in the response.                                                    | \*      |
+| File Name    | The name of the file.                                                                                                       |         |
+| Fields       | A comma separated list of fields to return in the response.                                                                 | \*      |

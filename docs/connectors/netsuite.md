@@ -13,34 +13,55 @@ Manage NetSuite records
 
 NetSuite OAuth 2.0 Connection
 
-:::warning Netsuite OAuth 2.0 Auth Code Flow expiration
-Tokens retrieved using Netsuite's OAuth 2.0 Auth Code flow expire after 7 days, and are not able to be refreshed.
-This requires a user to re-authenticate every 7 days, which is not a good user experience.
-We recommend using the OAuth 2.0 Client Credentials flow (described below) instead.
+To connect to NetSuite using OAuth 2.0 Authorization Code flow, create an OAuth 2.0 application in NetSuite with authorization code grant enabled.
+
+Refer to [NetSuite's OAuth 2.0 documentation](https://docs.oracle.com/en/cloud/saas/netsuite/ns-online-help/chapter_157769826287.html) for additional details.
+
+:::warning OAuth 2.0 Auth Code Flow Expiration
+Tokens retrieved using NetSuite's OAuth 2.0 Auth Code flow expire after 7 days and cannot be refreshed.
+This requires users to re-authenticate every 7 days, which is not a good user experience.
+**We recommend using the OAuth 2.0 Client Credentials flow instead.**
 :::
 
-To make API requests to NetSuite on behalf of your customers, your customer will need to create an OAuth 2.0 app.
-[NetSuite's OAuth 2.0](https://docs.oracle.com/en/cloud/saas/netsuite/ns-online-help/chapter_157769826287.html) documentation details the steps that need to be taken.
+#### Prerequisites
 
-As an administrator, your customer will need to:
+- NetSuite administrator access
+- SuiteTalk enabled in the NetSuite account
 
-1. Enable SuiteTalk
-   - Click **Setup** -> **Company** -> **Enable Features**
+#### Setup Steps
+
+1. Enable SuiteTalk:
+   - Navigate to **Setup** > **Company** > **Enable Features**
    - Under the **Suite Cloud** tab, ensure **REST WEB SERVICES** and **OAUTH 2.0** are both checked
 
-1. Create an OAuth 2.0 app
-   - Click **Setup** -> **Integration** -> **Manage Integrations** -> **New**
-   - Give your integration a name and description
-   - Un-check **TOKEN-BASED AUTHENTICATION** and **TBA: AUTHORIZATION FLOW** under **Token-based Authentication**
-   - Ensure **AUTHORIZATION CODE GRANT**" and **REST WEB SERVICES** are checked under **OAuth 2.0**
-   - Enable **REST WEB SERVICES** under **SCOPE**
-   - Enter `https://oauth2.%WHITE_LABEL_BASE_URL%/callback` as your **REDIRECT URI**
-   - Take note of your **CONSUMER KEY** and **CONSUMER SECRET**
+2. Create an OAuth 2.0 Application:
+   - Navigate to **Setup** > **Integration** > **Manage Integrations** > **New**
+   - Enter a name and description for the integration
+   - Under **Token-based Authentication**, un-check **TOKEN-BASED AUTHENTICATION** and **TBA: AUTHORIZATION FLOW**
+   - Under **OAuth 2.0**, ensure the following are checked:
+     - **AUTHORIZATION CODE GRANT**
+     - **REST WEB SERVICES**
+   - Under **SCOPE**, enable **REST WEB SERVICES**
+   - Set the **REDIRECT URI** to: `https://oauth2.%WHITE_LABEL_BASE_URL%/callback`
+   - After saving, copy the **CONSUMER KEY** and **CONSUMER SECRET**
 
-1. Create OAuth 2.0 Roles
-   - Ensure that any user who wishes to log in via OAuth has been assigned a [proper role](https://docs.oracle.com/en/cloud/saas/netsuite/ns-online-help/section_157771510070.html).
+3. Configure OAuth 2.0 Roles:
+   - Ensure that users who will authenticate via OAuth have been assigned a [proper role](https://docs.oracle.com/en/cloud/saas/netsuite/ns-online-help/section_157771510070.html) with appropriate permissions
 
-As an integration developer, you will need to mark **Consumer Key**, **Consumer Secret**, and **Token URL** organization- and customer-visible, as your end user will need to edit them with their own values.
+#### Configure the Connection
+
+- Enter the **Consumer Key** (Client ID) and **Consumer Secret** (Client Secret) from the NetSuite integration
+- **Token URL**: Enter the NetSuite account's token URL in the format: `https://[ACCOUNT_ID].suitetalk.api.netsuite.com/services/rest/auth/oauth2/v1/token`
+  - Replace `[ACCOUNT_ID]` with the NetSuite account ID (found in **Setup** > **Company** > **Company Information**)
+  - Example: `https://1234567.suitetalk.api.netsuite.com/services/rest/auth/oauth2/v1/token`
+
+#### Verify Connection
+
+Save the connection to authenticate with NetSuite. Users will be redirected to NetSuite to authorize access.
+
+:::note Token Re-authentication Required
+Tokens expire after 7 days and cannot be refreshed. Users will need to re-authenticate every 7 days by opening the connection configuration and re-authorizing.
+:::
 
 This connection uses OAuth 2.0, a common authentication mechanism for integrations.
 Read about how OAuth 2.0 works [here](../oauth2.md).
@@ -55,49 +76,90 @@ Read about how OAuth 2.0 works [here](../oauth2.md).
 
 Netsuite OAuth 2.0 Client Credentials Connection
 
-Connecting to NetSuite using Client Credentials (JWT)
-To make API requests to NetSuite on behalf of your customers, your customer will need to configure an OAuth 2.0 app with JWT option. NetSuite's OAuth 2.0 documentation provides detailed steps for setting this up.
-[OAuth Client Credentials Setup](https://docs.oracle.com/en/cloud/saas/netsuite/ns-online-help/section_162686838198.html#subsect_162686947286) documentation details the steps that need to be taken.
+To connect to NetSuite using OAuth 2.0 Client Credentials, configure an OAuth 2.0 application with the Client Credentials (M2M) grant in NetSuite.
 
-As an administrator, your customer will need to:
+This authentication method is recommended for server-to-server integrations and provides a better user experience than the Authorization Code flow, as credentials do not expire and require no user re-authentication.
 
-1. Enable SuiteTalk
+Refer to [NetSuite's OAuth Client Credentials documentation](https://docs.oracle.com/en/cloud/saas/netsuite/ns-online-help/section_162686838198.html#subsect_162686947286) for additional details.
+
+#### Prerequisites
+
+- NetSuite administrator access
+- SuiteTalk enabled in the NetSuite account
+- OpenSSL installed on the local machine (for certificate generation)
+
+#### Setup Steps
+
+1. Enable SuiteTalk:
    - Navigate to **Setup** > **Company** > **Enable Features**
-   - Under the **Suite Cloud** tab, ensure that both **REST WEB SERVICES** and **OAUTH 2.0** are checked.
+   - Under the **Suite Cloud** tab, ensure both **REST WEB SERVICES** and **OAUTH 2.0** are checked
 
-1. To Create an OAuth 2.0 app with JWT Option
-   - Go to Setup > Integration > Manage Integrations > New
-   - Give your integration a name and a description.
-   - Un-check **TOKEN-BASED AUTHENTICATION** and **TBA: AUTHORIZATION FLOW** under Token-based Authentication
-   - Ensure the following are checked under OAuth 2.0
+2. Create an OAuth 2.0 Application with JWT Option:
+   - Navigate to **Setup** > **Integration** > **Manage Integrations** > **New**
+   - Enter a name and description for the integration
+   - Under **Token-based Authentication**, un-check **TOKEN-BASED AUTHENTICATION** and **TBA: AUTHORIZATION FLOW**
+   - Under **OAuth 2.0**, ensure the following are checked:
      - **REST WEB SERVICES**
      - **CLIENT CREDENTIALS (MACHINE TO MACHINE) GRANT**
-   - Enable **REST WEB SERVICES** under SCOPE
-   - Take note of and save your **CONSUMER KEY** and **CONSUMER SECRET** as it will not be shown again in Netsuite after this step
+   - Under **SCOPE**, enable **REST WEB SERVICES**
+   - After saving, copy the **CONSUMER KEY** — it will not be shown again in NetSuite
 
-1. Generating the Certificate ID and Private Key for JWT
-   - A private key is required for JWT-based authentication. Follow the steps below or refer to the [NetSuite Documentation](https://docs.oracle.com/en/cloud/saas/netsuite/ns-online-help/section_162686838198.html#Related-Topics) for generating or importing a private key.
-   - On your machine create a valid certificate abiding by the Netsuite requirements using OpenSSL in a terminal. This will generate .pem files on your local machine containing key used as the **Private Key for JWT** information and the certificate for the next step
+3. Generate Certificate and Private Key for JWT:
 
+   A private key and certificate are required for JWT-based authentication. Refer to the [NetSuite documentation](https://docs.oracle.com/en/cloud/saas/netsuite/ns-online-help/section_162686838198.html#Related-Topics) for more information on generating or importing certificates.
+   - On the local machine, generate a valid certificate using OpenSSL:
+
+     ```bash
+     openssl req -new -x509 -newkey rsa:4096 -keyout private.pem \
+       -sigopt rsa_padding_mode:pss -sha256 -sigopt rsa_pss_saltlen:64 \
+       -out public.pem -nodes -days 730
      ```
-     openssl req -new -x509 -newkey rsa:4096 -keyout private.pem -sigopt rsa_padding_mode:pss -sha256 -sigopt rsa_pss_saltlen:64 -out public.pem -nodes -days 730
-     ```
 
-   - In Netsuite, navigate to Setup > Integration > OAUTH 2.0 CLIENT (M2M) SETUP and select **Create New**
-   - Choose the proper **Entity**, **Role**, and select the **Application** created in the previous section.
-   - For **Certificate** choose the the public key you create - that is the `public.pem` file that was generated in the above `openssl` steps.
-   - Once saved, a **Certificate ID** is generated. Save this for the workflow.
+     This command will:
+     - Generate a new RSA 4096-bit key pair with PSS padding
+     - Create a self-signed X.509 certificate valid for 730 days (2 years)
+     - Output two files in the current directory:
+       - `private.pem` - The private key (keep this secure)
+       - `public.pem` - The public certificate (upload to NetSuite)
 
-1. In your connection configuration select the **Netsuite OAuth 2.0 Client Credentials** connection type and enter the following:
-   - Certificate ID from OAUTH 2.0 CLIENT (M2M) SETUP
-   - Private Key from the `private.pem` file you created above. Copy the entire text including the `-----BEGIN PRIVATE KEY-----` and `-----END PRIVATE KEY-----` text
-   - Consumer Key (Client ID) from the Netsuite integration
-   - Consumer Secret (Client Secret) from the Netsuite integration
+     The system will prompt to enter certificate details (country, organization, common name, etc.). Press Enter to skip these prompts, though providing values helps with tracking and identification.
 
-1. Create OAuth 2.0 Roles
+:::warning Private Key Security
+The `private.pem` file contains the private key and must be kept secure. Never commit this file to version control, share it publicly, or store it in an unsecured location. Only the application should have access to this file.
+:::
 
-Ensure that any user who wishes to log in via OAuth has been assigned a proper role.
-As an integration developer, you will need to mark Consumer Key, Consumer Secret, Token URL, and Certificate ID as organization- and customer-visible, as your end user will need to edit them with their own values.
+4. Configure OAuth 2.0 Client (M2M) in NetSuite:
+   - Navigate to **Setup** > **Integration** > **OAUTH 2.0 CLIENT (M2M) SETUP** and select **Create New**
+   - Choose the appropriate **Entity** and **Role**
+   - Select the **Application** created in step 2
+   - For **Certificate**, upload the `public.pem` file generated in step 3
+   - After saving, NetSuite will generate a **Certificate ID** (a unique identifier in the format `custcertificate123`). Copy this value — it is needed to configure the connection.
+
+5. Assign Roles:
+   - Ensure that the entity used in the OAuth 2.0 Client setup has been assigned appropriate [roles and permissions](https://docs.oracle.com/en/cloud/saas/netsuite/ns-online-help/section_157771510070.html)
+
+#### Configure the Connection
+
+When configuring the NetSuite OAuth 2.0 Client Credentials connection, enter the following values:
+
+- **Certificate ID**: From the OAuth 2.0 Client (M2M) setup in step 4
+- **Private Key**: The entire contents of the `private.pem` file from step 3. Copy the full file including the header and footer lines. Format example:
+  ```
+  -----BEGIN PRIVATE KEY-----
+  MIIJQwIBADANBgkqhkiG9w0BAQEFAASCCS0wggkpAgEAAoICAQC...
+  ...key content here...
+  -----END PRIVATE KEY-----
+  ```
+- **Consumer Key** (Client ID): From the integration created in step 2
+- **Token URL**: The NetSuite account's token URL in the format: `https://[ACCOUNT_ID].suitetalk.api.netsuite.com/services/rest/auth/oauth2/v1/token`
+  - Replace `[ACCOUNT_ID]` with the NetSuite account ID (found in **Setup** > **Company** > **Company Information**)
+  - Example: `https://1234567.suitetalk.api.netsuite.com/services/rest/auth/oauth2/v1/token`
+
+#### Verify Connection
+
+Save the connection. The integration will authenticate to NetSuite using JWT-based client credentials. No user interaction is required, and credentials do not expire unless the certificate reaches its expiration date (730 days by default).
+
+To test the connection, try running a simple action like **Make Raw Request** with a GET request to `/services/rest/record/v1/metadata-catalog/` to verify the connection works correctly.
 
 | Input                    | Comments                                                                                                                                                                                           | Default                                                                            |
 | ------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- |
@@ -117,18 +179,18 @@ Create record of specified type
 | Connection  |                                                                                                                                                                  |                                                                                                                                          |
 | Record Type | Record type to perform the action against.                                                                                                                       |                                                                                                                                          |
 | Payload     | Data payload to send in the action request. See https://system.netsuite.com/help/helpcenter/en_US/APIs/REST_API_Browser/record/v1/2022.1/index.html for details. | <code>{<br /> "entityid": "New Customer",<br /> "companyname": "My Company",<br /> "subsidiary": {<br /> "id": "1"<br /> }<br />}</code> |
-| Debug       | Enable for additional logging information.                                                                                                                       | false                                                                                                                                    |
+| Debug       | When true, enables additional logging information.                                                                                                               | false                                                                                                                                    |
 
 ### Delete Record
 
 Delete record of the specified type
 
-| Input       | Comments                                   | Default |
-| ----------- | ------------------------------------------ | ------- |
-| Connection  |                                            |         |
-| Record Type | Record type to perform the action against. |         |
-| Record ID   | The ID of the record you want.             |         |
-| Debug       | Enable for additional logging information. | false   |
+| Input       | Comments                                           | Default |
+| ----------- | -------------------------------------------------- | ------- |
+| Connection  |                                                    |         |
+| Record Type | Record type to perform the action against.         |         |
+| Record ID   | The unique identifier of the record.               |         |
+| Debug       | When true, enables additional logging information. | false   |
 
 ### Get Record
 
@@ -138,11 +200,11 @@ Get record of specified type
 | -------------------- | --------------------------------------------------------------------------------------------------- | ------- |
 | Connection           |                                                                                                     |         |
 | Record Type          | Record type to perform the action against.                                                          |         |
-| Record ID            | The ID of the record you want.                                                                      |         |
-| Expand Sub-Resources | Enable to automatically expand all sublists, sublist lines, and subrecords on this record.          | false   |
-| Simple Enum Format   | Enable to return enumeration values in a format that only shows the internal ID value.              | false   |
+| Record ID            | The unique identifier of the record.                                                                |         |
+| Expand Sub-Resources | When true, automatically expands all sublists, sublist lines, and subrecords on this record.        | false   |
+| Simple Enum Format   | When true, returns enumeration values in a format that only shows the internal ID value.            | false   |
 | Fields to Return     | Specific fields and sublists to return in the request. If unspecified, the full record is returned. |         |
-| Debug                | Enable for additional logging information.                                                          | false   |
+| Debug                | When true, enables additional logging information.                                                  | false   |
 
 ### List Records
 
@@ -155,7 +217,7 @@ List records of specified type
 | Query             | Query to filter records by. See https://docs.oracle.com/en/cloud/saas/netsuite/ns-online-help/section_1545222128.html for details. |         |
 | Pagination Limit  | Fetch only this many records at a time.                                                                                            | 1000    |
 | Pagination Offset | Fetch records offset by this value.                                                                                                |         |
-| Debug             | Enable for additional logging information.                                                                                         | false   |
+| Debug             | When true, enables additional logging information.                                                                                 | false   |
 
 ### Raw Request
 
@@ -191,7 +253,7 @@ Execute a SuiteQL Query through Netsuite's REST Web Service
 | Pagination Limit  | Fetch only this many records at a time.                                                                                                              | 1000                                                             |
 | Pagination Offset | Fetch records offset by this value.                                                                                                                  |                                                                  |
 | SuiteQL Payload   | Data payload to send in the action request. See https://docs.oracle.com/en/cloud/saas/netsuite/ns-online-help/section_157909186990.html for details. | SELECT email, COUNT(\*) as count FROM transaction GROUP BY email |
-| Debug             | Enable for additional logging information.                                                                                                           | false                                                            |
+| Debug             | When true, enables additional logging information.                                                                                                   | false                                                            |
 
 ### Update Record
 
@@ -201,8 +263,8 @@ Update record of the specified type
 | ----------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
 | Connection              |                                                                                                                                                                  |                                                                                                                                          |
 | Record Type             | Record type to perform the action against.                                                                                                                       |                                                                                                                                          |
-| Record ID               | The ID of the record you want.                                                                                                                                   |                                                                                                                                          |
+| Record ID               | The unique identifier of the record.                                                                                                                             |                                                                                                                                          |
 | Payload                 | Data payload to send in the action request. See https://system.netsuite.com/help/helpcenter/en_US/APIs/REST_API_Browser/record/v1/2022.1/index.html for details. | <code>{<br /> "entityid": "New Customer",<br /> "companyname": "My Company",<br /> "subsidiary": {<br /> "id": "1"<br /> }<br />}</code> |
 | Replace                 | Names of sublists on this record. All specified sublists will be replaced instead of added to.                                                                   |                                                                                                                                          |
-| Replace Selected Fields | If enabled, delete all fields, including body fields, specified in the Replace input.                                                                            | false                                                                                                                                    |
-| Debug                   | Enable for additional logging information.                                                                                                                       | false                                                                                                                                    |
+| Replace Selected Fields | When true, deletes all fields, including body fields, specified in the Replace input.                                                                            | false                                                                                                                                    |
+| Debug                   | When true, enables additional logging information.                                                                                                               | false                                                                                                                                    |

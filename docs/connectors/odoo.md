@@ -11,6 +11,8 @@ Manage records in an Odoo database
 
 ### Odoo Connection
 
+Connect to your Odoo instance
+
 Customers can use Odoo's cloud service to access an Odoo database, or they can run Odoo on their own servers.
 Either way, Odoo uses basic auth to connect to an Odoo database.
 
@@ -37,12 +39,12 @@ Either way, Odoo uses basic auth to connect to an Odoo database.
 
 Create a new record of a given type
 
-| Input       | Comments                                                                                                     | Default                                                                                                                                                      |
-| ----------- | ------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| Connection  |                                                                                                              |                                                                                                                                                              |
-| Model       | The type of record you would like to query for. Use the 'List Models' action for a list of available models. |                                                                                                                                                              |
-| Parameters  |                                                                                                              | <code>{<br /> "name": "John Doe",<br /> "email": "doe@example.com",<br /> "country_code": "US",<br /> "city": "New York",<br /> "zip": "10001"<br />}</code> |
-| External ID | A unique identifier mapping this record to an ID in an external system                                       |                                                                                                                                                              |
+| Input       | Comments                                                                                                     | Default |
+| ----------- | ------------------------------------------------------------------------------------------------------------ | ------- |
+| Connection  |                                                                                                              |         |
+| Model       | The type of record you would like to query for. Use the 'List Models' action for a list of available models. |         |
+| Parameters  | A JSON object of field names and values to set on the record.                                                |         |
+| External ID | A unique identifier mapping this record to an ID in an external system.                                      |         |
 
 ### Delete Record By ID
 
@@ -58,10 +60,10 @@ Delete a record by its numerical ID
 
 Get a record by its external ID
 
-| Input       | Comments                                                               | Default |
-| ----------- | ---------------------------------------------------------------------- | ------- |
-| Connection  |                                                                        |         |
-| External ID | A unique identifier mapping this record to an ID in an external system |         |
+| Input       | Comments                                                                | Default |
+| ----------- | ----------------------------------------------------------------------- | ------- |
+| Connection  |                                                                         |         |
+| External ID | A unique identifier mapping this record to an ID in an external system. |         |
 
 ### Get Record By ID
 
@@ -86,22 +88,26 @@ List all fields for a given model
 
 Fetch a list of models installed in the customer's Odoo database
 
-| Input        | Comments                                               | Default |
-| ------------ | ------------------------------------------------------ | ------- |
-| Connection   |                                                        |         |
-| Name Search  | Search for models whose names contain this search term |         |
-| Model Search | Search for models whose contain this search term       |         |
+| Input             | Comments                                                                                                                                      | Default |
+| ----------------- | --------------------------------------------------------------------------------------------------------------------------------------------- | ------- |
+| Fetch All Records | Whether to fetch all records.                                                                                                                 | false   |
+| Name Search       | Search for models whose names contain this search term.                                                                                       |         |
+| Model Search      | Search for models whose contain this search term.                                                                                             |         |
+| Pagination Limit  | Fetch only this many records at a time. See [Pagination](https://www.odoo.com/documentation/15.0/developer/api/external_api.html#pagination). |         |
+| Pagination Offset | Fetch records offset by this value. See [Pagination](https://www.odoo.com/documentation/15.0/developer/api/external_api.html#pagination).     |         |
+| Connection        |                                                                                                                                               |         |
 
 ### List Records
 
 Fetch a list of records of a given type
 
-| Input             | Comments                                                                                                                       | Default |
-| ----------------- | ------------------------------------------------------------------------------------------------------------------------------ | ------- |
-| Connection        |                                                                                                                                |         |
-| Model             | The type of record you would like to query for. Use the 'List Models' action for a list of available models.                   |         |
-| Pagination Limit  | Fetch only this many records at a time. See https://www.odoo.com/documentation/15.0/developer/api/external_api.html#pagination |         |
-| Pagination Offset | Fetch records offset by this value. See https://www.odoo.com/documentation/15.0/developer/api/external_api.html#pagination     |         |
+| Input             | Comments                                                                                                                                      | Default |
+| ----------------- | --------------------------------------------------------------------------------------------------------------------------------------------- | ------- |
+| Fetch All Records | Whether to fetch all records.                                                                                                                 | false   |
+| Model             | The type of record you would like to query for. Use the 'List Models' action for a list of available models.                                  |         |
+| Pagination Limit  | Fetch only this many records at a time. See [Pagination](https://www.odoo.com/documentation/15.0/developer/api/external_api.html#pagination). |         |
+| Pagination Offset | Fetch records offset by this value. See [Pagination](https://www.odoo.com/documentation/15.0/developer/api/external_api.html#pagination).     |         |
+| Connection        |                                                                                                                                               |         |
 
 ### Raw Request
 
@@ -111,8 +117,8 @@ Issue any execute_kw action
 | ---------- | ------------------------------------------------------------------------------------------------------------ | ----------------------- |
 | Connection |                                                                                                              |                         |
 | Model      | The type of record you would like to query for. Use the 'List Models' action for a list of available models. |                         |
-| Method     | The action to execute in Odoo                                                                                |                         |
-| Parameters |                                                                                                              | <code>[["read"]]</code> |
+| Method     | The action to execute in Odoo.                                                                               |                         |
+| Parameters | A JSON object of field names and values to set on the record.                                                | <code>[["read"]]</code> |
 
 ### Set External ID
 
@@ -123,15 +129,15 @@ Add an external ID to a record that does not have one
 | Connection  |                                                                                                              |         |
 | Model       | The type of record you would like to query for. Use the 'List Models' action for a list of available models. |         |
 | Record ID   | The ID of the record you want. Odoo uses numbers for record IDs.                                             |         |
-| External ID | A unique identifier mapping this record to an ID in an external system                                       |         |
+| External ID | A unique identifier mapping this record to an ID in an external system.                                      |         |
 
 ### Update Record
 
 Update an existing record of a given type
 
-| Input      | Comments                                                                                                     | Default                                                                                                                                                      |
-| ---------- | ------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| Connection |                                                                                                              |                                                                                                                                                              |
-| Model      | The type of record you would like to query for. Use the 'List Models' action for a list of available models. |                                                                                                                                                              |
-| Record ID  | The ID of the record you want. Odoo uses numbers for record IDs.                                             |                                                                                                                                                              |
-| Parameters |                                                                                                              | <code>{<br /> "name": "John Doe",<br /> "email": "doe@example.com",<br /> "country_code": "US",<br /> "city": "New York",<br /> "zip": "10001"<br />}</code> |
+| Input      | Comments                                                                                                     | Default |
+| ---------- | ------------------------------------------------------------------------------------------------------------ | ------- |
+| Connection |                                                                                                              |         |
+| Model      | The type of record you would like to query for. Use the 'List Models' action for a list of available models. |         |
+| Record ID  | The ID of the record you want. Odoo uses numbers for record IDs.                                             |         |
+| Parameters | A JSON object of field names and values to set on the record.                                                |         |

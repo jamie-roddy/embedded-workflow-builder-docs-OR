@@ -13,13 +13,76 @@ Manage records and associations in the HubSpot CRM platform
 
 Authenticate requests to Hubspot using OAuth 2.0.
 
-The HubSpot component authenticates requests through a OAuth 2.0 credential.
-Information on how to generate an OAuth 2.0 credential with HubSpot can be found [here](https://developers.hubspot.com/docs/api/working-with-oauth)
-Now, you will have to configure a new OAuth 2.0 HubSpot connection.
+### Creating an App via the CLI
 
-- For **Client ID** and **Client Secret** enter the values that you got from the HubSpot auth settings.
-- For **Scopes** choose from the list found on the HubSpot [docs](https://developers.hubspot.com/docs/api/working-with-oauth)
-- Under the **Redirect URLs** section add `https://oauth2.%WHITE_LABEL_BASE_URL%/callback`.
+The [app creation guide](https://developers.hubspot.com/docs/apps/developer-platform/build-apps/create-an-app) walks you through how to get up and running with a basic app that uses a boilerplate example project and schema definition.
+
+Refer to this [quick reference guide](https://developers.hubspot.com/docs/getting-started/quickstart) to get started on the latest version of HubSpot’s developer platform.
+
+1. Install the HubSpot CLI (version 7.6.0 or higher):
+
+   ```bash
+   npm install -g @hubspot/cli
+   ```
+
+2. Authenticate the CLI with your HubSpot developer account:
+
+   ```bash
+   hs account auth
+   ```
+
+3. Create a new app project:
+
+   ```bash
+   hs project create
+   ```
+   - Select **App** as the project template
+   - Choose your distribution type (marketplace or private/specific accounts)
+   - Select **OAuth** as the authentication method
+   - Optionally select app features you need (Card, App Function, Settings, Webhooks, Custom Workflow Action)
+
+4. Configure your app by editing the generated `app-hsmeta.json` file:
+   - Update app name, description, and required scopes
+   - Add redirect URLs for OAuth authentication
+
+5. Upload your app project to HubSpot:
+
+   ```bash
+   hs project upload
+   ```
+
+   If you receive the following message you will need to change the directory to the project folder where the app was created:
+
+   ```
+   [ERROR] Unable to locate a project configuration file. Try running again from a project directory, or run `hs project create` to create a new project.
+   ```
+
+6. Open your project in the HubSpot developer portal to retrieve credentials:
+   ```bash
+   hs project open
+   ```
+   Navigate to the **Auth** tab to copy your **Client ID** and **Client Secret**
+
+For more details, see the [HubSpot CLI documentation](https://developers.hubspot.com/docs/apps/developer-platform/build-apps/create-an-app).
+
+To configure your OAuth 2.0 HubSpot connection:
+
+- For **Client ID** and **Client Secret** enter the values from your app's Auth page
+- For **Scopes** choose from the available scopes based on your integration needs (see HubSpot [OAuth documentation](https://developers.hubspot.com/docs/api/working-with-oauth) for details)
+- Under the **Redirect URLs** section add `https://oauth2.%WHITE_LABEL_BASE_URL%/callback`
+
+### Creating a Legacy app
+
+Legacy apps will continue to work, but they won't receive new features or platform improvements from HubSpot.
+
+1. Create a [HubSpot developer account](https://developers.hubspot.com/) if you don't already have one
+2. Navigate to your [HubSpot developer account](https://app.hubspot.com/developer)
+3. Click **Create app** to create a new public app
+4. Fill in your app details (name, description, etc.)
+5. Navigate to the **Auth** tab of your newly created app
+6. Copy the **Client ID** and **Client Secret** from this page
+7. Add your redirect URL as `https://oauth2.%WHITE_LABEL_BASE_URL%/callback` to the **Redirect URLs** section
+8. Configure the required scopes for your integration in the **Scopes** section
 
 This connection uses OAuth 2.0, a common authentication mechanism for integrations.
 Read about how OAuth 2.0 works [here](../oauth2.md).

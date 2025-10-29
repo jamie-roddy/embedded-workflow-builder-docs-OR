@@ -13,37 +13,66 @@ Use the DocuSign component to manage signature collection and document distribut
 
 OAuth 2.0 connection for DocuSign
 
-Docusign requires a Developer Account to create applications for integrations. Create an account at [Developers.docusign.com](https://developers.docusign.com/) for more information.
+To connect to DocuSign using OAuth 2.0, a Developer Account is required to create integration applications.
 
-To Create an App for Docusign for your Developer Account:
+#### Prerequisites
 
-1. Login to your [DocuSign Developer Account](https://developers.docusign.com/auth/docusign-demo/)
-2. Click on your profile icon in the top right hand corner and select **My Apps & Keys**
-3. Select Add App and Integration Key to create a new application
-4. Note your Integration Key and under the Secret Keys section select **Add Secret Key** and copy your generated secret key
-5. In Additional settings under **Redirect URI’s** enter `https://oauth2.%WHITE_LABEL_BASE_URL%/callback` as the value
-6. Save the App and enter the Integration Key and Secret Key values into the designated fields of your integration’s connection configuration.
+- A [DocuSign Developer Account](https://developers.docusign.com/) is required
+- Access to the DocuSign Admin Console
 
-The DocuSign Oauth connection requires you to add an Authorization Header with a combination of your integration and secret keys concatenated by a colon character, converted into base64, and prefixed with the word Basic.\
-If your integration key is
-7c2b8d7e-xxxx-xxxx-xxxx-cda8a50dd73f
-and the secret key is
-d7014634-xxxx-xxxx-xxxx-6842b7aa8861,
+#### Setup Steps
 
-You may use the following [Base64 Encoder](https://www.base64encode.org/). In the first box enter in the format of `<integration key>:<secret key>` 'example: 7c2b8d7e-xxxx-xxxx-xxxx-cda8a50dd73f:d7014634-xxxx-xxxx-xxxx-6842b7aa8861' and select the ENCODE button.
-The encoded results will appear below `example: NWMyYjhkN2.....hODg2MQ==`
-Enter the Authorization Header value in your connection configuration as `Basic <encoded results>` example: `Basic NWMyYjhkN2.....hODg2MQ==`
+1. Log in to the [DocuSign Developer Account](https://developers.docusign.com/auth/docusign-demo/)
+2. Click on the profile icon in the top right corner and select **My Apps & Keys**
+3. Click **Add App and Integration Key** to create a new application
+4. Enter the required application details
+5. Under **Redirect URIs** in the Additional settings section, add the OAuth callback URL: `https://oauth2.%WHITE_LABEL_BASE_URL%/callback`
+6. Under the **Secret Keys** section, click **Add Secret Key** to generate a secret key
+7. Copy the **Integration Key** (Client ID) and the newly generated **Secret Key** (Client Secret)
+8. Click **Save** to save the application configuration
 
-You may also get the base64 value in a JavaScript console with the following method call:
+For more information on creating DocuSign integrations, refer to the [DocuSign Developer Documentation](https://developers.docusign.com/docs/esign-rest-api/esign101/auth/).
 
-```javascript
-btoa(
-  "7c2b8d7e-xxxx-xxxx-xxxx-cda8a50dd73f:d7014634-xxxx-xxxx-xxxx-6842b7aa8861",
-);
-```
+#### Configure the Connection
 
-This method call results in a new authorization header value: `NWMyYjhkN2.....hODg2MQ==`.\
-The final header value will be `Basic NWMyYjhkN2.....hODg2MQ==`.
+The DocuSign OAuth 2.0 connection requires the following fields:
+
+- **Client ID** (Integration Key): Enter the Integration Key from step 7
+- **Client Secret** (Secret Key): Enter the Secret Key from step 7
+- **Authorization Header**: This field requires a Base64-encoded value in the format `Basic <encoded_credentials>`
+
+To create the Authorization Header value:
+
+1. Combine the Integration Key and Secret Key with a colon separator in the format: `<integration_key>:<secret_key>`
+   - Example: `7c2b8d7e-xxxx-xxxx-xxxx-cda8a50dd73f:d7014634-xxxx-xxxx-xxxx-6842b7aa8861`
+
+2. Encode this string to Base64 using one of the following methods:
+
+   **Option A: Using an online encoder**
+   - Navigate to a [Base64 Encoder](https://www.base64encode.org/)
+   - Enter the combined key string in the format above
+   - Click **ENCODE**
+   - Copy the encoded result (e.g., `NWMyYjhkN2.....hODg2MQ==`)
+
+   **Option B: Using JavaScript**
+   - Open a JavaScript console and run:
+     ```javascript
+     btoa(
+       "7c2b8d7e-xxxx-xxxx-xxxx-cda8a50dd73f:d7014634-xxxx-xxxx-xxxx-6842b7aa8861",
+     );
+     ```
+   - Copy the returned Base64 string
+
+3. Enter the **Authorization Header** value as: `Basic <base64_encoded_string>`
+   - Example: `Basic NWMyYjhkN2.....hODg2MQ==`
+
+#### Verify Connection
+
+After configuring the connection, save the integration to authenticate with DocuSign. The OAuth flow will prompt for user authorization to complete the connection.
+
+:::note Developer vs Production Environments
+DocuSign has separate environments for development and production. Developer accounts use the demo environment at `account-d.docusign.com`. For production environments, ensure the application is published and promoted in the DocuSign Admin Console. Refer to the [DocuSign Go-Live documentation](https://developers.docusign.com/docs/esign-rest-api/go-live/) for more details.
+:::
 
 This connection uses OAuth 2.0, a common authentication mechanism for integrations.
 Read about how OAuth 2.0 works [here](../oauth2.md).
@@ -67,7 +96,7 @@ Get notified when an event occurs at the account.
 | ------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------- |
 | Connect Key   | This key is used to create the HMAC hash that DocuSign will send along with the message. Check https://developers.docusign.com/platform/webhooks/connect/setting-up-hmac/ for instructions on how to generate a key. |         |
 | Connection    |                                                                                                                                                                                                                      |         |
-| Webhook Event |                                                                                                                                                                                                                      |         |
+| Webhook Event | The list of event types to subscribe to.                                                                                                                                                                             |         |
 
 ## Actions
 
@@ -96,7 +125,7 @@ Creates a new DocuSign account.
 | Included Seats       | The number of seats (users) included in the plan.                                 |         |
 | Job Title            | The user's job title.                                                             |         |
 | Plan ID              | DocuSign's ID for the account plan.                                               |         |
-| Referral Code        |                                                                                   |         |
+| Referral Code        | The referral code associated with the account.                                    |         |
 | Referrer Name        | The name of the referrer.                                                         |         |
 | Suffix Name          | The suffix for the user's name. Maximum Length: 50 characters.                    |         |
 | Distributor Code     | The Distributor Code that you received from DocuSign.                             |         |
@@ -133,12 +162,12 @@ This method adds multiple contacts into a contacts list.
 
 Creates and sends an envelope or creates a draft envelope.
 
-| Input                | Comments                                                                                                                                                         | Default                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
-| -------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Connection           |                                                                                                                                                                  |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
-| JSON Input           | For extra fields, see https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/create/                                                  | <code>{<br /> "documents": [<br /> {<br /> "documentBase64": "[Document content (PDF File)]",<br /> "documentId": "1",<br /> "fileExtension": "pdf",<br /> "name": "NDA.pdf"<br /> }<br /> ],<br /> "emailSubject": "Please sign the NDA",<br /> "recipients": {<br /> "signers": [<br /> {<br /> "email": "the_nda_signer@example.com",<br /> "name": "Darlene Petersen",<br /> "recipientId": "1",<br /> "routingOrder": "1",<br /> "tabs": {<br /> "dateSignedTabs": [<br /> {<br /> "anchorString": "signer1date",<br /> "anchorYOffset": "-6",<br /> "fontSize": "Size12",<br /> "name": "Date Signed",<br /> "recipientId": "1",<br /> "tabLabel": "date_signed"<br /> }<br /> ],<br /> "fullNameTabs": [<br /> {<br /> "anchorString": "signer1name",<br /> "anchorYOffset": "-6",<br /> "fontSize": "Size12",<br /> "name": "Full Name",<br /> "recipientId": "1",<br /> "tabLabel": "Full Name"<br /> }<br /> ],<br /> "signHereTabs": [<br /> {<br /> "anchorString": "signer1sig",<br /> "anchorUnits": "mms",<br /> "anchorXOffset": "0",<br /> "anchorYOffset": "0",<br /> "name": "Please sign here",<br /> "optional": "false",<br /> "recipientId": "1",<br /> "scaleValue": 1,<br /> "tabLabel": "signer1sig"<br /> }<br /> ]<br /> }<br /> }<br /> ]<br /> },<br /> "status": "sent"<br />}</code> |
-| Change Routing Order | When true, users can define the routing order of recipients while sending documents for signature.                                                               | false                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
-| Merge Roles On Draft | When true, template roles will be merged, and empty recipients will be removed. This parameter applies when you create a draft envelope with multiple templates. | false                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+| Input                | Comments                                                                                                                                                      | Default                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
+| -------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Connection           |                                                                                                                                                               |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
+| JSON Input           | For extra fields, see https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/create/                                               | <code>{<br /> "documents": [<br /> {<br /> "documentBase64": "[Document content (PDF File)]",<br /> "documentId": "1",<br /> "fileExtension": "pdf",<br /> "name": "NDA.pdf"<br /> }<br /> ],<br /> "emailSubject": "Please sign the NDA",<br /> "recipients": {<br /> "signers": [<br /> {<br /> "email": "the_nda_signer@example.com",<br /> "name": "Darlene Petersen",<br /> "recipientId": "1",<br /> "routingOrder": "1",<br /> "tabs": {<br /> "dateSignedTabs": [<br /> {<br /> "anchorString": "signer1date",<br /> "anchorYOffset": "-6",<br /> "fontSize": "Size12",<br /> "name": "Date Signed",<br /> "recipientId": "1",<br /> "tabLabel": "date_signed"<br /> }<br /> ],<br /> "fullNameTabs": [<br /> {<br /> "anchorString": "signer1name",<br /> "anchorYOffset": "-6",<br /> "fontSize": "Size12",<br /> "name": "Full Name",<br /> "recipientId": "1",<br /> "tabLabel": "Full Name"<br /> }<br /> ],<br /> "signHereTabs": [<br /> {<br /> "anchorString": "signer1sig",<br /> "anchorUnits": "mms",<br /> "anchorXOffset": "0",<br /> "anchorYOffset": "0",<br /> "name": "Please sign here",<br /> "optional": "false",<br /> "recipientId": "1",<br /> "scaleValue": 1,<br /> "tabLabel": "signer1sig"<br /> }<br /> ]<br /> }<br /> }<br /> ]<br /> },<br /> "status": "sent"<br />}</code> |
+| Change Routing Order | When true, allows defining the routing order of recipients while sending documents for signature.                                                             | false                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+| Merge Roles On Draft | When true, template roles will be merged and empty recipients will be removed. This parameter applies when creating a draft envelope with multiple templates. | false                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
 
 ### Create Template
 
@@ -153,13 +182,13 @@ Creates one or more template definitions, using a multipart request for each tem
 
 Create a new webhook (Account Level).
 
-| Input                                | Comments                                                                               | Default |
-| ------------------------------------ | -------------------------------------------------------------------------------------- | ------- |
-| Connection                           |                                                                                        |         |
-| URL To Publish To                    | The URL that DocuSign will publish events to.                                          |         |
-| Connect (Webhook) Configuration Name | A name for the configuration.                                                          |         |
-| Webhook Event                        |                                                                                        |         |
-| Include HMAC                         | When set to true, the HMAC hash is included in the message along with the API request. | false   |
+| Input                                | Comments                                                                        | Default |
+| ------------------------------------ | ------------------------------------------------------------------------------- | ------- |
+| Connection                           |                                                                                 |         |
+| URL To Publish To                    | The URL that DocuSign will publish events to.                                   |         |
+| Connect (Webhook) Configuration Name | A name for the configuration.                                                   |         |
+| Webhook Event                        | The list of event types to subscribe to.                                        |         |
+| Include HMAC                         | When true, the HMAC hash is included in the message along with the API request. | false   |
 
 ### Delete Account
 
@@ -178,7 +207,7 @@ Deletes a stamp specified by signatureId.
 | ------------ | ----------------------------------------------------- | ------- |
 | Connection   |                                                       |         |
 | Account ID   | The external account number (int) or account ID GUID. |         |
-| Signature ID |                                                       |         |
+| Signature ID | The unique identifier of the signature.               |         |
 
 ### Delete All Instanced Webhooks
 
@@ -258,20 +287,20 @@ Retrieves the account information for the specified account.
 
 Returns information about the specified stamp.
 
-| Input        | Comments | Default |
-| ------------ | -------- | ------- |
-| Connection   |          |         |
-| Signature ID |          |         |
+| Input        | Comments                                | Default |
+| ------------ | --------------------------------------- | ------- |
+| Connection   |                                         |         |
+| Signature ID | The unique identifier of the signature. |         |
 
 ### Get Account Signature Image
 
 Returns the image for an account stamp.
 
-| Input        | Comments                       | Default |
-| ------------ | ------------------------------ | ------- |
-| Connection   |                                |         |
-| Signature ID |                                |         |
-| Image Type   | Specificies the type of image. |         |
+| Input        | Comments                                | Default |
+| ------------ | --------------------------------------- | ------- |
+| Connection   |                                         |         |
+| Signature ID | The unique identifier of the signature. |         |
+| Image Type   | Specifies the type of image.            |         |
 
 ### Get Bulk Send Batches
 
@@ -325,7 +354,7 @@ Retrieves the overall status for the specified envelope.
 | --------------- | --------------------------------------------------------------------------------------------------------------------- | ------- |
 | Connection      |                                                                                                                       |         |
 | Envelope ID     | The envelope's GUID.                                                                                                  |         |
-| Advanced Update |                                                                                                                       | false   |
+| Advanced Update | When true, allows advanced update operations for the document.                                                        | false   |
 | Include         | Specifies additional information about the envelope to return. Enter a comma-separated list, such as tabs,recipients. |         |
 
 ### Get Envelope Document
@@ -337,14 +366,14 @@ Retrieves a single document or all documents from an envelope.
 | Connection           |                                                                                                                                                                                                                                                                                                                                            |         |
 | Envelope ID          | The envelope's GUID.                                                                                                                                                                                                                                                                                                                       |         |
 | Document ID          | The ID of the document to retrieve.                                                                                                                                                                                                                                                                                                        |         |
-| Certificate          | When true, the certificate of completion is included in the combined PDF file.                                                                                                                                                                                                                                                             | false   |
-| Documents By User ID | When true, allows recipients to get documents by their user id.                                                                                                                                                                                                                                                                            | false   |
-| Encrypt              | When true, the PDF bytes returned in the response are encrypted for all the key managers configured on your DocuSign account.                                                                                                                                                                                                              | false   |
+| Certificate          | When true, the certificate of completion is included in the combined PDF.                                                                                                                                                                                                                                                                  | false   |
+| Documents By User ID | When true, allows recipients to get documents by their user ID.                                                                                                                                                                                                                                                                            | false   |
+| Encrypt              | When true, the PDF bytes returned in the response are encrypted for all key managers configured on your DocuSign account.                                                                                                                                                                                                                  | false   |
 | Language             | Specifies the language for the Certificate of Completion in the response. The supported languages are: Chinese Simplified (zh_CN), Chinese Traditional (zh_TW), Dutch (nl), English US (en), French (fr), German (de), Italian (it), Japanese (ja), Korean (ko), Portuguese (pt), Portuguese (Brazil) (pt_BR), Russian (ru), Spanish (es). |         |
 | Recipient ID         | Allows the sender to retrieve the documents as one of the recipients that they control. The documents_by_userid parameter must be set to false for this to work.                                                                                                                                                                           |         |
 | Shared User ID       | The ID of a shared user that you want to impersonate in order to retrieve their view of the list of documents.                                                                                                                                                                                                                             |         |
-| Show Changes         | When true, any changed fields for the returned PDF are highlighted in yellow and optional signatures or initials outlined in red. The account must have the Highlight Data Changes feature enabled.                                                                                                                                        | false   |
-| Watermark            | When true, the account has the watermark feature enabled, and the envelope is not complete, then the watermark for the account is added to the PDF documents. This option can remove the watermark.                                                                                                                                        | false   |
+| Show Changes         | When true, any changed fields in the returned PDF are highlighted in yellow and optional signatures or initials are outlined in red. The account must have the Highlight Data Changes feature enabled.                                                                                                                                     | false   |
+| Watermark            | When true, and the account has the watermark feature enabled, and the envelope is not complete, the watermark for the account is added to the PDF documents. This option can remove the watermark.                                                                                                                                         | false   |
 
 ### Get Recipient Signature
 
@@ -365,7 +394,7 @@ Retrieves the specified user signature image.
 | Connection     |                                                                                                                                                                                                      |         |
 | Envelope ID    | The envelope's GUID.                                                                                                                                                                                 |         |
 | Recipient ID   | A local reference used to map recipients to other objects, such as specific document tabs. A recipientId must be either an integer or a GUID, and the recipientId must be unique within an envelope. |         |
-| Include Chrome | When true, the response includes the chromed version of the signature image.                                                                                                                         | false   |
+| Include Chrome | When true, the response includes the chrome-styled version of the signature image.                                                                                                                   | false   |
 
 ### Get Template
 
@@ -385,8 +414,8 @@ This method retrieves one or more PDF documents from the template that you speci
 | Connection   |                                                                                                                                                                          |         |
 | Template ID  | The ID of the template.                                                                                                                                                  |         |
 | Document ID  | The ID of the document to retrieve.                                                                                                                                      |         |
-| Encrypt      | When true, the PDF bytes returned in the response are encrypted for all the key managers configured on your DocuSign account.                                            | false   |
-| File Type    |                                                                                                                                                                          |         |
+| Encrypt      | When true, the PDF bytes returned in the response are encrypted for all key managers configured on your DocuSign account.                                                | false   |
+| File Type    | The type of file to retrieve.                                                                                                                                            |         |
 | Show Changes | When true, any document fields that a recipient changed are highlighted in yellow in the returned PDF document, and optional signatures or initials are outlined in red. | false   |
 
 ### Get User
@@ -424,9 +453,9 @@ Retrieves a list of documents associated with the specified envelope.
 | -------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------- |
 | Connection           |                                                                                                                                                                  |         |
 | Envelope ID          | The envelope's GUID.                                                                                                                                             |         |
-| Documents By User ID | When true, allows recipients to get documents by their user id.                                                                                                  | false   |
-| Include Metadata     | When true, the response includes metadata that indicates which properties the sender can edit.                                                                   | false   |
-| Include Tabs         | When true, information about the tabs, including prefill tabs, associated with the documents are included in the response.                                       | false   |
+| Documents By User ID | When true, allows recipients to get documents by their user ID.                                                                                                  | false   |
+| Include Metadata     | When true, the response includes metadata indicating which properties the sender can edit.                                                                       | false   |
+| Include Tabs         | When true, information about the tabs, including prefill tabs, associated with the documents is included in the response.                                        | false   |
 | Recipient ID         | Allows the sender to retrieve the documents as one of the recipients that they control. The documents_by_userid parameter must be set to false for this to work. |         |
 | Shared User ID       | The ID of a shared user that you want to impersonate in order to retrieve their view of the list of documents.                                                   |         |
 
@@ -434,11 +463,11 @@ Retrieves a list of documents associated with the specified envelope.
 
 Gets information about items in the specified folder.
 
-| Input         | Comments                                                                                                         | Default |
-| ------------- | ---------------------------------------------------------------------------------------------------------------- | ------- |
-| Connection    |                                                                                                                  |         |
-| Folder ID     | The ID of the folder.                                                                                            |         |
-| Include Items | Indicates whether folder items are included in the response. If this parameter is omitted, the default is false. | false   |
+| Input         | Comments                                              | Default |
+| ------------- | ----------------------------------------------------- | ------- |
+| Connection    |                                                       |         |
+| Folder ID     | The ID of the folder.                                 |         |
+| Include Items | When true, folder items are included in the response. | false   |
 
 ### List Folders
 
@@ -449,7 +478,7 @@ Returns a list of the account's folders.
 | Connection       |                                                                                                                                                      |         |
 | Count            | The maximum number of results to return.                                                                                                             |         |
 | Include          | A comma-separated list of folder types to include in the response. Valid values are: envelope_folders, template_folders and shared_template_folders. |         |
-| Include Items    | Indicates whether folder items are included in the response. If this parameter is omitted, the default is false.                                     | false   |
+| Include Items    | When true, folder items are included in the response.                                                                                                | false   |
 | Start Position   | The zero-based index of the result from which to start returning results.                                                                            |         |
 | Sub Folder Depth | If missing or any value other than -1, the returned list contains only the top-level folders. A value of -1 returns the complete folder hierarchy.   |         |
 | User Filter      | Narrows down the resulting folder list by the following values: all, owned_by_me and shared_with_me.                                                 |         |
@@ -514,10 +543,10 @@ Updates an account stamp specified by the signatureId query parameter.
 | Date Area Width            | The width of the rectangle.                                                                                                                                                      |                                                                                                                       |
 | Date Area X                | The X axis position of the top-left corner.                                                                                                                                      |                                                                                                                       |
 | Date Area Y                | The Y axis position of the top-left corner.                                                                                                                                      |                                                                                                                       |
-| Disallow User Resize Stamp | When set to true, prevents the user from resizing the stamp.                                                                                                                     | false                                                                                                                 |
+| Disallow User Resize Stamp | When true, prevents the user from resizing the stamp.                                                                                                                            | false                                                                                                                 |
 | External ID                | Optionally specify an external identifier for the user's signature.                                                                                                              |                                                                                                                       |
-| Image Type                 | Specificies the type of image.                                                                                                                                                   |                                                                                                                       |
-| Is Default                 | Boolean that specifies whether the signature is the default signature for the user.                                                                                              | false                                                                                                                 |
+| Image Type                 | Specifies the type of image.                                                                                                                                                     |                                                                                                                       |
+| Is Default                 | When true, specifies that the signature is the default signature for the user.                                                                                                   | false                                                                                                                 |
 | NRDS ID                    | The National Association of Realtors (NAR) membership ID for a user who is a realtor.                                                                                            |                                                                                                                       |
 | NRDS Last Name             | The last name of the user who is a realtor.                                                                                                                                      |                                                                                                                       |
 | Phonetic Name              | The phonetic spelling of the signatureName.                                                                                                                                      |                                                                                                                       |
@@ -535,11 +564,11 @@ Updates an account stamp specified by the signatureId query parameter.
 
 Sets a signature image, initials, or stamp.
 
-| Input        | Comments                       | Default |
-| ------------ | ------------------------------ | ------- |
-| Connection   |                                |         |
-| Signature ID | The ID of the account stamp.   |         |
-| Image Type   | Specificies the type of image. |         |
+| Input        | Comments                     | Default |
+| ------------ | ---------------------------- | ------- |
+| Connection   |                              |         |
+| Signature ID | The ID of the account stamp. |         |
+| Image Type   | Specifies the type of image. |         |
 
 ### Update Bulk Send List
 
@@ -570,7 +599,7 @@ This method enables you to make changes to an envelope.
 | JSON Input      | For extra fields, see https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/update/                     | <code>{<br /> "documents": [<br /> {<br /> "documentBase64": "[Document content (PDF File)]",<br /> "documentId": "1",<br /> "fileExtension": "pdf",<br /> "name": "NDA.pdf"<br /> }<br /> ],<br /> "emailSubject": "Please sign the NDA",<br /> "recipients": {<br /> "signers": [<br /> {<br /> "email": "the_nda_signer@example.com",<br /> "name": "Darlene Petersen",<br /> "recipientId": "1",<br /> "routingOrder": "1",<br /> "tabs": {<br /> "dateSignedTabs": [<br /> {<br /> "anchorString": "signer1date",<br /> "anchorYOffset": "-6",<br /> "fontSize": "Size12",<br /> "name": "Date Signed",<br /> "recipientId": "1",<br /> "tabLabel": "date_signed"<br /> }<br /> ],<br /> "fullNameTabs": [<br /> {<br /> "anchorString": "signer1name",<br /> "anchorYOffset": "-6",<br /> "fontSize": "Size12",<br /> "name": "Full Name",<br /> "recipientId": "1",<br /> "tabLabel": "Full Name"<br /> }<br /> ],<br /> "signHereTabs": [<br /> {<br /> "anchorString": "signer1sig",<br /> "anchorUnits": "mms",<br /> "anchorXOffset": "0",<br /> "anchorYOffset": "0",<br /> "name": "Please sign here",<br /> "optional": "false",<br /> "recipientId": "1",<br /> "scaleValue": 1,<br /> "tabLabel": "signer1sig"<br /> }<br /> ]<br /> }<br /> }<br /> ]<br /> },<br /> "status": "sent"<br />}</code> |
 | Envelope ID     | The envelope's GUID.                                                                                                                |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
 | Advanced Update | When true, allows the caller to update recipients, tabs, custom fields, notification, email settings and other envelope attributes. | false                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
-| Resend Envelope | When true, sends the specified envelope again.                                                                                      | false                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+| Resend Envelope | When true, resends the specified envelope.                                                                                          | false                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
 
 ### Update Envelope Document
 

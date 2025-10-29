@@ -85,16 +85,16 @@ Read about how OAuth 2.0 works [here](../oauth2.md).
 
 Trigger for handling Flow-based outbound message webhooks from Salesforce. Creates a complete record-triggered Flow with outbound message action and webhook receiver.
 
-| Input          | Comments                                                                                                                                                         | Default         |
-| -------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------- |
-| Version        | Salesforce API Version Number.                                                                                                                                   | 63.0            |
-| Prefix         | Sets a prefix to the Flow Name and Outbound Messages created. Must start with a letter, can contain letters, numbers, underscores, and be at most 15 characters. |                 |
-| Trigger Object | The Salesforce object to trigger on.                                                                                                                             |                 |
-| Trigger On     | When to trigger the flow (record creation, update, or both).                                                                                                     | CreateAndUpdate |
-| Fields         | Fields to include in the Outbound Message.                                                                                                                       |                 |
-| Flow Metadata  | Additional Flow metadata in JSON format. This will be merged with other inputs.                                                                                  |                 |
-| Filter Formula | Optional formula to filter which records trigger the flow.                                                                                                       |                 |
-| Connection     |                                                                                                                                                                  |                 |
+| Input               | Comments                                                                                                                                                         | Default         |
+| ------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------- |
+| Version             | Salesforce API Version Number.                                                                                                                                   | 63.0            |
+| Prefix              | Sets a prefix to the Flow Name and Outbound Messages created. Must start with a letter, can contain letters, numbers, underscores, and be at most 15 characters. |                 |
+| Trigger Record Type | The Record Type that will trigger this integration flow.                                                                                                         |                 |
+| Trigger On          | When to trigger the flow (record creation, update, or both).                                                                                                     | CreateAndUpdate |
+| Fields              | Fields to include in the Outbound Message.                                                                                                                       |                 |
+| Flow Metadata       | Additional Flow metadata in JSON format. This will be merged with other inputs.                                                                                  |                 |
+| Filter Formula      | Optional formula to filter which records trigger the flow.                                                                                                       |                 |
+| Connection          |                                                                                                                                                                  |                 |
 
 ### New and Updated Records
 
@@ -568,6 +568,16 @@ Delete a Flow from Salesforce by name
 | Version    | Salesforce API Version Number.                                                                                                                            | 63.0    |
 | Flow Name  | The name for the Flow. Accepts both display names and API names. Display names are automatically converted to API format, while API names are used as is. |         |
 | Connection |                                                                                                                                                           |         |
+
+### Delete Instanced Flows and Outbound Messages
+
+Delete all instanced flows and outbound messages for a given endpoint URL
+
+| Input        | Comments                                                                  | Default |
+| ------------ | ------------------------------------------------------------------------- | ------- |
+| Version      | Salesforce API Version Number.                                            | 63.0    |
+| Endpoint URL | The endpoint URL to delete the instanced flows and outbound messages for. |         |
+| Connection   |                                                                           |         |
 
 ### Delete Lead
 
@@ -1079,18 +1089,18 @@ Create a Workflow Rule to subscribe to Record Changes in Salesforce. Workflow Ru
 
 Subscribe to Record Changes in Salesforce using an outbound message action.
 
-| Input          | Comments                                                                                                                                                         | Default         |
-| -------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------- |
-| Version        | Salesforce API Version Number.                                                                                                                                   | 63.0            |
-| Prefix         | Sets a prefix to the Flow Name and Outbound Messages created. Must start with a letter, can contain letters, numbers, underscores, and be at most 15 characters. |                 |
-| Endpoint URL   | The endpoint URL to send the outbound message / webhook to                                                                                                       |                 |
-| Trigger Object | The Salesforce object to trigger on.                                                                                                                             |                 |
-| Trigger On     | When to trigger the flow (record creation, update, or both).                                                                                                     | CreateAndUpdate |
-| Fields         | Fields to include in the Outbound Message.                                                                                                                       |                 |
-| Dynamic Fields | Dynamic Fields, provided by value collection config variable, to include in the Outbound Message                                                                 |                 |
-| Flow Metadata  | Additional Flow metadata in JSON format. This will be merged with other inputs.                                                                                  |                 |
-| Filter Formula | Optional formula to filter which records trigger the flow.                                                                                                       |                 |
-| Connection     |                                                                                                                                                                  |                 |
+| Input               | Comments                                                                                                                                                         | Default         |
+| ------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------- |
+| Version             | Salesforce API Version Number.                                                                                                                                   | 63.0            |
+| Prefix              | Sets a prefix to the Flow Name and Outbound Messages created. Must start with a letter, can contain letters, numbers, underscores, and be at most 15 characters. |                 |
+| Endpoint URL        | The endpoint URL to send the outbound message / webhook to                                                                                                       |                 |
+| Trigger Record Type | The Record Type that will trigger this integration flow.                                                                                                         |                 |
+| Trigger On          | When to trigger the flow (record creation, update, or both).                                                                                                     | CreateAndUpdate |
+| Fields              | Fields to include in the Outbound Message.                                                                                                                       |                 |
+| Dynamic Fields      | Dynamic Fields, provided by value collection config variable, to include in the Outbound Message                                                                 |                 |
+| Flow Metadata       | Additional Flow metadata in JSON format. This will be merged with other inputs.                                                                                  |                 |
+| Filter Formula      | Optional formula to filter which records trigger the flow.                                                                                                       |                 |
+| Connection          |                                                                                                                                                                  |                 |
 
 ### Update Account
 
@@ -1281,9 +1291,9 @@ Update a Salesforce User
 | Input          | Comments                                                                                                      | Default |
 | -------------- | ------------------------------------------------------------------------------------------------------------- | ------- |
 | Version        | Salesforce API Version Number.                                                                                | 63.0    |
+| User Name      | Provide a User Name                                                                                           |         |
 | Dynamic Fields | A field for dynamic inputs that can be configured at deploy time with the use of a key value config variable. |         |
 | Field Values   | Name of a record's fields and their corresponding values                                                      |         |
-| User Name      | Provide a User Name                                                                                           |         |
 | Connection     |                                                                                                               |         |
 
 ### Upload Bulk Job Data
