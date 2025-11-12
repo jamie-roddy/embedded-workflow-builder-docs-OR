@@ -78,6 +78,7 @@ In order to use the **Service Account** Authentication method for Gmail, you'll 
 | Input                    | Comments                                                                                   | Default                  |
 | ------------------------ | ------------------------------------------------------------------------------------------ | ------------------------ |
 | Service Account Key File | The Key File for your Google Service Account.                                              |                          |
+| User                     | The Workspace User to impersonate.                                                         |                          |
 | Scopes                   | Space delimited listing of scopes. See https://developers.google.com/gmail/api/auth/scopes | https://mail.google.com/ |
 
 ## Triggers

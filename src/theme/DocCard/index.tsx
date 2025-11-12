@@ -1,4 +1,4 @@
-import React, { type ReactNode } from "react";
+import { type ReactNode } from "react";
 import clsx from "clsx";
 import Link from "@docusaurus/Link";
 import {
@@ -108,7 +108,7 @@ function CardCategory({ item }: { item: PropSidebarItemCategory }): ReactNode {
   );
 }
 
-function CardLink({ item, ...rest }: { item: PropSidebarItemLink }): ReactNode {
+function CardLink({ item }: { item: PropSidebarItemLink }): ReactNode {
   let icon: ReactNode | string = isInternalUrl(item.href) ? "📄️" : "🔗";
   if (item.docId?.startsWith("connectors/")) {
     const connectorKey = item.docId.replace("connectors/", "");

@@ -70,9 +70,9 @@ Create a new order record
 | -------------------- | --------------------------------------------------------------------------------------- | ------- |
 | Connection           | The connection to be used.                                                              |         |
 | Line Items           | Provide a JSON array, with objects each specifying details of the line item.            |         |
-| Shipping Lines       | Provide a JSON array, with objects each specifying details                              |         |
+| Shipping Lines       | Provide a JSON array, with objects each specifying shipping details                     |         |
 | Payment Method Key   | Provide the unique identifier of the payment method.                                    |         |
-| Payment Method Title | Provide the unique identifier of the payment method.                                    |         |
+| Payment Method Title | Provide the display title of the payment method.                                        |         |
 | Is Paid              | Determines if the order has been paid for.                                              | false   |
 | Email Address        | Provide a valid email address.                                                          |         |
 | Phone                | Provide a string value for the phone number of the billing address.                     |         |
@@ -100,12 +100,12 @@ Create a new product record
 | --------------- | --------------------------------------------------------------------------------------- | ------- |
 | Connection      | The connection to be used.                                                              |         |
 | Product Name    | Provide a string value for the name of the product.                                     |         |
-| Product Type    | Provide a string value for the name of the product.                                     |         |
+| Product Type    | Provide a string value for the type of the product.                                     |         |
 | Price           | Provide a number for the price of the product.                                          |         |
 | Description     | Provide a description for the product.                                                  |         |
 | Summary         | Provide a short summary for the product details.                                        |         |
 | Categories      | For each item, provide an id of a category that the product belongs to.                 |         |
-| Images          | For each item, provide a link to the image stored in your                               |         |
+| Images          | For each item, provide a link to the image stored in your media library                 |         |
 | Optional Values | For each item, provide an optional key value pair to be injected into the request body. |         |
 
 ### Create Product Category
@@ -429,7 +429,7 @@ Update an existing customer record
 | Billing City         | Provide a string value for the city of the billing address.                      |         |
 | Billing State        | Provide a string value for the state of the billing address.                     |         |
 | Billing Postal Code  | Provide a string value for the postal code of the billing address.               |         |
-| Billing Tigers       | Provide a string value for the country of the billing address.                   |         |
+| Billing Country      | Provide a string value for the country of the billing address.                   |         |
 | Shipping Address 1   | Provide a string value for the address 1 of the shipping address.                |         |
 | Shipping Address 2   | Provide a string value for the address 2 of the shipping address.                |         |
 | Shipping City        | Provide a string value for the city of the billing address.                      |         |
@@ -446,10 +446,10 @@ Create a new product record
 | Connection      | The connection to be used.                                                              |         |
 | Product Id      | Provide a unique identifier of the given product.                                       |         |
 | Product Name    | Provide a string value for the name of the product.                                     |         |
-| Product Type    | Provide a string value for the name of the product.                                     |         |
+| Product Type    | Provide a string value for the type of the product.                                     |         |
 | Price           | Provide a number for the price of the product.                                          |         |
 | Description     | Provide a description for the product.                                                  |         |
 | Summary         | Provide a short summary for the product details.                                        |         |
 | Categories      | For each item, provide an id of a category that the product belongs to.                 |         |
-| Images          | For each item, provide a link to the image stored in your                               |         |
+| Images          | For each item, provide a link to the image stored in your media library                 |         |
 | Optional Values | For each item, provide an optional key value pair to be injected into the request body. |         |

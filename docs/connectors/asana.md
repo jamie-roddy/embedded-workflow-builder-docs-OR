@@ -48,6 +48,20 @@ For more information on access tokens, refer to the [Asana Docs](https://develop
 
 ## Triggers
 
+### Comments & Activity Trigger
+
+Get notified when a comment or activity (task updates, changes, etc.) is created, updated, or deleted in a project.
+
+| Input                  | Comments                                                                        | Default |
+| ---------------------- | ------------------------------------------------------------------------------- | ------- |
+| Connection             |                                                                                 |         |
+| Project ID             | Provide the unique identifier of the project.                                   |         |
+| Trigger When Added     | Determines if the webhook will trigger when a comment or activity is added.     | true    |
+| Trigger When Changed   | Determines if the webhook will trigger when a comment or activity is changed.   | true    |
+| Trigger When Deleted   | Determines if the webhook will trigger when a comment or activity is deleted.   | true    |
+| Trigger When Removed   | Determines if the webhook will trigger when a comment or activity is removed.   | true    |
+| Trigger When Undeleted | Determines if the webhook will trigger when a comment or activity is undeleted. | true    |
+
 ### Project Tasks Trigger
 
 Get notified when a task is created, updated, or deleted in a project.
@@ -61,20 +75,6 @@ Get notified when a task is created, updated, or deleted in a project.
 | Trigger When Deleted   | Determines if the webhook will trigger when a task is deleted.   | true    |
 | Trigger When Removed   | Determines if the webhook will trigger when a task is removed.   | true    |
 | Trigger When Undeleted | Determines if the webhook will trigger when a task is undeleted. | true    |
-
-### Stories Trigger
-
-Get notified when a story is created, updated, or deleted in a project.
-
-| Input                  | Comments                                                          | Default |
-| ---------------------- | ----------------------------------------------------------------- | ------- |
-| Connection             |                                                                   |         |
-| Project ID             | Provide the unique identifier of the project.                     |         |
-| Trigger When Added     | Determines if the webhook will trigger when a story is added.     | true    |
-| Trigger When Changed   | Determines if the webhook will trigger when a story is changed.   | true    |
-| Trigger When Deleted   | Determines if the webhook will trigger when a story is deleted.   | true    |
-| Trigger When Removed   | Determines if the webhook will trigger when a story is removed.   | true    |
-| Trigger When Undeleted | Determines if the webhook will trigger when a story is undeleted. | true    |
 
 ### Webhook
 

@@ -58,4 +58,3 @@ Makes a request to the SOAP webservice using the specified method
 | SOAP URL Override | Optionally override the default web service URL defined in the WSDL |         |
 | Request Headers   | Blocks of XML to include in the SOAP header of the request          |         |
 | SOAP Parameters   | Any additional parameters to pass to the web service method         |         |
-| Debug Request     | Optionally log the last request and response from the SOAP Client   | false   |

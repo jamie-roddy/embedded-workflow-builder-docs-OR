@@ -22,7 +22,7 @@ async function resizeScreenshots() {
   }
 }
 
-async function resizeScreenshotsPlugin(context, options) {
+async function resizeScreenshotsPlugin() {
   return {
     name: "resize-screenshots",
     extendCli(cli: CommanderStatic) {

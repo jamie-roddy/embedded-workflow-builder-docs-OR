@@ -32,7 +32,8 @@ Generates a CSV file from an array of objects
 
 Parse CSV data into an array of rows
 
-| Input     | Comments                                                                  | Default |
-| --------- | ------------------------------------------------------------------------- | ------- |
-| CSV Data  | Provide a string containing one or more rows of comma-seperated data      |         |
-| Delimiter | Provide a string value containing the character the file is delimited on. | ,       |
+| Input          | Comments                                                                     | Default |
+| -------------- | ---------------------------------------------------------------------------- | ------- |
+| CSV Data       | Provide a string containing one or more rows of comma-seperated data         |         |
+| Delimiter      | Provide a string value containing the character the file is delimited on.    | ,       |
+| Ignore Headers | When true, the first row of the CSV file will be skipped in the output data. | false   |

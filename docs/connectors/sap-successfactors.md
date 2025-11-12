@@ -13,9 +13,45 @@ SAP SuccessFactors is a human resources platform that provides cloud-based solut
 
 API Key Authentication for SAP SuccessFactors Connection
 
-- Log into your instance as an administrator.
-- Go to `Admin Center` API Center OAuth Configuration for OData and choose Register Client Application.
-  You can also access the tool by searching `Manage OAuth2 Client Applications` in Action Search.
+#### Generate X.509 Certificate
+
+First, generate an X.509 certificate and private key pair using OpenSSL:
+
+```bash
+# Generate private key
+openssl genrsa -out private.pem 2048
+
+# Generate certificate signing request
+openssl req -new -key private.pem -out cert.csr
+
+# Generate self-signed certificate (valid for 365 days)
+openssl x509 -req -days 365 -in cert.csr -signkey private.pem -out public.pem
+```
+
+Save both `private.pem` (private key) and `public.pem` (certificate) files for later use.
+
+#### Register OAuth2 Client Application
+
+1. Log into your SAP SuccessFactors instance as an administrator
+2. Navigate to **Admin Center** > **API Center** > **OAuth Configuration for OData**
+   - Alternatively, search for `Manage OAuth2 Client Applications` in Action Search
+3. Select **Register Client Application**
+4. Configure the OAuth2 client application:
+   - **Application Name**: Enter a descriptive name for your application
+   - **Application URL**: Enter your application URL
+   - **X.509 Certificate**: Upload or paste the contents of your `public.pem` certificate file
+5. Click **Register** to create the application
+6. Copy the **API Key** (also called Client ID) that is generated - you'll need this for authentication
+7. From the integration connection fill in the required fields:
+   - **Company ID**: Your SAP SuccessFactors company identifier
+   - **User**: Your SAP SuccessFactors user ID (e.g., `sfadmin`)
+   - **API Key**: The OAuth2 API Key from your registered client application
+   - **Issuer**: Issuer information of the SAML assertion (e.g., `www.successfactors.com`)
+   - **Certificate Private Key**: Your private certificate key for OAuth2 authentication (PEM format, including `-----BEGIN PRIVATE KEY-----` and `-----END PRIVATE KEY-----` headers)
+   - **Certificate**: Your public certificate for OAuth2 authentication (PEM format, including `-----BEGIN CERTIFICATE-----` and `-----END CERTIFICATE-----` headers)
+   - **Audiences**: Audiences of the SAML assertion (e.g., `www.successfactors.com`)
+   - **API Server** (optional): Your SAP SuccessFactors API server (defaults to sandbox environment if not specified)
+   - **Protocol**: The protocol to use for API connections
 
 | Input                   | Comments                                                                                                                                                                           | Default |
 | ----------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------- |
@@ -32,6 +68,17 @@ API Key Authentication for SAP SuccessFactors Connection
 ### Basic Authentication
 
 Basic Authentication for SAP SuccessFactors Connection
+
+#### Configuring Basic Authentication
+
+1. Log into your SAP SuccessFactors instance as an administrator
+2. Ensure you have valid user credentials with appropriate API access permissions
+3. From the integration connection fill in the required fields:
+   - **Company ID**: Your SAP SuccessFactors company identifier
+   - **Username**: Your SAP SuccessFactors username
+   - **Password**: Your SAP SuccessFactors password
+   - **API Server** (optional): Your SAP SuccessFactors API server (defaults to sandbox environment if not specified)
+   - **Protocol**: The protocol to use for API connections
 
 | Input      | Comments                                                                                                                                                                           | Default |
 | ---------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------- |
